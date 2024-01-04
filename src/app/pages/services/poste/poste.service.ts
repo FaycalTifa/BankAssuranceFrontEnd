@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {environment} from "../../../../environments/environment";
-import {HttpClient, HttpResponse} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {getPosteIdentifier, IPoste} from "../../models/poste/poste";
+import {environment} from '../../../../environments/environment';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {IPoste} from '../../models/poste/poste';
 
 export type EntityResponseType = HttpResponse<IPoste>;
 export type EntityArrayResponseType = HttpResponse<IPoste[]>;
@@ -13,7 +13,7 @@ export type EntityArrayResponseType = HttpResponse<IPoste[]>;
 })
 export class PosteService {
   public resourceUrl = environment.api + 'banque/';
-  private apiUrl = 'http://localhost:8080/api/banque/';
+  private apiUrl = 'http://localhost:9999/api/banque/';
   constructor(protected http: HttpClient) {}
 
   createPoste(poste: IPoste): Observable<EntityResponseType> {
