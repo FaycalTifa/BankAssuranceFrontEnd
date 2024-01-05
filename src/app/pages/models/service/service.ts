@@ -1,10 +1,10 @@
-import {IPoste} from "../poste/poste";
+import {Banque} from "../banque/banque";
 
 export interface IService {
     id?: number;
     libelle?: string;
     description?: string;
-    postes?: IPoste[];
+    postes?: Banque[];
     deleted?: boolean;
 }
 export class Service implements IService{
@@ -12,7 +12,7 @@ export class Service implements IService{
         public id?: number,
         public libelle?: string,
         public description?: string,
-        public postes?: IPoste[],
+        public postes?: Banque[],
         public deleted?: boolean,
 
     ){

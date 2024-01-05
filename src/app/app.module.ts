@@ -98,7 +98,7 @@ import {MenuService} from './app.menu.service';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { PosteComponent } from './pages/components/poste/poste.component';
+import { BanqueComponent } from './pages/components/banque/banque.component';
 import { ServiceComponent } from './pages/components/service/service.component';
 import {ConfirmationService, MessageService} from "primeng/api";
 import { registerLocaleData } from '@angular/common';
@@ -212,7 +212,7 @@ FullCalendarModule.registerPlugins([
         AppConfigComponent,
         AppMenuComponent,
         AppMenuitemComponent,
-        PosteComponent,
+        BanqueComponent,
         ServiceComponent,
     ],
     providers: [

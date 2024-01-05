@@ -1,7 +1,7 @@
 import {RouterModule} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {ServiceComponent} from "./pages/components/service/service.component";
-import {PosteComponent} from "./pages/components/poste/poste.component";
+import {BanqueComponent} from "./pages/components/banque/banque.component";
 import { AppMainComponent } from './app.main.component';
 
 @NgModule({
@@ -11,7 +11,7 @@ import { AppMainComponent } from './app.main.component';
                 path: '', component: AppMainComponent,
                 children: [
                     {path: 'parametre/services', component: ServiceComponent, },
-                    {path: 'parametre/postes', component: PosteComponent},
+                    {path: 'parametre/postes', component: BanqueComponent},
                 ]
             },
             {path: '**', redirectTo: '/notfound'},
