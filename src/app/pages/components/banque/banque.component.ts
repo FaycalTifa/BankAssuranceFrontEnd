@@ -4,8 +4,6 @@ import { Banque} from '../../models/banque/banque';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {BanqueService} from '../../services/banque/banque.service';
 import {HttpResponse} from '@angular/common/http';
-import {IService} from '../../models/service/service';
-import {ServiceService} from '../../services/service/service.service';
 import {KeycloakService} from 'keycloak-angular';
 
 @Component({
@@ -18,7 +16,6 @@ export class BanqueComponent implements OnInit {
     @ViewChild('dt') table: Table;
     @ViewChild('filter') filter: ElementRef;
     banques?: Banque[];
-    services?: IService[];
     displayDialogue: boolean;
     displayDialogueModification: boolean;
     banque: Banque = new Banque();
@@ -29,7 +26,6 @@ export class BanqueComponent implements OnInit {
     constructor(
         private messageService: MessageService,
         protected banqueService: BanqueService,
-        protected serviceService: ServiceService,
         protected keycloakService: KeycloakService,
         private confirmationService: ConfirmationService) {
     }
@@ -79,9 +75,6 @@ export class BanqueComponent implements OnInit {
         this.displayDialogueModification = false;
     }
 
-
-
-
     updateBanque(id: number, banqueDetails: Banque): void {
         console.log('==============1111111111111=================', banqueDetails.id);
         console.log('==============2222222=================', banqueDetails);
@@ -99,6 +92,7 @@ export class BanqueComponent implements OnInit {
         );
         this.onHidenDialogueModif()
     }
+
 
     deleteBanque(id: number, banqueDetails: Banque): void {
         this.confirmationService.confirm(
@@ -130,8 +124,6 @@ export class BanqueComponent implements OnInit {
     }
 
 
-
-
     onSave(banque1: Banque): void {
         banque1.id = this.serviceId;
         this.banqueService.createPoste(banque1).subscribe(
@@ -148,4 +140,6 @@ export class BanqueComponent implements OnInit {
             }
         );
     }
+
+
 }
