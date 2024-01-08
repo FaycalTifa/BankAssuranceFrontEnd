@@ -38,6 +38,5 @@ export class BanqueService {
   getAllPostes(): Observable<EntityArrayResponseType> {
     return this.http.get<Banque[]>(this.apiUrl, {  observe: 'response' });
   }
-  
 
 }

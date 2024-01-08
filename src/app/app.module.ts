@@ -109,6 +109,9 @@ import {KeycloakService} from "keycloak-angular";
 registerLocaleData(localeFr, 'fr');
 import {FormsModule,} from '@angular/forms';
 import { AppTopBarComponent } from './app.topbar.component';
+import { CiviliteComponent } from './pages/components/civilite/civilite.component';
+import { PeriodiciteRemboursementComponent } from './pages/components/periodicite-remboursement/periodicite-remboursement.component';
+import { PeriodicitePaiementPrimeComponent } from './pages/components/periodicite-paiement-prime/periodicite-paiement-prime.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -214,6 +217,9 @@ FullCalendarModule.registerPlugins([
         AppMenuitemComponent,
         BanqueComponent,
         ServiceComponent,
+        CiviliteComponent,
+        PeriodiciteRemboursementComponent,
+        PeriodicitePaiementPrimeComponent,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

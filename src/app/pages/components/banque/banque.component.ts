@@ -62,7 +62,7 @@ export class BanqueComponent implements OnInit {
     onDisplayDialogueModif(id: number, banqueDetails: Banque): void {
         this.banque.id = id;
         this.banque = banqueDetails;
-        console.log("-----onDisplayDialogueModif-------", this.banque.id, this.banque.libelle, this.banque.libelle)
+        console.log('-----onDisplayDialogueModif-------', this.banque.id, this.banque.libelle, this.banque.libelle);
         this.displayDialogueModification = true;
     }
 
@@ -78,7 +78,7 @@ export class BanqueComponent implements OnInit {
     updateBanque(id: number, banqueDetails: Banque): void {
         console.log('==============1111111111111=================', banqueDetails.id);
         console.log('==============2222222=================', banqueDetails);
-        this.onDisplayDialogueModif(id, banqueDetails)
+        this.onDisplayDialogueModif(id, banqueDetails);
         this.banqueService.updatePoste(id, banqueDetails).subscribe(
             response => {
                 console.log('============= id updateBanque ==================', banqueDetails.id);
@@ -90,7 +90,7 @@ export class BanqueComponent implements OnInit {
                 console.error('Erreur lors de la mise à jour de la banque:', error);
             }
         );
-        this.onHidenDialogueModif()
+        this.onHidenDialogueModif();
     }
 
 

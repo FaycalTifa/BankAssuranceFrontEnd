@@ -3,6 +3,8 @@ import {AppComponent} from './app.component';
 import {KeycloakService} from "keycloak-angular";
 import {ConfirmationService} from "primeng/api";
 import {HttpResponse} from "@angular/common/http";
+import {BanqueComponent} from './pages/components/banque/banque.component';
+import {PeriodicitePaiementPrimeComponent} from './pages/components/periodicite-paiement-prime/periodicite-paiement-prime.component';
 
 @Component({
     selector: 'app-menu',
@@ -42,11 +44,13 @@ export class AppMenuComponent implements OnInit {
        // this.toInitFunctions();
             this.model = [
                 {
-                    label: 'PARAMETRAGE', icon: 'pi pi-fw pi-star', routerLink: ['/parametre'],
+                label: 'PARAMETRAGE', icon: 'pi pi-fw pi-star', routerLink: ['/parametre'],
                     items: [
-                        {label: 'BANQUE', icon: 'pi pi-star-fill', routerLink: ['/parametre/postes']},
+                        {label: 'BANQQUE', icon: 'pi pi-star-fill', routerLink: ['/parametre/postes']},
                         {label: 'SERVICES', icon: 'pi pi-building', routerLink: ['/parametre/services']},
-
+                        {label: 'CIVILITE', icon: 'pi pi-user', routerLink: ['/parametre/civilites']},
+                        {label: 'PERIODICITEREMBOURSEMENT', icon: 'pi pi-calendar-times', routerLink: ['/parametre/periodiciteRemboursements']},
+                        {label: 'PERIODICITEPAIEMENTPRIME', icon: 'pi pi-calendar-times', routerLink: ['/parametre/periodicitePaiementPrimes']},
                     ]
                 },
             ];
