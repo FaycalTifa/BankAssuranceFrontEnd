@@ -75,6 +75,23 @@ export class BanqueComponent implements OnInit {
         this.displayDialogueModification = false;
     }
 
+    onSave(banque1: Banque): void {
+        banque1.id = this.serviceId;
+        this.banqueService.createPoste(banque1).subscribe(
+            resp => {
+                if (resp) {
+                    //    this.poste = new Service();
+                    this.onHidenDialogue();
+                    this.successAlert();
+                    this.getAllBanques();
+                }
+            },
+            error => {
+                console.error('Erreur lors de la création du poste', error);
+            }
+        );
+    }
+
     updateBanque(id: number, banqueDetails: Banque): void {
         console.log('==============1111111111111=================', banqueDetails.id);
         console.log('==============2222222=================', banqueDetails);
@@ -124,22 +141,7 @@ export class BanqueComponent implements OnInit {
     }
 
 
-    onSave(banque1: Banque): void {
-        banque1.id = this.serviceId;
-        this.banqueService.createPoste(banque1).subscribe(
-            resp => {
-                if (resp) {
-                    //    this.poste = new Service();
-                    this.onHidenDialogue();
-                    this.successAlert();
-                    this.getAllBanques();
-                }
-            },
-            error => {
-                console.error('Erreur lors de la création du poste', error);
-            }
-        );
-    }
+
 
 
 }

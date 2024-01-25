@@ -6,6 +6,7 @@ import { AppMainComponent } from './app.main.component';
 import {CiviliteComponent} from './pages/components/civilite/civilite.component';
 import {PeriodiciteRemboursementComponent} from './pages/components/periodicite-remboursement/periodicite-remboursement.component';
 import {PeriodicitePaiementPrimeComponent} from './pages/components/periodicite-paiement-prime/periodicite-paiement-prime.component';
+import {AgenceComponent} from "./pages/components/agence/agence.component";
 
 @NgModule({
     imports: [
@@ -13,7 +14,7 @@ import {PeriodicitePaiementPrimeComponent} from './pages/components/periodicite-
             {
                 path: '', component: AppMainComponent,
                 children: [
-                    {path: 'parametre/services', component: ServiceComponent, },
+                    {path: 'parametre/agence', component: AgenceComponent },
                     {path: 'parametre/postes', component: BanqueComponent},
                     {path: 'parametre/civilites', component: CiviliteComponent},
                     {path: 'parametre/periodiciteRemboursements', component: PeriodiciteRemboursementComponent},

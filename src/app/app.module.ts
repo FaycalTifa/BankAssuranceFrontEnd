@@ -112,6 +112,7 @@ import { AppTopBarComponent } from './app.topbar.component';
 import { CiviliteComponent } from './pages/components/civilite/civilite.component';
 import { PeriodiciteRemboursementComponent } from './pages/components/periodicite-remboursement/periodicite-remboursement.component';
 import { PeriodicitePaiementPrimeComponent } from './pages/components/periodicite-paiement-prime/periodicite-paiement-prime.component';
+import { AgenceComponent } from './pages/components/agence/agence.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -220,6 +221,7 @@ FullCalendarModule.registerPlugins([
         CiviliteComponent,
         PeriodiciteRemboursementComponent,
         PeriodicitePaiementPrimeComponent,
+        AgenceComponent,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

@@ -4,14 +4,15 @@
     </ng-template>
 </p-messages>
 <p-dialog header="ENREGISTREMENT D'UN SERVICE" [(visible)]="displayDialogue" [style]="{width: '50vw'}">
-    <div class="col-12 md:col-12" >
-        <form  #myForm="ngForm" name="myForm" role="form" novalidate>
+    <div class="col-12 md:col-12">
+        <form #myForm="ngForm" name="myForm" role="form" novalidate>
             <div class="card p-fluid">
                 <div class="field">
                     <label htmlFor="libelle">SERVICE</label>
-                    <input pInputText id="libelle" type="text" name="libelle" [(ngModel)]="service.libelle" #libelle="ngModel"
+                    <input pInputText id="libelle" type="text" name="libelle" [(ngModel)]="service.libelle"
+                           #libelle="ngModel"
                            required minlength="1"
-                           [ngClass] ="{'ng-invalid ng-dirty' : libelle.touched && !libelle.valid}"
+                           [ngClass]="{'ng-invalid ng-dirty' : libelle.touched && !libelle.valid}"
                     />
                     <span *ngIf="libelle.invalid && (libelle.dirty || libelle.touched)">
                 <span *ngIf="libelle.errors?.required">
@@ -28,12 +29,15 @@
                            minlength="1"
                     />
                 </div>
+
             </div>
         </form>
     </div>
     <ng-template pTemplate="footer">
-        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()" class="p-button-danger mr-2 mb-2"></button>
-        <button pButton pRipple ttype="submit" [disabled]="!myForm.valid"  label="Enregistrer" icon="pi pi-save" (click)="onSave(service); ngOnInit();"
+        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()"
+                class="p-button-danger mr-2 mb-2"></button>
+        <button pButton pRipple ttype="submit" [disabled]="!myForm.valid" label="Enregistrer" icon="pi pi-save"
+                (click)="onSave(service); ngOnInit();"
                 class="p-button-success mr-2 mb-2"></button>
     </ng-template>
 </p-dialog>
@@ -42,23 +46,30 @@
     <div class="col-12">
         <div class="card">
             <h5>LISTES DES SERVICES</h5>
-            <p-table #dt1 [value]="services" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['libelle']" responsiveLayout="scroll">
+            <p-table #dt1 [value]="services" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
+                     styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['libelle']"
+                     responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <div>
-                            <button pButton pRipple type="button" label="Ajouter un service" icon="pi pi-plus" (click)="onDisplayDialogue(service)"  class="p-button-info mr-2 mb-2"></button>
+                            <button pButton pRipple type="button" label="Ajouter un service" icon="pi pi-plus"
+                                    (click)="onDisplayDialogue(service)" class="p-button-info mr-2 mb-2"></button>
                         </div>
                         <span class="p-input-icon-left mb-2">
 							<i class="pi pi-search"></i>
-							<input pInputText type="text" #filter (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Recherche" class="w-full"/>
+							<input pInputText type="text" #filter
+                                   (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Recherche"
+                                   class="w-full"/>
 						</span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="libelle">SERVICES <p-sortIcon field="libelle"></p-sortIcon>
+                        <th pSortableColumn="libelle">SERVICES
+                            <p-sortIcon field="libelle"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="description">DESCRIPTION <p-sortIcon field="description"></p-sortIcon>
+                        <th pSortableColumn="description">DESCRIPTION
+                            <p-sortIcon field="description"></p-sortIcon>
 
                         </th>
                         <th>
@@ -77,8 +88,9 @@
                             {{service?.description}}
                         </td>
                         <td style="min-width: 30rem;">
-                            <button pButton pRipple type="button" (click)="onDisplayDialogue(service)" icon="pi pi-pencil" class="p-button-success mr-2 mb-2"></button>
-                            <button pButton pRipple type="button"  icon="pi pi-trash"
+                            <button pButton pRipple type="button" (click)="onDisplayDialogue(service)"
+                                    icon="pi pi-pencil" class="p-button-success mr-2 mb-2"></button>
+                            <button pButton pRipple type="button" icon="pi pi-trash"
                                     (click)="onDeleteService($event, service)"
                                     class="p-button-danger mr-2 mb-2"></button>
                         </td>
@@ -106,5 +118,5 @@
 
 </div>
 <p-toast></p-toast>
-<p-confirmPopup  [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-confirmPopup>
+<p-confirmPopup [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-confirmPopup>
 
