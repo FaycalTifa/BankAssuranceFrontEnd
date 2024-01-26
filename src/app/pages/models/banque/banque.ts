@@ -1,10 +1,15 @@
-
 export class Banque {
+    public id?: number;
+    public code?: string;
+    public libelle?: string;
+
     constructor(
-        public id?: number,
-        public code?: string,
-        public libelle?: string,
-    ){
+        id?: number,
+        code?: string,
+        libelle?: string,
+    ) {
+        this.id = id;
+        this.code = code;
+        this.libelle = libelle;
     }
 }
-

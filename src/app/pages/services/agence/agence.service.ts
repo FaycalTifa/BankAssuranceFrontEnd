@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {EntityArrayResponseType, EntityResponseType} from "../banque/banque.service";
 import {Agence} from "../../models/agence/agence";
+import {ConsoleLogger} from "@angular/compiler-cli";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AgenceService {
     constructor(protected http: HttpClient) {}
 
     createAgence(agence: Agence): Observable<EntityResponseType> {
+        console.log("============ SERVICE AGENCE ================", agence)
         return this.http.post<Agence>(this.apiUrl , agence, { observe: 'response' });
     }
 
