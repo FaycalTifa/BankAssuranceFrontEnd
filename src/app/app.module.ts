@@ -113,6 +113,9 @@ import { CiviliteComponent } from './pages/components/civilite/civilite.componen
 import { PeriodiciteRemboursementComponent } from './pages/components/periodicite-remboursement/periodicite-remboursement.component';
 import { PeriodicitePaiementPrimeComponent } from './pages/components/periodicite-paiement-prime/periodicite-paiement-prime.component';
 import { AgenceComponent } from './pages/components/agence/agence.component';
+import { GestionnaireComponent } from './pages/components/gestionnaire/gestionnaire.component';
+import { PersonneComponent } from './pages/components/personne/personne.component';
+import { QuestionnaireMedicalComponent } from './pages/components/questionnaire-medical/questionnaire-medical.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -222,6 +225,9 @@ FullCalendarModule.registerPlugins([
         PeriodiciteRemboursementComponent,
         PeriodicitePaiementPrimeComponent,
         AgenceComponent,
+        GestionnaireComponent,
+        PersonneComponent,
+        QuestionnaireMedicalComponent,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
