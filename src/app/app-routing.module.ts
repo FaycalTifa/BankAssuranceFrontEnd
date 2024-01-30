@@ -7,6 +7,9 @@ import {CiviliteComponent} from './pages/components/civilite/civilite.component'
 import {PeriodiciteRemboursementComponent} from './pages/components/periodicite-remboursement/periodicite-remboursement.component';
 import {PeriodicitePaiementPrimeComponent} from './pages/components/periodicite-paiement-prime/periodicite-paiement-prime.component';
 import {AgenceComponent} from "./pages/components/agence/agence.component";
+import {GestionnaireComponent} from "./pages/components/gestionnaire/gestionnaire.component";
+import {PersonneComponent} from "./pages/components/personne/personne.component";
+import {QuestionnaireMedicalComponent} from "./pages/components/questionnaire-medical/questionnaire-medical.component";
 
 @NgModule({
     imports: [
@@ -19,6 +22,10 @@ import {AgenceComponent} from "./pages/components/agence/agence.component";
                     {path: 'parametre/civilites', component: CiviliteComponent},
                     {path: 'parametre/periodiciteRemboursements', component: PeriodiciteRemboursementComponent},
                     {path: 'parametre/periodicitePaiementPrimes', component: PeriodicitePaiementPrimeComponent},
+                    {path: 'parametre/gestionnaires', component: GestionnaireComponent},
+                    {path: 'parametre/personnes', component: PersonneComponent},
+                    {path: 'parametre/questionnaireMedicals', component: QuestionnaireMedicalComponent},
+
                 ]
             },
             {path: '**', redirectTo: '/notfound'},

@@ -46,11 +46,14 @@ export class AppMenuComponent implements OnInit {
                 {
                 label: 'PARAMETRAGE', icon: 'pi pi-fw pi-star', routerLink: ['/parametre'],
                     items: [
-                        {label: 'BANQQUE', icon: 'pi pi-star-fill', routerLink: ['/parametre/postes']},
+                        {label: 'BANQUE', icon: 'pi pi-star-fill', routerLink: ['/parametre/postes']},
                         {label: 'AGENCE', icon: 'pi pi-building', routerLink: ['/parametre/agence']},
                         {label: 'CIVILITE', icon: 'pi pi-user', routerLink: ['/parametre/civilites']},
                         {label: 'PERIODICITEREMBOURSEMENT', icon: 'pi pi-calendar-times', routerLink: ['/parametre/periodiciteRemboursements']},
                         {label: 'PERIODICITEPAIEMENTPRIME', icon: 'pi pi-calendar-times', routerLink: ['/parametre/periodicitePaiementPrimes']},
+                        {label: 'GESTIONNAIRE', icon: 'pi pi-user', routerLink: ['/parametre/gestionnaires']},
+                        {label: 'PERSONNE', icon: 'pi pi-user', routerLink: ['/parametre/personnes']},
+                        {label: 'QUESTIONNAIREMEDICAL', icon: 'pi pi-question-circle', routerLink: ['/parametre/questionnaireMedicals']},
                     ]
                 },
             ];
