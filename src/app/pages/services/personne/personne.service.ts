@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {EntityArrayResponseType, EntityResponseType} from "../banque/banque.service";
 import {Personne} from "../../models/personne/personne";
+import {Banque} from "../../models/banque/banque";
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,16 @@ export class PersonneService {
   constructor(protected http: HttpClient) {}
 
   createPersonne(personne: Personne): Observable<EntityResponseType> {
+      console.log("_________________________________________")
+      console.log(personne)
+      console.log("_________________________________________")
     return this.http.post<Personne>(this.apiUrl , personne, { observe: 'response' });
-  }
+      console.log("___________ FIN PERSONNE ______________________________")
 
+  }
+    createPoste(banque: Banque): Observable<EntityResponseType> {
+        return this.http.post<Banque>(this.apiUrl , banque, { observe: 'response' });
+    }
 
   updatePersonne(id: number, personneDetails: Personne): Observable<Personne> {
     console.log('==============333333=================',personneDetails);
