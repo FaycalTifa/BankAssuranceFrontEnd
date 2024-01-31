@@ -10,7 +10,7 @@ export class Personne {
     public tension?: string;
     public professionActuelle?: string;
     public employeur?: string;
-    public numeroPiecePasseport?: number;
+    public numeroPiecePasseport?: string;
     public dateEtablissement?: string;
     public lieuEtablissement?: string;
     public adressePostale?: string;
@@ -33,7 +33,7 @@ export class Personne {
     tension?: string,
      professionActuelle?: string,
     employeur?: string,
-     numeroPiecePasseport?: number,
+     numeroPiecePasseport?: string,
     dateEtablissement?: string,
     lieuEtablissement?: string,
      adressePostale?: string,
