@@ -23,6 +23,7 @@ export class Personne {
 
     constructor(
         id?: number,
+
      nom?: string,
      prenom?: string,
      nomDeJeuneFille?: string,
@@ -44,6 +45,7 @@ export class Personne {
      adresseSecours?: string,
 
     ) {
+        this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.nomDeJeuneFille = nomDeJeuneFille;

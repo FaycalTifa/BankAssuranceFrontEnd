@@ -80,9 +80,15 @@ export class PersonneComponent implements OnInit {
   }
 
   onSave(personne1: Personne): void {
-    personne1.id = this.serviceId;
-    this.personneService.createPersonne(personne1).subscribe(
+      console.log("++++++++++++++++++++++++++++++++++++++++++++")
+      console.log(personne1)
+      console.log("++++++++++++++++++++++++++++++++++++++++++++")
+     personne1.id = this.serviceId;
+       this.personneService.createPersonne(personne1).subscribe(
         resp => {
+            console.log("============================================")
+            console.log(resp)
+            console.log("============================================")
           if (resp) {
             //    this.personne = new Service();
             this.onHidenDialogue();

@@ -46,12 +46,11 @@
         <form  #myForm="ngForm" name="myForm" role="form" novalidate>
             <div class="card p-fluid">
 
-             <!--   <div class="field">
-                    <label htmlFor="codeModifier">CODE</label>
-                    <input pInputText id="codeModifier" type="text" name="codeModifier" [(ngModel)]="agence.code"
-                           minlength="1"
-                    />
-                </div>-->
+                <div>
+                    <label htmlFor="banque">BANQUE</label>
+                    <!-- Dans votre fichier .component.html -->
+                    <p-dropdown [(ngModel)]="this.agence.banque" optionLabel="libelle" [options]="banques" placeholder="Sélectionnez une option"></p-dropdown>
+                </div>
                 <div class="field">
                     <label htmlFor="libelleModifier">LIBELLE</label>
                     <input pInputText id="libelleModifier" type="text" name="libelleModifier" [(ngModel)]="agence.libelle"
