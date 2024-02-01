@@ -28,7 +28,7 @@ export class AgenceService {
     deleteAgence(id: number, agenceDetails: Agence): Observable<Agence> {
         console.log('==============333333=================', agenceDetails.id);
         console.log('==============44444=================', agenceDetails);
-        return this.http.put<Agence>(`${this.apiUrl}/deleteBanque/${id}`, agenceDetails);
+        return this.http.put<Agence>(`${this.apiUrl}/deleteAgence/${id}`, agenceDetails);
     }
 
 
