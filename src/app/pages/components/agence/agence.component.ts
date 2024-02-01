@@ -140,7 +140,7 @@ export class AgenceComponent implements OnInit {
                 accept: () => {
                     // Si l'utilisateur clique sur 'Oui', la mise à jour est exécutée
                     this.onDisplayDialogueModif(id, agence);
-                    this.banqueService.deleteBanque(id, agence).subscribe(
+                    this.agenceService.deleteAgence(id, agence).subscribe(
                         response => {
                             console.log('Service mise à jour avec succès', response);
                             this.successAlert();

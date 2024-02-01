@@ -16,9 +16,8 @@ export class PersonneService {
   constructor(protected http: HttpClient) {}
 
   createPersonne(personne: Personne): Observable<EntityResponseType> {
-      console.log("_________________________________________")
-      console.log(personne)
-      console.log("_________________________________________")
+        console.log("____________________________________________")
+        console.log(personne)
     return this.http.post<Personne>(this.apiUrl , personne, { observe: 'response' });
       console.log("___________ FIN PERSONNE ______________________________")
 
