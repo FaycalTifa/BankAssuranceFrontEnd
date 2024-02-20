@@ -117,6 +117,8 @@ import { GestionnaireComponent } from './pages/components/gestionnaire/gestionna
 import { PersonneComponent } from './pages/components/personne/personne.component';
 import { QuestionnaireMedicalComponent } from './pages/components/questionnaire-medical/questionnaire-medical.component';
 import { DetailsCreditComponent } from './pages/components/details-credit/details-credit.component';
+import { InformationEmploiComponent } from './pages/components/information-emploi/information-emploi.component';
+import { MandataireComponent } from './pages/components/mandataire/mandataire.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -230,6 +232,8 @@ FullCalendarModule.registerPlugins([
         PersonneComponent,
         QuestionnaireMedicalComponent,
         DetailsCreditComponent,
+        InformationEmploiComponent,
+        MandataireComponent,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

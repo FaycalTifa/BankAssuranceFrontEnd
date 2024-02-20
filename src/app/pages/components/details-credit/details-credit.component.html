@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="field">
-                    <label htmlFor="dateEcheance">EMPLOYEUR</label>
+                    <label htmlFor="dateEcheance">DATE ECHEANCE</label>
                     <input pInputText id="dateEcheance" type="date" name="description" [(ngModel)]="detailsCredit.dateEcheance"
                            minlength="1"
                     />
@@ -217,24 +217,15 @@
                     <tr>
                         <th pSortableColumn="montantCreditAssurer">MONTANT DU CREDIT ASSURER <p-sortIcon field="montantCreditAssurer"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="montantCreditDecouvert"> MONTANT DU CREDIT DECOUVERT <p-sortIcon field="montantCreditDecouvert"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="nombreDeRemboursement"> NOMBRE DE REMBOURSEMENT <p-sortIcon field="nombreDeRemboursement"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="montantDesTermes"> MONTANT DES TERMES <p-sortIcon field="montantDesTermes"></p-sortIcon>
-                        </th>
+
                         <th pSortableColumn="numeroCompteClient">NUMERO COMPTE CLIENT <p-sortIcon field="numeroCompteClient"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="dureeTotaleCredit"> DUREE TOTALE CREDIT <p-sortIcon field="dureeTotaleCredit"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="differerAmortissement">DIFFERER AMORTISSEMENT <p-sortIcon field="differerAmortissement"></p-sortIcon>
-                        </th>
+
                         <th pSortableColumn="datePremierRemboursementTerme"> DATE PREMIER REMBOURSEMENT TERME <p-sortIcon field="datePremierRemboursementTerme"></p-sortIcon>
                         </th>
                         <th pSortableColumn="dateEffet">DATE EFFET <p-sortIcon field="dateEffet"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="dateEcheance"> DATE ECHEANCE <p-sortIcon field="dateEcheance"></p-sortIcon>
-                        </th>
+
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 ACTIONS
@@ -248,36 +239,19 @@
                         <td >
                             {{detailsCredit?.montantCreditAssurer}}
                         </td>
-                        <td >
-                            {{detailsCredit?.montantCreditDecouvert}}
-                        </td>
 
-                        <td >
-                            {{detailsCredit?.nombreDeRemboursement}}
-                        </td>
-                        <td >
-                            {{detailsCredit?.montantDesTermes}}
-                        </td>
 
                         <td >
                             {{detailsCredit?.numeroCompteClient}}
                         </td>
-                        <td >
-                            {{detailsCredit?.dureeTotaleCredit}}
-                        </td>
 
-                        <td >
-                            {{detailsCredit?.differerAmortissement}}
-                        </td>
                         <td >
                             {{detailsCredit?.datePremierRemboursementTerme}}
                         </td>
                         <td >
                             {{detailsCredit?.dateEffet}}
                         </td>
-                        <td >
-                            {{detailsCredit?.dateEcheance}}
-                        </td>
+
                         <td>
                             <button pButton pRipple type="button" icon="pi pi-pencil"
                                     (click)="onDisplayDialogueModif(this.detailsCredit?.id, this.detailsCredit)"

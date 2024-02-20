@@ -11,6 +11,8 @@ import {GestionnaireComponent} from "./pages/components/gestionnaire/gestionnair
 import {PersonneComponent} from "./pages/components/personne/personne.component";
 import {QuestionnaireMedicalComponent} from "./pages/components/questionnaire-medical/questionnaire-medical.component";
 import {DetailsCreditComponent} from "./pages/components/details-credit/details-credit.component";
+import {InformationEmploiComponent} from "./pages/components/information-emploi/information-emploi.component";
+import {MandataireComponent} from "./pages/components/mandataire/mandataire.component";
 
 @NgModule({
     imports: [
@@ -27,6 +29,8 @@ import {DetailsCreditComponent} from "./pages/components/details-credit/details-
                     {path: 'parametre/personnes', component: PersonneComponent},
                     {path: 'parametre/questionnaireMedicals', component: QuestionnaireMedicalComponent},
                     {path: 'parametre/detailsCredits', component: DetailsCreditComponent},
+                    {path: 'parametre/informationEmplois', component: InformationEmploiComponent},
+                    {path: 'parametre/mandataires', component: MandataireComponent},
 
                 ]
             },
