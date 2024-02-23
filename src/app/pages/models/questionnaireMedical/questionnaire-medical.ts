@@ -6,7 +6,11 @@ export class QuestionnaireMedical {
     public question4?: boolean;
     public question5?: boolean;
 
-    public details?: string;
+    public detail1?: string;
+    public detail2?: string;
+    public detail3?: string;
+    public detail4?: string;
+    public detail5?: string;
 
 
 
@@ -17,7 +21,11 @@ export class QuestionnaireMedical {
         question3?: boolean,
         question4?: boolean,
         question5?: boolean,
-        details?: string,
+        detail1?: string,
+        detail2?: string,
+        detail3?: string,
+        detail4?: string,
+        detail5?: string,
 
     ) {
         this.id = id;
@@ -26,6 +34,10 @@ export class QuestionnaireMedical {
         this.question3 = question3;
         this.question4 = question4;
         this.question5 = question5;
-        this.details = details;
+        this.detail1 = detail1;
+        this.detail2 = detail2;
+        this.detail3 = detail3;
+        this.detail4 = detail4;
+        this.detail5 = detail5;
     }
 }

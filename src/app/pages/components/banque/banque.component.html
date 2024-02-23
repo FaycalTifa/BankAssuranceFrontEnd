@@ -71,6 +71,42 @@
                         FIN  POP-UP DE MODIFICATION
 -->
 
+<!--
+                          POP-UP DETAILS
+-->
+
+<p-dialog header="ENREGISTREMENT D'UNE BANQUE" [(visible)]="displayDialogueDetail" [style]="{width: '50vw'}">
+    <div class="col-12 md:col-12" >
+        <div class="col-12 md:col-12">
+            <div>
+                <h5>
+                    <span style="color: black;">CODE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ banque?.code }}</span>
+
+                </h5>
+            </div>
+            <div>
+                <h5>
+                    <span style="color: black;">LIBELLE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ banque?.libelle }}</span>
+
+                </h5>
+
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple type="button" label="Fermer" icon="pi pi-times" (click)="displayDialogueDetail = false"
+                    class="p-button-danger mr-2 mb-2"></button>
+        </ng-template>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()" class="p-button-danger mr-2 mb-2"></button>
+    </ng-template>
+</p-dialog>
+<!--
+                      FIN POP-UP DETAILS
+-->
+
 <div class="grid centerClass">
     <div class="col-12">
         <div class="card">
@@ -119,7 +155,12 @@
 
                             <button pButton pRipple type="button"  icon="pi pi-trash"
                                     (click)="deleteBanque(this.banque?.id, this.banque)"
-                                    class="p-button-danger mr-2 mb-2"></button>
+                                    class="p-button-danger mr-2 mb-2">
+                            </button>
+                            <button pButton pRipple type="button"  icon="pi pi-trash"
+                                    (click)="onDisplayDialoguDetail(this.banque)"
+                                    class="p-button-info mr-2 mb-2">
+                            </button>
                         </td>
                     </tr>
                 </ng-template>

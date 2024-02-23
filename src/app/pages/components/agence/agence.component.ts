@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Table} from "primeng/table";
 import {Banque} from "../../models/banque/banque";
-import {ConfirmationService, MessageService} from "primeng/api";
+import {ConfirmationService, MenuItem, MessageService} from "primeng/api";
 import {BanqueService} from "../../services/banque/banque.service";
 import {KeycloakService} from "keycloak-angular";
 import {HttpResponse} from "@angular/common/http";
@@ -26,7 +26,7 @@ export class AgenceComponent implements OnInit {
     agence: Agence = new Agence();
     keycloakUser = '';
     userRole: string[] = [];
-    serviceId: number;
+
 
     constructor(
         private messageService: MessageService,
@@ -34,7 +34,9 @@ export class AgenceComponent implements OnInit {
         protected banqueService: BanqueService,
         protected keycloakService: KeycloakService,
         private confirmationService: ConfirmationService) {
+
     }
+
 
     ngOnInit(): void {
         this.agence = new Agence();

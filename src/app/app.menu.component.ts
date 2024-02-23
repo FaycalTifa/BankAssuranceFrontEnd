@@ -56,6 +56,12 @@ export class AppMenuComponent implements OnInit {
                         {label: 'QUESTIONNAIREMEDICAL', icon: 'pi pi-question-circle', routerLink: ['/parametre/questionnaireMedicals']},
                     ]
                 },
+                {
+                    label: 'SOUSCRIPTION', icon: 'pi pi-fw pi-star', routerLink: ['/souscription'],
+                    items: [
+                        {label: 'SOUSCRIPTION', icon: 'pi pi-star-fill', routerLink: ['/souscription/souscription']},
+                    ]
+                },
             ];
 
     }

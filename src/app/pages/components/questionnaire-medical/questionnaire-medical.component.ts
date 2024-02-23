@@ -63,7 +63,7 @@ export class QuestionnaireMedicalComponent implements OnInit {
     onDisplayDialogueModif(id: number, questionnaireMedicalDetails: QuestionnaireMedical): void {
         this.questionnaireMedical.id = id;
         this.questionnaireMedical = questionnaireMedicalDetails;
-        console.log('-----onDisplayDialogueModif-------', this.questionnaireMedical.id, this.questionnaireMedical.question1, this.questionnaireMedical.question2, this.questionnaireMedical.question3, this.questionnaireMedical.question4, this.questionnaireMedical.details );
+        console.log('-----onDisplayDialogueModif-------', this.questionnaireMedical.id, this.questionnaireMedical.question1, this.questionnaireMedical.question2, this.questionnaireMedical.question3, this.questionnaireMedical.question4, this.questionnaireMedical.detail1 );
         this.displayDialogueModification = true;
     }
 
@@ -116,7 +116,7 @@ export class QuestionnaireMedicalComponent implements OnInit {
         this.confirmationService.confirm(
             {
                 target: event.target,
-                message: 'Êtes-vous sûr de vouloir supprimer ' + questionnaireMedicalDetails.question1 + questionnaireMedicalDetails.question2 + questionnaireMedicalDetails.question3 + questionnaireMedicalDetails.question4 + questionnaireMedicalDetails.details + ' ?',
+                message: 'Êtes-vous sûr de vouloir supprimer ' + questionnaireMedicalDetails.question1 + questionnaireMedicalDetails.question2 + questionnaireMedicalDetails.question3 + questionnaireMedicalDetails.question4 + questionnaireMedicalDetails.detail1 + ' ?',
                 header: 'Confirmation',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {

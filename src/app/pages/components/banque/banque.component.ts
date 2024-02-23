@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Table} from 'primeng/table';
-import { Banque} from '../../models/banque/banque';
+import {Banque} from '../../models/banque/banque';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {BanqueService} from '../../services/banque/banque.service';
 import {HttpResponse} from '@angular/common/http';
@@ -17,6 +17,7 @@ export class BanqueComponent implements OnInit {
     @ViewChild('filter') filter: ElementRef;
     banques?: Banque[];
     displayDialogue: boolean;
+    displayDialogueDetail: boolean;
     displayDialogueModification: boolean;
     banque: Banque = new Banque();
     keycloakUser = '';
@@ -41,12 +42,21 @@ export class BanqueComponent implements OnInit {
         this.filter.nativeElement.value = '';
     }
 
-
     getAllBanques(): void {
         this.banqueService.getAllPostes().subscribe((res: HttpResponse<Banque[]>) => {
             const data = res.body ?? [];
             this.banques = data;
         });
+    }
+    findById(id: number): void {
+        this.banqueService.findById(id).subscribe(
+            (res: Banque) => {
+                this.banque = res;
+            },
+            (error) => {
+                console.error('Erreur lors de la récupération de la banque : ', error);
+            }
+        );
     }
 
 
@@ -59,6 +69,12 @@ export class BanqueComponent implements OnInit {
         this.displayDialogue = true;
     }
 
+
+    onDisplayDialoguDetail(banque: Banque) {
+        this.banque = banque;
+        this.displayDialogueDetail = true;
+    }
+
     onDisplayDialogueModif(id: number, banqueDetails: Banque): void {
         this.banque.id = id;
         this.banque = banqueDetails;
@@ -69,10 +85,11 @@ export class BanqueComponent implements OnInit {
     onHidenDialogue(): void {
         this.displayDialogue = false;
         this.displayDialogueModification = false;
+        this.displayDialogueDetail = false;
     }
 
     onHidenDialogueModif(): void {
-        this.displayDialogueModification = false;
+        this.displayDialogueModification = true;
     }
 
     onSave(banque1: Banque): void {
@@ -119,29 +136,26 @@ export class BanqueComponent implements OnInit {
                 header: 'Confirmation',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                // Si l'utilisateur clique sur 'Oui', la mise à jour est exécutée
-                this.onDisplayDialogueModif(id, banqueDetails);
-                this.banqueService.deleteBanque(id, banqueDetails).subscribe(
-                    response => {
-                        console.log('Service mise à jour avec succès', response);
-                        this.successAlert();
-                        this.getAllBanques();
-                    },
-                    error => {
-                        console.error('Erreur lors de la suppression de la banque:', error);
-                    }
-                );
-                this.onHidenDialogueModif();
-            },
-            reject: () => {
-                // Si l'utilisateur clique sur 'Non' ou ferme la fenêtre, rien ne se passe.
-                // Vous pouvez également ajouter un code ici si nécessaire.
-            }
-        });
+                    // Si l'utilisateur clique sur 'Oui', la mise à jour est exécutée
+                    this.onDisplayDialogueModif(id, banqueDetails);
+                    this.banqueService.deleteBanque(id, banqueDetails).subscribe(
+                        response => {
+                            console.log('Service mise à jour avec succès', response);
+                            this.successAlert();
+                            this.getAllBanques();
+                        },
+                        error => {
+                            console.error('Erreur lors de la suppression de la banque:', error);
+                        }
+                    );
+                    this.onHidenDialogueModif();
+                },
+                reject: () => {
+                    // Si l'utilisateur clique sur 'Non' ou ferme la fenêtre, rien ne se passe.
+                    // Vous pouvez également ajouter un code ici si nécessaire.
+                }
+            });
     }
-
-
-
 
 
 }

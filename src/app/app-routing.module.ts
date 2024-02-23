@@ -10,6 +10,7 @@ import {AgenceComponent} from "./pages/components/agence/agence.component";
 import {GestionnaireComponent} from "./pages/components/gestionnaire/gestionnaire.component";
 import {PersonneComponent} from "./pages/components/personne/personne.component";
 import {QuestionnaireMedicalComponent} from "./pages/components/questionnaire-medical/questionnaire-medical.component";
+import {SouscriptionComponent} from "./pages/components/souscription/souscription.component";
 
 @NgModule({
     imports: [
@@ -25,6 +26,7 @@ import {QuestionnaireMedicalComponent} from "./pages/components/questionnaire-me
                     {path: 'parametre/gestionnaires', component: GestionnaireComponent},
                     {path: 'parametre/personnes', component: PersonneComponent},
                     {path: 'parametre/questionnaireMedicals', component: QuestionnaireMedicalComponent},
+                    {path: 'souscription/souscription', component: SouscriptionComponent},
 
                 ]
             },

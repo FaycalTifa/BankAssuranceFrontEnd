@@ -39,4 +39,8 @@ export class BanqueService {
     return this.http.get<Banque[]>(this.apiUrl, {  observe: 'response' });
   }
 
+    findById(id: number): Observable<Banque> {
+        return this.http.get<Banque>(`${this.apiUrl}/${id}`);
+    }
+
 }
