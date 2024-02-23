@@ -3,15 +3,15 @@ export class Personne {
     public nom?: string;
     public prenom?: string;
     public nomDeJeuneFille?: string;
-    public dateDeNaissance?: Date;
+    public dateDeNaissance?: string;
     public lieuDeNaissance?: string;
     public taille?: number;
     public poids?: number;
     public tension?: string;
     public professionActuelle?: string;
     public employeur?: string;
-    public numeroPiecePasseport?: number;
-    public dateEtablissement?: Date;
+    public numeroPiecePasseport?: string;
+    public dateEtablissement?: string;
     public lieuEtablissement?: string;
     public adressePostale?: string;
     public telephone?: string;
@@ -23,25 +23,27 @@ export class Personne {
 
     constructor(
         id?: number,
-        nom?: string,
-        prenom?: string,
-        nomDeJeuneFille?: string,
-        dateDeNaissance?: Date,
-        lieuDeNaissance?: string,
-        taille?: number,
-        poids?: number,
-        tension?: string,
-        professionActuelle?: string,
-        employeur?: string,
-        numeroPiecePasseport?: number,
-        dateEtablissement?: Date,
-        lieuEtablissement?: string,
-        adressePostale?: string,
-        telephone?: string,
-        email?: string,
-        telephoneSecours?: string,
-        emailSecours?: string,
-        adresseSecours?: string,
+
+     nom?: string,
+     prenom?: string,
+     nomDeJeuneFille?: string,
+    dateDeNaissance?: string,
+    lieuDeNaissance?: string,
+     taille?: number,
+    poids?: number,
+    tension?: string,
+     professionActuelle?: string,
+    employeur?: string,
+     numeroPiecePasseport?: string,
+    dateEtablissement?: string,
+    lieuEtablissement?: string,
+     adressePostale?: string,
+    telephone?: string,
+     email?: string,
+     telephoneSecours?: string,
+    emailSecours?: string,
+     adresseSecours?: string,
+
     ) {
         this.id = id;
         this.nom = nom;

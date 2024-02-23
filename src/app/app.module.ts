@@ -116,7 +116,13 @@ import { AgenceComponent } from './pages/components/agence/agence.component';
 import { GestionnaireComponent } from './pages/components/gestionnaire/gestionnaire.component';
 import { PersonneComponent } from './pages/components/personne/personne.component';
 import { QuestionnaireMedicalComponent } from './pages/components/questionnaire-medical/questionnaire-medical.component';
+<<<<<<< HEAD
 import { SouscriptionComponent } from './pages/components/souscription/souscription.component';
+=======
+import { DetailsCreditComponent } from './pages/components/details-credit/details-credit.component';
+import { InformationEmploiComponent } from './pages/components/information-emploi/information-emploi.component';
+import { MandataireComponent } from './pages/components/mandataire/mandataire.component';
+>>>>>>> a571eba1fc0da4d32585e36d590399c89b0102b2
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -229,7 +235,13 @@ FullCalendarModule.registerPlugins([
         GestionnaireComponent,
         PersonneComponent,
         QuestionnaireMedicalComponent,
+<<<<<<< HEAD
         SouscriptionComponent,
+=======
+        DetailsCreditComponent,
+        InformationEmploiComponent,
+        MandataireComponent,
+>>>>>>> a571eba1fc0da4d32585e36d590399c89b0102b2
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

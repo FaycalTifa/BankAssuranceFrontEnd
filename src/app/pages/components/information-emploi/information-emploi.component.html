@@ -1,0 +1,269 @@
+
+<!--
+                          POP-UP D'ENREGISTREMENT
+-->
+
+<p-dialog header="ENREGISTREMENT D'UNE INFORMATION PROFESSIONNELLE LIEES A LA GARANTIE PERTE EMPLOI" [(visible)]="displayDialogue" [style]="{width: '50vw'}">
+    <div class="col-12 md:col-12" >
+        <form  #myForm="ngForm" name="myForm" role="form" novalidate>
+            <div class="card p-fluid">
+
+                <div class="field">
+                    <label htmlFor="employeur">EMPLOYEUR</label>
+                    <input pInputText id="employeur" type="text" name="description" [(ngModel)]="informationEmploi.employeur"
+                           minlength="1"
+                    />
+                </div>
+                <div class="field">
+                    <label htmlFor="dateEmbauche">DATE D'EMBAUCHE</label>
+                    <input pInputText id="dateEmbauche" type="date" name="description" [(ngModel)]="informationEmploi.dateEmbauche"
+                           minlength="1"
+                    />
+                </div>
+
+                <div class="field">
+                    <label htmlFor="adresseEmployeur">ADRESSE EMPLOYEUR</label>
+                    <input pInputText id="adresseEmployeur" type="text" name="description" [(ngModel)]="informationEmploi.adresseEmployeur"
+                           minlength="1"
+                    />
+                </div>
+                <div class="field">
+                    <label htmlFor="professionActuelle">PROFESSION ACTUELLE</label>
+                    <input pInputText id="professionActuelle" type="text" name="description" [(ngModel)]="informationEmploi.professionActuelle"
+                           minlength="1"
+                    />
+                </div>
+
+
+                <div class="field">
+                    <label htmlFor="typeDeContrat">TYPE DE CONTRAT</label>
+                    <input pInputText id="typeDeContrat" type="text" name="description" [(ngModel)]="informationEmploi.typeDeContrat"
+                           minlength="1"
+                    />
+                </div>
+                <div class="field">
+                    <label htmlFor="telEmployeur">TEL EMPLOYEUR</label>
+                    <input pInputText id="telEmployeur" type="number" name="description" [(ngModel)]="informationEmploi.telEmployeur"
+                           minlength="1"
+                    />
+                </div>
+
+                <div class="field">
+                    <label htmlFor="numeroCNSS">NUMERO CNSS</label>
+                    <input pInputText id="numeroCNSS" type="number" name="description" [(ngModel)]="informationEmploi.numeroCNSS"
+                           minlength="1"
+                    />
+                </div>
+                <div class="field">
+                    <label htmlFor="numeroRCCMIFU">NUMERO RCCM ET IFU</label>
+                    <input pInputText id="numeroRCCMIFU" type="number" name="description" [(ngModel)]="informationEmploi.numeroRCCMIFU"
+                           minlength="1"
+                    />
+                </div>
+
+
+
+            </div>
+
+        </form>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()" class="p-button-danger mr-2 mb-2"></button>
+        <button pButton pRipple ttype="submit" [disabled]="!myForm.valid"  label="Enregistrer" icon="pi pi-save" (click)="onSave(informationEmploi); ngOnInit();"
+                class="p-button-success mr-2 mb-2"></button>
+    </ng-template>
+</p-dialog>
+<!--
+                      FIN POP-UP D'ENREGISTREMENT
+-->
+
+<!--
+                          POP-UP DE MODIFICATION
+-->
+
+<p-dialog header="MODIFICATION D'UNE INFORMATION PROFESSIONNELLE LIEE A LA GARANTIE PERTE EMPLOI" [(visible)]="displayDialogueModification" [style]="{width: '50vw'}">
+    <div class="col-12 md:col-12" >
+        <form  #myForm="ngForm" name="myForm" role="form" novalidate>
+            <div class="card p-fluid">
+
+                <div class="field">
+                    <label htmlFor="employeurModifier">EMPLOYEUR</label>
+                    <input pInputText id="employeurModifier" type="text" name="employeurModifier" [(ngModel)]="informationEmploi.employeur"
+                           minlength="1"
+                    />
+                </div>
+                <div class="field">
+                    <label htmlFor="dateEmbaucheModifier">DATE D'EMBAUCHE</label>
+                    <input pInputText id="dateEmbaucheModifier" type="date" name="dateEmbaucheModifier" [(ngModel)]="informationEmploi.dateEmbauche"
+                           minlength="1"
+                    />
+                </div>
+
+                <div class="field">
+                    <label htmlFor="adresseEmployeurModifier">ADRESSE EMPLOYEUR</label>
+                    <input pInputText id="adresseEmployeurModifier" type="text" name="adresseEmployeurModifier" [(ngModel)]="informationEmploi.adresseEmployeur"
+                           minlength="1"
+                    />
+                </div>
+                <div class="field">
+                    <label htmlFor="professionActuelleModifier">PROFESSION ACTUELLE</label>
+                    <input pInputText id="professionActuelleModifier" type="text" name="professionActuelleModifier" [(ngModel)]="informationEmploi.professionActuelle"
+                           minlength="1"
+                    />
+                </div>
+
+
+                <div class="field">
+                    <label htmlFor="typeDeContratModifier">TYPE DE CONTRAT</label>
+                    <input pInputText id="typeDeContratModifier" type="text" name="typeDeContratModifier" [(ngModel)]="informationEmploi.typeDeContrat"
+                           minlength="1"
+                    />
+                </div>
+                <div class="field">
+                    <label htmlFor="telEmployeurModifier">TEL EMPLOYEUR</label>
+                    <input pInputText id="telEmployeurModifier" type="number" name="telEmployeurModifier" [(ngModel)]="informationEmploi.telEmployeur"
+                           minlength="1"
+                    />
+                </div>
+
+                <div class="field">
+                    <label htmlFor="numeroCNSSModifier">NUMERO CNSS</label>
+                    <input pInputText id="numeroCNSSModifier" type="number" name="numeroCNSSModifier" [(ngModel)]="informationEmploi.numeroCNSS"
+                           minlength="1"
+                    />
+                </div>
+                <div class="field">
+                    <label htmlFor="numeroRCCMIFUModifier">NUMERO RCCM ET IFU</label>
+                    <input pInputText id="numeroRCCMIFUModifier" type="number" name="numeroRCCMIFUModifier" [(ngModel)]="informationEmploi.numeroRCCMIFU"
+                           minlength="1"
+                    />
+                </div>
+
+
+
+
+
+
+            </div>
+
+        </form>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogueModif()" class="p-button-danger mr-2 mb-2"></button>
+        <button pButton pRipple ttype="submit" [disabled]="!myForm.valid"  label="Enregistrer" icon="pi pi-save" (click)="updateInformationEmploi(informationEmploi.id, informationEmploi); ngOnInit();"
+                class="p-button-success mr-2 mb-2"></button>
+    </ng-template>
+</p-dialog>
+<!--
+                        FIN  POP-UP DE MODIFICATION
+-->
+
+<div class="grid centerClass">
+    <div class="col-12">
+        <div class="card">
+            <div class="my-custom-text">
+                <h5 class="my-custom-text">LISTES DES INFORMATIONS PROFESSIONNELLES LIEES A LA GARANTIE PERTE EMPLOI</h5>
+            </div>
+            <p-table #dt1 [value]="informationEmplois" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['employeur', 'dateEmbauche', 'adresseEmployeur', 'professionActuelle', 'typeDeContrat', 'telEmployeur', 'numeroCNSS', 'numeroRCCMIFU',]" responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column sm:flex-row">
+                        <div>
+                            <button pButton pRipple type="button" label="Ajouter une information professionnelle liée à la garantie perte emploi" icon="pi pi-plus" (click)="onDisplayDialogue(informationEmploi)"  class="p-button-info mr-2 mb-2"></button>
+                            <!--<button pButton label="Effacer" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>-->
+                        </div>
+                        <span class="p-input-icon-left mb-2">
+							<i class="pi pi-search"></i>
+							<input pInputText type="text" #filter (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Recherche" class="w-full"/>
+						</span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="employeur">EMPLOYEUR <p-sortIcon field="employeur"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="dateEmbauche"> DATE D'EMBAUCHE<p-sortIcon field="dateEmbauche"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="adresseEmployeur">ADRESSE EMPLOYEUR <p-sortIcon field="adresseEmployeur"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="professionActuelle"> PROFESSION ACTUELLE<p-sortIcon field="professionActuelle"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="typeDeContrat">TYPE DE CONTRAT <p-sortIcon field="typeDeContrat"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="telEmployeur"> TEL EMPLOYEUR<p-sortIcon field="telEmployeur"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="numeroCNSS">NUMERO CNSS <p-sortIcon field="numeroCNSS"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="numeroRCCMIFU"> NUMERO RCCM ET IFU<p-sortIcon field="numeroRCCMIFU"></p-sortIcon>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                ACTIONS
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-informationEmploi>
+                    <tr>
+                        <td >
+                            {{informationEmploi?.employeur}}
+                        </td>
+                        <td >
+                            {{informationEmploi?.dateEmbauche}}
+                        </td>
+                        <td >
+                            {{informationEmploi?.adresseEmployeur}}
+                        </td>
+                        <td >
+                            {{informationEmploi?.professionActuelle}}
+                        </td>
+                        <td >
+                            {{informationEmploi?.typeDeContrat}}
+                        </td>
+                        <td >
+                            {{informationEmploi?.telEmployeur}}
+                        </td>
+                        <td >
+                            {{informationEmploi?.numeroCNSS}}
+                        </td>
+                        <td >
+                            {{informationEmploi?.numeroRCCMIFU}}
+                        </td>
+                        <td>
+                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                                    (click)="onDisplayDialogueModif(this.informationEmploi?.id, this.informationEmploi)"
+                                    class="p-button-success mr-2 mb-2">
+                            </button>
+
+                            <button pButton pRipple type="button"  icon="pi pi-trash"
+                                    (click)="deleteInformationEmploi(this.informationEmploi?.id, this.informationEmploi)"
+                                    class="p-button-danger mr-2 mb-2"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="12">Pas de civilite</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="12">Chargement des données. Veuillez patienter.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Il y'a au total {{ informationEmplois ? informationEmplois.length : 0 }} emplois.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+    </div>
+
+</div>
+<p-toast></p-toast>
+<p-confirmPopup  [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-confirmPopup>
+
+

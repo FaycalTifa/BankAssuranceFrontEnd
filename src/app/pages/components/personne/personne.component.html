@@ -4,7 +4,7 @@
 -->
 
 <p-dialog header="ENREGISTREMENT D'UNE PERSONNE" [(visible)]="displayDialogue" [style]="{width: '50vw'}">
-    <div class="col-12 md:col-12" >
+    <div class="col-6 md:col-6" >
     <form  #myForm="ngForm" name="myForm" role="form" novalidate>
         <div class="card p-fluid">
 
@@ -12,9 +12,9 @@
                 <div class="col"></div>
                 <label htmlFor="nom">NOM</label>
                 <input pInputText id="nom" type="text" name="description" [(ngModel)]="personne.nom"
-                       minlength="0.5"s
+                       minlength="1"
                 />
-            </div>
+              </div>
 
             <div class="field">
                 <div class="col"></div>
@@ -32,6 +32,7 @@
                     />
                 </div>
 
+<<<<<<< HEAD
                 <div class="col-8">
                     <label htmlFor="prenom">PRENOM</label>
                     <input pInputText id="prenom" type="text" name="description" [(ngModel)]="personne.prenom"
@@ -42,6 +43,10 @@
 
 
             <div class="field">
+=======
+            <div class="field">
+                <div class="col"></div>
+>>>>>>> a571eba1fc0da4d32585e36d590399c89b0102b2
             <label htmlFor="nomDeJeuneFille">NOM DE JEUNE FILLE</label>
             <input pInputText id="nomDeJeuneFille" type="text" name="description" [(ngModel)]="personne.nomDeJeuneFille"
                    minlength="1"
@@ -100,11 +105,11 @@
         </div>
 
         <div class="field">
+            <div class="col-6"></div>
             <label htmlFor="numeroPiecePasseport">NUMERO PIECE PASSEPORT</label>
             <input pInputText id="numeroPiecepasseport" type="number" name="description" [(ngModel)]="personne.numeroPiecePasseport"
                    minlength="1"
             />
-        </div>
 
         <div class="field">
             <label htmlFor="dateEtablissement">DATE ETABLISSEMENT</label>
@@ -162,7 +167,7 @@
             />
         </div>
         </div>
-
+        </div>
         </form>
     </div>
 
@@ -192,7 +197,7 @@
                     />
                 </div>
                 <div class="field">
-                    <label htmlFor="libelleModifier">LIBELLE</label>
+                    <label htmlFor="prenomModifier">PRENOM</label>
                     <input pInputText id="prenomModifier" type="text" name="prenomModifier" [(ngModel)]="personne.prenom"
                            minlength="1"
                     />
@@ -207,7 +212,7 @@
 
                 <div class="field">
                     <label htmlFor="dateDeNaaissance">DATEDENAISSANCE</label>
-                    <input pInputText id="dateDeNaissanceModifier" type="text" name="dateDeNaissanceModifier" [(ngModel)]="personne.dateDeNaissance"
+                    <input pInputText id="dateDeNaissanceModifier" type="date" name="dateDeNaissanceModifier" [(ngModel)]="personne.dateDeNaissance"
                            minlength="1"
                     />
                 </div>
@@ -222,21 +227,21 @@
 
                 <div class="field">
                     <label htmlFor="taille">TAILLE</label>
-                    <input pInputText id="tailleModifier" type="text" name="tailleModifier" [(ngModel)]="personne.taille"
+                    <input pInputText id="tailleModifier" type="number" name="tailleModifier" [(ngModel)]="personne.taille"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="poids">POIDS</label>
-                    <input pInputText id="poidsModifier" type="text" name="poidsModifier" [(ngModel)]="personne.poids"
+                    <input pInputText id="poidsModifier" type="number" name="poidsModifier" [(ngModel)]="personne.poids"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="tension">TENSION</label>
-                    <input pInputText id="tensionModifier" type="text" name="tensionModifier" [(ngModel)]="personne.tension"
+                    <input pInputText id="tensionModifier" type="number" name="tensionModifier" [(ngModel)]="personne.tension"
                            minlength="1"
                     />
                 </div>
@@ -257,14 +262,14 @@
 
                 <div class="field">
                     <label htmlFor="numeroPiecePasseport">NUMEROPIECEPASSEPORT</label>
-                    <input pInputText id="numeroPiecepasseportModifier" type="text" name="numeroPiecepasseportModifier" [(ngModel)]="personne.numeroPiecePasseport"
+                    <input pInputText id="numeroPiecepasseportModifier" type="number" name="numeroPiecepasseportModifier" [(ngModel)]="personne.numeroPiecePasseport"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="dateEtablissement">DATEETABLISSEMENT</label>
-                    <input pInputText id="dateEtablissementModifier" type="text" name="dateEtablissementModifier" [(ngModel)]="personne.dateEtablissement"
+                    <input pInputText id="dateEtablissementModifier" type="date" name="dateEtablissementModifier" [(ngModel)]="personne.dateEtablissement"
                            minlength="1"
                     />
                 </div>
@@ -285,7 +290,7 @@
 
                 <div class="field">
                     <label htmlFor="telephone">TELEPHONE</label>
-                    <input pInputText id="telephoneModifier" type="text" name="telephoneModifier" [(ngModel)]="personne.telephone"
+                    <input pInputText id="telephoneModifier" type="number" name="telephoneModifier" [(ngModel)]="personne.telephone"
                            minlength="1"
                     />
                 </div>
@@ -299,7 +304,7 @@
 
                 <div class="field">
                     <label htmlFor="telephoneSecours">TELEPHONESECOURS</label>
-                    <input pInputText id="telephoneSecoursModifier" type="text" name="telephoneSecoursModifier" [(ngModel)]="personne.telephoneSecours"
+                    <input pInputText id="telephoneSecoursModifier" type="number" name="telephoneSecoursModifier" [(ngModel)]="personne.telephoneSecours"
                            minlength="1"
                     />
                 </div>
@@ -360,39 +365,11 @@
                         </th>
                         <th pSortableColumn="prenom"> PRENOM <p-sortIcon field="prenom"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="nomDeJeuneFille"> NOM DE JEUNE FILLE <p-sortIcon field="nomDeJeuneFille"></p-sortIcon>
-                        </th>
+
                         <th pSortableColumn="dateDeNaissance"> DATE DE NAISSANCE<p-sortIcon field="dateDeNaissance"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="lieuDeNaissance">LIEU DE NAISSANCE <p-sortIcon field="lieuDeNaissance"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="taille"> TAILLE <p-sortIcon field="taille"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="poids">POIDS <p-sortIcon field="poids"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="tension"> TENSION <p-sortIcon field="tension"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="professionActuelle">PROFESSION ACTUELLE <p-sortIcon field="professionActuelle"></p-sortIcon>
-                        </th>
+
                         <th pSortableColumn="employeur"> EMPLOYEUR<p-sortIcon field="employeur"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="numeroPiecePasseport">NUMERO DE PIECE PASSEPORT <p-sortIcon field="numeroPiecePasseport"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="dateEtablissement">DATE ETABLISSEMENT <p-sortIcon field="dateEtablissement"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="lieuEtablissement">LIEU ETABLISSEMENT <p-sortIcon field="lieuEtablissement"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="adressePostale"> ADRESSE POSTALE <p-sortIcon field="adressePostale"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="telephone">TELEPHONE <p-sortIcon field="telephone"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="email"> EMAIL <p-sortIcon field="email"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="telephoneSecours">TELEPHONE SECOURS <p-sortIcon field="telephoneSecours"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="emailSecours"> EMAILS SECOURS <p-sortIcon field="emailSecours"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="adresse"> ADRESSE SECOURS <p-sortIcon field="adresse"></p-sortIcon>
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
@@ -403,6 +380,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-personne>
 
+
                     <tr>
                         <td >
                             {{personne?.nom}}
@@ -410,61 +388,15 @@
                         <td >
                             {{personne?.prenom}}
                         </td>
-
-                        <td >
-                            {{personne?.nomDeJeuneFille}}
-                        </td>
-                        <td >
-                            {{personne?.dateDeNaissance}}
-                        </td>
-
-                        <td >
-                            {{personne?.lieuDeNaissance}}
-                        </td>
-                        <td >
-                            {{personne?.taille}}
-                        </td>
-
-                        <td >
-                            {{personne?.poids}}
-                        </td>
-                        <td >
-                            {{personne?.tension}}
-                        </td>
-                        <td >
-                            {{personne?.professionActuelle}}
-                        </td>
-                        <td >
+                         <td>
+                             {{personne?.dateDeNaissance}}
+                         </td>
+                        <td>
                             {{personne?.employeur}}
                         </td>
-                        <td >
-                            {{personne?.numeroPiecePasseport}}
-                        </td>
-                        <td >
-                            {{personne?.dateEtablissement}}
-                        </td>
-                        <td >
-                            {{personne?.lieuEtablissement}}
-                        </td>
-                        <td >
-                            {{personne?.adressePostale}}
-                        </td>
-                        <td >
-                            {{personne?.telephone}}
-                        </td>
-                        <td >
-                            {{personne?.email}}
-                        </td>
 
-                        <td >
-                            {{personne?.telephoneSecours}}
-                        </td>
-                        <td >
-                            {{personne?.emailSecours}}
-                        </td>
-                        <td >
-                            {{personne?.adresseSecours}}
-                        </td>
+
+
                         <td>
                             <button pButton pRipple type="button" icon="pi pi-pencil"
                                     (click)="onDisplayDialogueModif(this.personne?.id, this.personne)"
@@ -476,7 +408,7 @@
                                     class="p-button-danger mr-2 mb-2"></button>
                         </td>
                     </tr>
-                </ng-template>
+                    </ng-template>
                 <ng-template pTemplate="emptymessage">
                     <tr>
                         <td colspan="12">Pas de Personne</td>

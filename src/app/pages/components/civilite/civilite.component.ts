@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Table} from 'primeng/table';
-import {Banque} from '../../models/banque/banque';
 import {IService} from '../../models/service/service';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {ServiceService} from '../../services/service/service.service';
@@ -46,7 +45,7 @@ clear(table: Table) {
     this.filter.nativeElement.value = '';
 }
     getAllCivilites(): void {
-        this.civiliteService.getAllCivilites().subscribe((res: HttpResponse<Banque[]>) => {
+        this.civiliteService.getAllCivilites().subscribe((res: HttpResponse<Civilite[]>) => {
             const data = res.body ?? [];
             this.civilites = data;
         });

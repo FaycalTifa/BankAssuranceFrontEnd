@@ -54,6 +54,9 @@ export class AppMenuComponent implements OnInit {
                         {label: 'GESTIONNAIRE', icon: 'pi pi-user', routerLink: ['/parametre/gestionnaires']},
                         {label: 'PERSONNE', icon: 'pi pi-user', routerLink: ['/parametre/personnes']},
                         {label: 'QUESTIONNAIREMEDICAL', icon: 'pi pi-question-circle', routerLink: ['/parametre/questionnaireMedicals']},
+                        {label: 'DETAILSCREDIT', icon: 'pi pi-exclamation-circle', routerLink: ['/parametre/detailsCredits']},
+                        {label: 'INFORMATIONEMPLOI', icon: 'pi pi-info-circle', routerLink: ['/parametre/informationEmplois']},
+                        {label: 'MANDATAIRE', icon: 'pi pi-user', routerLink: ['/parametre/mandataires']},
                     ]
                 },
                 {
