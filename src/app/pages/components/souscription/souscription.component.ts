@@ -56,9 +56,9 @@ export class SouscriptionComponent implements OnInit {
         this.items = [
             {label: 'Adhérent'},
             {label: 'Crédit'},
-            {label: 'Banque'},
             {label: 'Questionnaire médical'},
             {label: 'Perte emplois'},
+            {label: 'Banque'},
         ];
     }
 

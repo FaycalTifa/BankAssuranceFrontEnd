@@ -11,7 +11,7 @@
             Adhérent
 
         -->
-    <div *ngIf="activeIndex === 0 ">
+    <div  *ngIf="activeIndex === 0 ">
 
 
         <div class="card p-fluid">
@@ -166,8 +166,11 @@
 
 
         </div>
-        <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right" (click)="nextStep()"
-                class="p-button-info mr-2 mb-2"></button>
+        <div class="text-right">
+            <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right" (click)="nextStep()"
+                    class="p-button-info mr-2 mb-2" ></button>
+        </div>
+
 
     </div>
 
@@ -260,14 +263,212 @@
             </div>
         </div>
 
-        <button pButton pRipple type="button" label="Precedent" icon="pi pi-angle-double-left" (click)="prevStep()"
-                class="p-button-info mr-2 mb-2"></button>
-        <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right" (click)="nextStep()"
-                class="p-button-info mr-2 mb-2"></button>
+        <div>
+            <div  class="text-left">
+                <button pButton pRipple type="button" label="Precedent" icon="pi pi-angle-double-left" (click)="prevStep()"
+                        class="p-button-info mr-2 mb-2"></button>
+            </div>
+            <div class="text-right">
+                <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right" (click)="nextStep()"
+                        class="p-button-info mr-2 mb-2"></button>
+            </div>
+
+        </div>
 
     </div>
 
     <div *ngIf="activeIndex === 2">
+        <!-- QUESTIONNAIRE MEDICAL -->
+        <div class="card p-fluid">
+            <div class="mt-4">
+                <label htmlFor="detail1"> <b><h4>Question 1</h4></b> </label>
+
+                <div class=" flex flex-wrap gap-3 p-fluid ">
+                    <div class="col-1">
+                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question1" onLabel="Yes"
+                                        offLabel="No"></p-toggleButton>
+                    </div>
+                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question1 === true">
+                        <label htmlFor="detail1"> <b>Detail</b> </label>
+                        <input pInputText id="detail1" type="text" name="detail1"
+                               [(ngModel)]="souscription.questionnaireMedical.detail1"
+                               minlength="1"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label htmlFor="detail1"> <b><h4>Question 2</h4></b> </label>
+                <div class=" flex flex-wrap gap-3 p-fluid ">
+                    <div class="col-1">
+                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question2" onLabel="Yes"
+                                        offLabel="No"></p-toggleButton>
+                    </div>
+                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question2 === true">
+                        <label htmlFor="detail2"> <b>Detail</b> </label>
+                        <input pInputText id="detail2" type="text" name="detail2"
+                               [(ngModel)]="souscription.questionnaireMedical.detail2"
+                               minlength="1"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <label htmlFor="detail1"> <b><h4>Question 3</h4></b> </label>
+                <div class=" flex flex-wrap gap-3 p-fluid ">
+                    <div class="col-1">
+                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question3" onLabel="Yes"
+                                        offLabel="No"></p-toggleButton>
+                    </div>
+                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question3 === true">
+                        <label htmlFor="detail3"> <b>Detail</b> </label>
+                        <input pInputText id="detail3" type="text" name="detail3"
+                               [(ngModel)]="souscription.questionnaireMedical.detail3"
+                               minlength="1"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <label htmlFor="detail1"> <b><h4>Question 4</h4></b> </label>
+                <div class=" flex flex-wrap gap-3 p-fluid ">
+                    <div class="col-1">
+                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question4" onLabel="Yes"
+                                        offLabel="No"></p-toggleButton>
+                    </div>
+                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question4 === true">
+                        <label htmlFor="detail4"> <b>Detail</b> </label>
+                        <input pInputText id="detail4" type="text" name="detail4"
+                               [(ngModel)]="souscription.questionnaireMedical.detail4"
+                               minlength="1"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <label htmlFor="detail1"> <b><h4>Question 5</h4></b> </label>
+                <div class=" flex flex-wrap gap-3 p-fluid ">
+                    <div class="col-1">
+                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question5" onLabel="Yes"
+                                        offLabel="No"></p-toggleButton>
+                    </div>
+                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question5 === true">
+                        <label htmlFor="detail5"> <b>Detail</b> </label>
+                        <input pInputText id="detail5" type="text" name="detail5"
+                               [(ngModel)]="souscription.questionnaireMedical.detail5"
+                               minlength="1"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div  class="text-left">
+                <button pButton pRipple type="button" label="Precedent" icon="pi pi-angle-double-left" (click)="prevStep()"
+                        class="p-button-info mr-2 mb-2"></button>
+            </div>
+            <div class="text-right">
+                <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right" (click)="nextStep()"
+                        class="p-button-info mr-2 mb-2"></button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div *ngIf="activeIndex === 3">
+        <!-- PERTE EMPLOIS -->
+        <div class="card p-fluid">
+
+
+            <div class=" flex flex-wrap gap-3 p-fluid">
+                <div class="col-3">
+                    <label htmlFor="employeur2"> <b>employeur</b> </label>
+                    <input pInputText id="employeur2" type="text" name="employeur2"
+                           [(ngModel)]="souscription.informationEmploi.employeur"
+                           minlength="0.5" s
+                    />
+                </div>
+
+                <div class="col-3">
+                    <label htmlFor="professionActuelle2"> <b>profession Actuelle</b> </label>
+                    <input pInputText id="professionActuelle2" type="text" name="professionActuelle"
+                           [(ngModel)]="souscription.informationEmploi.professionActuelle"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-3">
+                    <label htmlFor="dateEmbauche"> <b>date Embauche</b> </label>
+                    <input pInputText id="dateEmbauche" type="date" name="dateEmbauche"
+                           [(ngModel)]="souscription.informationEmploi.dateEmbauche"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-3">
+                    <label htmlFor="typeDeContrat"> <b>type Contrat</b> </label>
+                    <input pInputText id="typeDeContrat" type="text" name="typeDeContrat"
+                           [(ngModel)]="souscription.informationEmploi.typeDeContrat"
+                           minlength="1"
+                    />
+                </div>
+
+            </div>
+            <div class=" flex flex-wrap gap-3 p-fluid">
+                <div class="col-3">
+                    <label htmlFor="numeroCNSS"> <b>numero RCCM </b> </label>
+                    <input pInputText id="numeroCNSS" type="text" name="numeroCNSS"
+                           [(ngModel)]="souscription.informationEmploi.numeroCNSS"
+                           minlength="0.5" s
+                    />
+                </div>
+
+                <div class="col-3">
+                    <label htmlFor="numeroRCCMIFU"> <b>numero RCCM IFU</b> </label>
+                    <input pInputText id="numeroRCCMIFU" type="text" name="numeroRCCMIFU"
+                           [(ngModel)]="souscription.informationEmploi.numeroRCCMIFU"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-3">
+                    <label htmlFor="telEmployeur"> <b>tel Employeur</b> </label>
+                    <input pInputText id="telEmployeur" type="number" name="telEmployeur"
+                           [(ngModel)]="souscription.informationEmploi.telEmployeur"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-3">
+                    <label htmlFor="adresseEmployeur"> <b>adresse Employeur</b> </label>
+                    <input pInputText id="adresseEmployeur" type="text" name="adresseEmployeur"
+                           [(ngModel)]="souscription.informationEmploi.adresseEmployeur"
+                           minlength="1"
+                    />
+                </div>
+
+            </div>
+
+        </div>
+        <div>
+            <div  class="text-left">
+                <button pButton pRipple type="button" label="Precedent" icon="pi pi-angle-double-left" (click)="prevStep()"
+                        class="p-button-info mr-2 mb-2"></button>
+            </div>
+            <div class="text-right">
+                <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right" (click)="nextStep()"
+                        class="p-button-info mr-2 mb-2"></button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div *ngIf="activeIndex === 4">
         <!-- MANDATAIRE -->
         <div class="card p-fluid">
 
@@ -316,148 +517,19 @@
             </div>
 
         </div>
-        <button pButton pRipple type="button" label="Précédent" icon="pi pi-angle-double-left" (click)="prevStep()"
-                class="p-button-info mr-2 mb-2"></button>
-        <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right" (click)="nextStep()"
-                class="p-button-info mb-2" style="margin-right: auto;"></button>
-
-    </div>
-
-
-    <div *ngIf="activeIndex == 3">
-        <!-- QUESTIONNAIRE MEDICAL -->
-        <div class="card p-fluid">
-            <div class="mt-4">
-                <label htmlFor="detail1"> <b><h4>Question 1</h4></b> </label>
-
-                <div class=" flex flex-wrap gap-3 p-fluid ">
-                    <div class="col-1">
-                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
-                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question1" onLabel="Yes"
-                                        offLabel="No"></p-toggleButton>
-                    </div>
-                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question1 === true">
-                        <label htmlFor="detail1"> <b>Detail</b> </label>
-                        <input pInputText id="detail1" type="text" name="detail1"
-                               [(ngModel)]="souscription.questionnaireMedical.detail1"
-                               minlength="1"
-                        />
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-4">
-                <label htmlFor="detail1"> <b><h4>Question 2</h4></b> </label>
-                <div class=" flex flex-wrap gap-3 p-fluid ">
-                    <div class="col-1">
-                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
-                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question2" onLabel="Yes"
-                                        offLabel="No"></p-toggleButton>
-                    </div>
-                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question2 === true">
-                        <label htmlFor="detail2"> <b>Detail</b> </label>
-                        <input pInputText id="detail2" type="text" name="detail2"
-                               [(ngModel)]="souscription.questionnaireMedical.detail2"
-                               minlength="1"
-                        />
-                    </div>
-                </div>
-            </div>
-        <div class="mt-4">
-            <label htmlFor="detail1"> <b><h4>Question 3</h4></b> </label>
-                <div class=" flex flex-wrap gap-3 p-fluid ">
-                    <div class="col-1">
-                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
-                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question3" onLabel="Yes"
-                                        offLabel="No"></p-toggleButton>
-                    </div>
-                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question3 === true">
-                        <label htmlFor="detail3"> <b>Detail</b> </label>
-                        <input pInputText id="detail3" type="text" name="detail3"
-                               [(ngModel)]="souscription.questionnaireMedical.detail3"
-                               minlength="1"
-                        />
-                    </div>
-                </div>
-        </div>
-        <div class="mt-4">
-            <label htmlFor="detail1"> <b><h4>Question 4</h4></b> </label>
-                <div class=" flex flex-wrap gap-3 p-fluid ">
-                    <div class="col-1">
-                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
-                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question4" onLabel="Yes"
-                                        offLabel="No"></p-toggleButton>
-                    </div>
-                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question4 === true">
-                        <label htmlFor="detail4"> <b>Detail</b> </label>
-                        <input pInputText id="detail4" type="text" name="detail4"
-                               [(ngModel)]="souscription.questionnaireMedical.detail4"
-                               minlength="1"
-                        />
-                    </div>
-                </div>
-        </div>
-        <div class="mt-4">
-            <label htmlFor="detail1"> <b><h4>Question 5</h4></b> </label>
-                <div class=" flex flex-wrap gap-3 p-fluid ">
-                    <div class="col-1">
-                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
-                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question5" onLabel="Yes"
-                                        offLabel="No"></p-toggleButton>
-                    </div>
-                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question5 === true">
-                        <label htmlFor="detail5"> <b>Detail</b> </label>
-                        <input pInputText id="detail5" type="text" name="detail5"
-                               [(ngModel)]="souscription.questionnaireMedical.detail5"
-                               minlength="1"
-                        />
-                    </div>
-                </div>
-            </div>
+        <div>
+            <button pButton pRipple type="button" label="Précédent" icon="pi pi-angle-double-left" (click)="prevStep()"
+                    class="p-button-info mr-2 mb-2"></button>
         </div>
 
-        <button pButton pRipple type="button" label="Précédent" icon="pi pi-angle-double-left" (click)="prevStep()"
-                class="p-button-info mr-2 mb-2"></button>
-        <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right" (click)="nextStep()"
-                class="p-button-info mb-2" style="margin-right: auto;"></button>
+<div class="text-right">
+    <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()"
+            class="p-button-danger mr-2 mb-2"></button>
+    <button pButton pRipple ttype="submit" [disabled]="!myForm.valid" label="Enregistrer" icon="pi pi-save"
+            (click)="onSave(); ngOnInit();"
+            class="p-button-success mr-2 mb-2"></button>
+</div>
 
-    </div>
-
-
-    <div *ngIf="activeIndex === 4">
-        <!-- PERTE EMPLOIS -->
-        <div class="card p-fluid">
-
-            <!--
-                            <div class=" flex flex-wrap gap-3 p-fluid">
-                                <div class="col-3">
-                                    <label htmlFor="nom"> <b>Nom</b> </label>
-                                    <input pInputText id="nom" type="text" name="description" [(ngModel)]="personne.nom"
-                                           minlength="0.5" s
-                                    />
-                                </div>
-
-                                <div class="col-3">
-                                    <label htmlFor="prenom"> <b>Prénom</b> </label>
-                                    <input pInputText id="prenom" type="text" name="description" [(ngModel)]="personne.prenom"
-                                           minlength="1"
-                                    />
-                                </div>X
-                            </div>
-            -->
-        </div>
-        <button pButton pRipple type="button" label="Precedant" icon="pi pi-angle-double-left" (click)="prevStep()"
-                class="p-button-info mr-2 mb-2"></button>
-        <!--            <button pButton pRipple type="button" label="Suivant" icon="
-       pi pi-angle-double-right" class="p-button-info mr-2 mb-2"></button>-->
-
-        <!--            <ng-template pTemplate="footer">-->
-        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()"
-                class="p-button-danger mr-2 mb-2"></button>
-        <button pButton pRipple ttype="submit" [disabled]="!myForm.valid" label="Enregistrer" icon="pi pi-save"
-                (click)="onSave(); ngOnInit();"
-                class="p-button-success mr-2 mb-2"></button>
-        <!--            </ng-template>-->
     </div>
 
 
