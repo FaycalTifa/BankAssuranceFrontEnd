@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {EntityArrayResponseType, EntityResponseType} from "../banque/banque.service";
@@ -6,16 +6,18 @@ import {Agence} from "../../models/agence/agence";
 import {ConsoleLogger} from "@angular/compiler-cli";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AgenceService {
 
     private apiUrl = 'http://localhost:9999/api/agence';
-    constructor(protected http: HttpClient) {}
+
+    constructor(protected http: HttpClient) {
+    }
 
     createAgence(agence: Agence): Observable<EntityResponseType> {
         console.log("============ SERVICE AGENCE ================", agence)
-        return this.http.post<Agence>(this.apiUrl , agence, { observe: 'response' });
+        return this.http.post<Agence>(this.apiUrl, agence, {observe: 'response'});
     }
 
 
@@ -32,9 +34,8 @@ export class AgenceService {
     }
 
 
-
     getAllAgences(): Observable<EntityArrayResponseType> {
-        return this.http.get<Agence[]>(this.apiUrl, {  observe: 'response' });
+        return this.http.get<Agence[]>(this.apiUrl, {observe: 'response'});
     }
 
 }

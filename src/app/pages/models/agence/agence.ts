@@ -1,4 +1,4 @@
-import { Banque } from "../banque/banque";
+import {Banque} from "../banque/banque";
 
 export class Agence {
     public id?: number;

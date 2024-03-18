@@ -1,7 +1,7 @@
-import { PeriodiciteRemboursement } from './periodicite-remboursement';
+import {PeriodiciteRemboursement} from './periodicite-remboursement';
 
 describe('PeriodiciteRemboursement', () => {
-  it('should create an instance', () => {
-    expect(new PeriodiciteRemboursement()).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(new PeriodiciteRemboursement()).toBeTruthy();
+    });
 });

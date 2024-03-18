@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
+import {trigger, style, transition, animate, AnimationEvent} from '@angular/animations';
 import {ConfirmationService, MessageService} from 'primeng/api';
-import { AppComponent } from './app.component';
-import { AppMainComponent } from './app.main.component';
+import {AppComponent} from './app.component';
+import {AppMainComponent} from './app.main.component';
 import {KeycloakService} from "keycloak-angular";
 import {HttpResponse} from '@angular/common/http';
 import isOnline from 'is-online';
+
 @Component({
     selector: 'app-topbar',
     templateUrl: './app.topbar.component.html',
@@ -14,27 +15,27 @@ import isOnline from 'is-online';
         trigger('topbarActionPanelAnimation', [
             transition(':enter', [
                 style({opacity: 0, transform: 'scaleY(0.8)'}),
-                animate('.12s cubic-bezier(0, 0, 0.2, 1)', style({ opacity: 1, transform: '*' })),
-              ]),
-              transition(':leave', [
-                animate('.1s linear', style({ opacity: 0 }))
-              ])
+                animate('.12s cubic-bezier(0, 0, 0.2, 1)', style({opacity: 1, transform: '*'})),
+            ]),
+            transition(':leave', [
+                animate('.1s linear', style({opacity: 0}))
+            ])
         ])
     ]
 })
 export class AppTopBarComponent implements OnInit {
     keycloakUser: string = '';
-    userRole :string[] = [];
-    IS_EMPLOYE ='IS_EMPLOYE';
-    IS_CHEF_SERVICE ='IS_CHEF_SERVICE';
-    IS_CHEF_COMPTABILITE ='IS_CHEF_COMPTABILITE';
-    IS_DG ='IS_DG';
+    userRole: string[] = [];
+    IS_EMPLOYE = 'IS_EMPLOYE';
+    IS_CHEF_SERVICE = 'IS_CHEF_SERVICE';
+    IS_CHEF_COMPTABILITE = 'IS_CHEF_COMPTABILITE';
+    IS_DG = 'IS_DG';
     IS_COMPTABILITE = 'IS_COMPTABILITE';
     IS_PARAMETRAGE_MANAGER = 'IS_PARAMETRAGE_MANAGER';
     IS_CHEF_PERSONNEL = 'IS_CHEF_PERSONNEL';
     IS_ADMIN = 'IS_ADMIN';
-    IS_EMPLOYE_ROLE: string ='';
-    IS_CHEF_SERVICE_ROLE: string ='';
+    IS_EMPLOYE_ROLE: string = '';
+    IS_CHEF_SERVICE_ROLE: string = '';
     IS_DG_ROLE: string = '';
     IS_COMPTABILITE_ROLE: string = '';
     IS_CHEF_COMPTABILITE_ROLE: string = '';
@@ -42,10 +43,10 @@ export class AppTopBarComponent implements OnInit {
     IS_CHEF_PERSONNEL_ROLE: string = '';
     IS_ADMIN_ROLE: string = '';
     isLogin: boolean = false;
-    firstName : string ='';
-    lastName : string ='';
-    userName : any;
-    isCliked : boolean = false;
+    firstName: string = '';
+    lastName: string = '';
+    userName: any;
+    isCliked: boolean = false;
     allNeedsSendedByAgentToChefServiceLength = 0;
     allNeedsSendedByChefServiceToDgLenght: number = 0;
     allNeedsSendedByDgToChefComptableLenght: number = 0;
@@ -54,34 +55,41 @@ export class AppTopBarComponent implements OnInit {
     isAgentRole = false;
     networkStatus = false;
     display = true;
+
     constructor(
-                public confirmationService: ConfirmationService,
-                public appMain: AppMainComponent,
-                public app: AppComponent,
-                public keycloakService : KeycloakService,
-                public messageService: MessageService,
-    ) {}
-    ngOnInit(): void {
-      // this.toInitFunctions();
+        public confirmationService: ConfirmationService,
+        public appMain: AppMainComponent,
+        public app: AppComponent,
+        public keycloakService: KeycloakService,
+        public messageService: MessageService,
+    ) {
     }
-    networkChecked(){
+
+    ngOnInit(): void {
+        // this.toInitFunctions();
+    }
+
+    networkChecked() {
         (async () => {
             this.networkStatus = await isOnline();
-            if (this.networkStatus === true){
+            if (this.networkStatus === true) {
                 this.display = false;
             }
-            console.log('status',  this.networkStatus);
+            console.log('status', this.networkStatus);
         })();
     }
+
     onLogout(): void {
         this.keycloakService.logout().then(() => this.keycloakService.clearToken());
     }
-    onCkliced(event: Event) : void {
+
+    onCkliced(event: Event): void {
         this.isCliked = true;
         this.onDoLogout(event);
     }
-    onDoLogout(event: Event) : void {
-        if(this.isCliked){
+
+    onDoLogout(event: Event): void {
+        if (this.isCliked) {
             this.confirmationService.confirm(
                 {
                     target: event.target,
@@ -92,28 +100,31 @@ export class AppTopBarComponent implements OnInit {
                 });
         }
     }
+
     getUserLogedRole(): void {
         this.userRole = this.keycloakService.getUserRoles();
-        this.IS_EMPLOYE_ROLE = this.userRole.find( role => role.startsWith(this.IS_EMPLOYE));
-        this.IS_CHEF_SERVICE_ROLE = this.userRole.find( role => role.startsWith(this.IS_CHEF_SERVICE));
-        this.IS_DG_ROLE = this.userRole.find( role => role.startsWith(this.IS_DG) );
-        this.IS_COMPTABILITE_ROLE = this.userRole.find( role => role.startsWith(this.IS_COMPTABILITE));
-        this.IS_PARAMETRAGE_MANAGER_ROLE = this.userRole.find( role => role.startsWith(this.IS_PARAMETRAGE_MANAGER));
-        this.IS_CHEF_PERSONNEL_ROLE = this.userRole.find( role => role.startsWith(this.IS_CHEF_PERSONNEL));
+        this.IS_EMPLOYE_ROLE = this.userRole.find(role => role.startsWith(this.IS_EMPLOYE));
+        this.IS_CHEF_SERVICE_ROLE = this.userRole.find(role => role.startsWith(this.IS_CHEF_SERVICE));
+        this.IS_DG_ROLE = this.userRole.find(role => role.startsWith(this.IS_DG));
+        this.IS_COMPTABILITE_ROLE = this.userRole.find(role => role.startsWith(this.IS_COMPTABILITE));
+        this.IS_PARAMETRAGE_MANAGER_ROLE = this.userRole.find(role => role.startsWith(this.IS_PARAMETRAGE_MANAGER));
+        this.IS_CHEF_PERSONNEL_ROLE = this.userRole.find(role => role.startsWith(this.IS_CHEF_PERSONNEL));
     }
-    getUserNameLoged() : void {
+
+    getUserNameLoged(): void {
         this.keycloakUser = this.keycloakService.getUsername();
         this.keycloakService.loadUserProfile().then(profile => {
-          this.firstName = profile.firstName;
-          this.lastName = profile.lastName;
-           // console.log(profile['attributes']); //gives you array of all attributes of user, extract what you need
+            this.firstName = profile.firstName;
+            this.lastName = profile.lastName;
+            // console.log(profile['attributes']); //gives you array of all attributes of user, extract what you need
         })
     }
 
-    canActivate() : void {
+    canActivate(): void {
         this.isLogin = !!this.keycloakService.isLoggedIn();
     }
-    toInitFunctions() : void {
+
+    toInitFunctions(): void {
         this.getUserLogedRole();
         this.getUserNameLoged();
         this.canActivate();
@@ -133,11 +144,11 @@ export class AppTopBarComponent implements OnInit {
     }*/
 
 
-/*    this.entreeService.deleteAll(this.selectedentrees).subscribe((res: HttpResponse<IEntree[]>) => {
-    window.console.log(res.body);
-    this.loadAll();
-});
-    */
+    /*    this.entreeService.deleteAll(this.selectedentrees).subscribe((res: HttpResponse<IEntree[]>) => {
+        window.console.log(res.body);
+        this.loadAll();
+    });
+        */
 
     activeItem: number;
     // model: MegaMenuItem[] = [

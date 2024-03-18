@@ -1,7 +1,7 @@
-import { Gestionnaire } from './gestionnaire';
+import {Gestionnaire} from './gestionnaire';
 
 describe('Gestionnaire', () => {
-  it('should create an instance', () => {
-    expect(new Gestionnaire()).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(new Gestionnaire()).toBeTruthy();
+    });
 });

@@ -1,18 +1,18 @@
-$bodyBgColor:#121212 !default;
-$textColor:rgba(255,255,255,.87) !default;
-$textSecondaryColor:rgba(255,255,255,.60) !default;
+$bodyBgColor: #121212 !default;
+$textColor: rgba(255, 255, 255, .87) !default;
+$textSecondaryColor: rgba(255, 255, 255, .60) !default;
 
-$contentBgColor:#1e1e1e !default;
-$contentAltBgColor:#262626 !default;
-$overlayContentBgColor:#262626 !default;
-$dividerColor:hsla(0,0%,100%,.12) !default;
-$hoverBgColor:hsla(0,0%,100%,.04);
+$contentBgColor: #1e1e1e !default;
+$contentAltBgColor: #262626 !default;
+$overlayContentBgColor: #262626 !default;
+$dividerColor: hsla(0, 0%, 100%, .12) !default;
+$hoverBgColor: hsla(0, 0%, 100%, .04);
 $solidSurfaceTextColor: #121212 !default;
 
 $menuShadow: 2px 0 4px -1px rgba(0, 0, 0, 0.2), 4px 0 5px 0 rgba(0, 0, 0, 0.14), 1px 0 10px 0 rgba(0, 0, 0, 0.12);
 $submenuShadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
-$menuTooltipBgColor:#262626 !default;
-$menuTooltipTextColor:rgba(255,255,255,.87) !default;
+$menuTooltipBgColor: #262626 !default;
+$menuTooltipTextColor: rgba(255, 255, 255, .87) !default;
 
 $pink: #F06292 !default;
 $indigo: #7986CB !default;
@@ -32,7 +32,7 @@ $deeporange: #FF8A65 !default;
 $brown: #A1887F !default;
 
 :root {
-    --divider-color:#{$dividerColor};
+  --divider-color: #{$dividerColor};
 }
 
 @import './_layout_common';

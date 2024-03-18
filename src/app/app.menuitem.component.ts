@@ -171,7 +171,7 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
 
     onMouseEnter() {
         // activate item on hover
-        if (this.root  && (this.app.isHorizontal() || this.app.isSlim()) && this.app.isDesktop()) {
+        if (this.root && (this.app.isHorizontal() || this.app.isSlim()) && this.app.isDesktop()) {
             if (this.app.menuHoverActive) {
                 this.menuService.onMenuStateChange(this.key);
                 this.active = true;
@@ -187,8 +187,7 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
                 if (activeInk) {
                     if (activeInk.classList) {
                         activeInk.classList.remove('p-ink-active');
-                    }
-                    else {
+                    } else {
                         activeInk.className = activeInk.className.replace(new RegExp('(^|\\b)' + 'p-ink-active'.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
                     }
                 }

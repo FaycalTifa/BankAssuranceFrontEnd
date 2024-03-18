@@ -98,31 +98,34 @@ import {MenuService} from './app.menu.service';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { BanqueComponent } from './pages/components/banque/banque.component';
-import { ServiceComponent } from './pages/components/service/service.component';
+import {BanqueComponent} from './pages/components/banque/banque.component';
+import {ServiceComponent} from './pages/components/service/service.component';
 import {ConfirmationService, MessageService} from "primeng/api";
-import { registerLocaleData } from '@angular/common';
+import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 
 import {NgxPrintModule} from 'ngx-print';
 import {KeycloakService} from "keycloak-angular";
+
 registerLocaleData(localeFr, 'fr');
 import {FormsModule,} from '@angular/forms';
-import { AppTopBarComponent } from './app.topbar.component';
-import { CiviliteComponent } from './pages/components/civilite/civilite.component';
-import { PeriodiciteRemboursementComponent } from './pages/components/periodicite-remboursement/periodicite-remboursement.component';
-import { PeriodicitePaiementPrimeComponent } from './pages/components/periodicite-paiement-prime/periodicite-paiement-prime.component';
-import { AgenceComponent } from './pages/components/agence/agence.component';
-import { GestionnaireComponent } from './pages/components/gestionnaire/gestionnaire.component';
-import { PersonneComponent } from './pages/components/personne/personne.component';
-import { QuestionnaireMedicalComponent } from './pages/components/questionnaire-medical/questionnaire-medical.component';
-<<<<<<< HEAD
-import { SouscriptionComponent } from './pages/components/souscription/souscription.component';
-=======
-import { DetailsCreditComponent } from './pages/components/details-credit/details-credit.component';
-import { InformationEmploiComponent } from './pages/components/information-emploi/information-emploi.component';
-import { MandataireComponent } from './pages/components/mandataire/mandataire.component';
->>>>>>> a571eba1fc0da4d32585e36d590399c89b0102b2
+import {AppTopBarComponent} from './app.topbar.component';
+import {CiviliteComponent} from './pages/components/civilite/civilite.component';
+import {
+    PeriodiciteRemboursementComponent
+} from './pages/components/periodicite-remboursement/periodicite-remboursement.component';
+import {
+    PeriodicitePaiementPrimeComponent
+} from './pages/components/periodicite-paiement-prime/periodicite-paiement-prime.component';
+import {AgenceComponent} from './pages/components/agence/agence.component';
+import {GestionnaireComponent} from './pages/components/gestionnaire/gestionnaire.component';
+import {PersonneComponent} from './pages/components/personne/personne.component';
+import {QuestionnaireMedicalComponent} from './pages/components/questionnaire-medical/questionnaire-medical.component';
+import {DetailsCreditComponent} from './pages/components/details-credit/details-credit.component';
+import {InformationEmploiComponent} from './pages/components/information-emploi/information-emploi.component';
+import {MandataireComponent} from './pages/components/mandataire/mandataire.component';
+import {SouscriptionsComponent} from './pages/souscriptions/souscriptions.component';
+import {SouscriptionComponent} from './pages/components/souscription/souscription.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -235,13 +238,11 @@ FullCalendarModule.registerPlugins([
         GestionnaireComponent,
         PersonneComponent,
         QuestionnaireMedicalComponent,
-<<<<<<< HEAD
-        SouscriptionComponent,
-=======
         DetailsCreditComponent,
         InformationEmploiComponent,
         MandataireComponent,
->>>>>>> a571eba1fc0da4d32585e36d590399c89b0102b2
+        SouscriptionsComponent,
+        SouscriptionComponent,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
@@ -249,7 +250,7 @@ FullCalendarModule.registerPlugins([
         MenuService,
         ConfirmationService,
         DatePipe,
-        [ { provide: LOCALE_ID, useValue: "fr-FR" }],
+        [{provide: LOCALE_ID, useValue: "fr-FR"}],
         KeycloakService
     ],
     bootstrap: [AppComponent]

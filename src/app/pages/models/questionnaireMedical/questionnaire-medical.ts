@@ -13,7 +13,6 @@ export class QuestionnaireMedical {
     public detail5?: string;
 
 
-
     constructor(
         id?: number,
         question1?: boolean,
@@ -26,7 +25,6 @@ export class QuestionnaireMedical {
         detail3?: string,
         detail4?: string,
         detail5?: string,
-
     ) {
         this.id = id;
         this.question1 = question1;

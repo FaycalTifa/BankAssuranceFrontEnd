@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AppComponent} from './app.component';
 import {AppMainComponent} from './app.main.component';
 import {Subscription} from 'rxjs';
+
 @Component({
     selector: 'app-config',
     template: `
@@ -165,7 +166,8 @@ export class AppConfigComponent implements OnInit {
 
     isInputBackgroundChanged = false;
 
-    constructor(public appMain: AppMainComponent, public app: AppComponent) {}
+    constructor(public appMain: AppMainComponent, public app: AppComponent) {
+    }
 
     ngOnInit() {
         this.themes = [
@@ -260,8 +262,7 @@ export class AppConfigComponent implements OnInit {
             this.app.menuTheme = 'dark';
             this.app.topbarTheme = 'dark';
             appLogoLink.src = 'assets/layout/images/logo-light.svg';
-        }
-        else {
+        } else {
             this.app.menuTheme = 'light';
             this.app.topbarTheme = 'blue';
             appLogoLink.src = 'assets/layout/images/logo-light.svg';
@@ -301,8 +302,7 @@ export class AppConfigComponent implements OnInit {
         if (theme.name === 'white' || theme.name === 'yellow' || theme.name === 'amber'
             || theme.name === 'orange' || theme.name === 'lime') {
             appLogoLink.src = 'assets/layout/images/logo-dark.svg';
-        }
-        else {
+        } else {
             appLogoLink.src = 'assets/layout/images/logo-light.svg';
         }
     }

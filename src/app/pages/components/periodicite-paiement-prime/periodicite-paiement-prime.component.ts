@@ -6,98 +6,101 @@ import {ServiceService} from '../../services/service/service.service';
 import {KeycloakService} from 'keycloak-angular';
 import {HttpResponse} from '@angular/common/http';
 import {PeriodicitePaiementPrime} from '../../models/periodicitePaiementPrime/periodicite-paiement-prime';
-import {PeriodicitePaiementPrimeService} from '../../services/periodicitePaiementPrime/periodicite-paiement-prime.service';
+import {
+    PeriodicitePaiementPrimeService
+} from '../../services/periodicitePaiementPrime/periodicite-paiement-prime.service';
 
 
 @Component({
-  selector: 'app-periodicite-paiement-prime',
-  templateUrl: './periodicite-paiement-prime.component.html',
-  styleUrls: ['./periodicite-paiement-prime.component.scss']
+    selector: 'app-periodicite-paiement-prime',
+    templateUrl: './periodicite-paiement-prime.component.html',
+    styleUrls: ['./periodicite-paiement-prime.component.scss']
 })
 export class PeriodicitePaiementPrimeComponent implements OnInit {
-  loading = false;
-  @ViewChild('dt') table: Table;
-  @ViewChild('filter') filter: ElementRef;
-  periodicitePaiementPrimes?: PeriodicitePaiementPrime[];
-  services?: IService[];
-  displayDialogue: boolean;
-  displayDialogueModification: boolean;
-  periodicitePaiementPrime: PeriodicitePaiementPrime = new PeriodicitePaiementPrime();
-  keycloakUser = '';
-  userRole: string[] = [];
-  serviceId: number;
+    loading = false;
+    @ViewChild('dt') table: Table;
+    @ViewChild('filter') filter: ElementRef;
+    periodicitePaiementPrimes?: PeriodicitePaiementPrime[];
+    services?: IService[];
+    displayDialogue: boolean;
+    displayDialogueModification: boolean;
+    periodicitePaiementPrime: PeriodicitePaiementPrime = new PeriodicitePaiementPrime();
+    keycloakUser = '';
+    userRole: string[] = [];
+    serviceId: number;
 
-  constructor(
-      private messageService: MessageService,
-      protected periodicitePaiementPrimeService: PeriodicitePaiementPrimeService,
-      protected serviceService: ServiceService,
-      protected keycloakService: KeycloakService,
-      private confirmationService: ConfirmationService) {
-  }
+    constructor(
+        private messageService: MessageService,
+        protected periodicitePaiementPrimeService: PeriodicitePaiementPrimeService,
+        protected serviceService: ServiceService,
+        protected keycloakService: KeycloakService,
+        private confirmationService: ConfirmationService) {
+    }
 
-  ngOnInit(): void {
-    this.periodicitePaiementPrime = new PeriodicitePaiementPrime();
-    this.getAllPeriodicitePaiementPrimes();
-    // this.toInitFunctions();
-  }
+    ngOnInit(): void {
+        this.periodicitePaiementPrime = new PeriodicitePaiementPrime();
+        this.getAllPeriodicitePaiementPrimes();
+        // this.toInitFunctions();
+    }
 
-  clear(table: Table) {
-    table.clear();
-    this.filter.nativeElement.value = '';
-  }
-
-
-  getAllPeriodicitePaiementPrimes(): void {
-    this.periodicitePaiementPrimeService.getAllPeriodicitePaiementPrimes().subscribe((res: HttpResponse<PeriodicitePaiementPrime[]>) => {
-      const data = res.body ?? [];
-      this.periodicitePaiementPrimes = data;
-    });
-  }
+    clear(table: Table) {
+        table.clear();
+        this.filter.nativeElement.value = '';
+    }
 
 
-  successAlert(): void {
-    this.messageService.add({severity: 'success', summary: 'Opération réussie!'});
-  }
+    getAllPeriodicitePaiementPrimes(): void {
+        this.periodicitePaiementPrimeService.getAllPeriodicitePaiementPrimes().subscribe((res: HttpResponse<PeriodicitePaiementPrime[]>) => {
+            const data = res.body ?? [];
+            this.periodicitePaiementPrimes = data;
+        });
+    }
 
-  onDisplayDialogue(periodicitePaiementPrime: PeriodicitePaiementPrime): void {
-    this.periodicitePaiementPrime = new PeriodicitePaiementPrime(); // Réinitialise le modèle du formulaire
-    this.displayDialogue = true;
-  }
 
-  onDisplayDialogueModif(id: number, periodicitePaiementPrimeDetails: PeriodicitePaiementPrime): void {
-    this.periodicitePaiementPrime.id = id;
-    this.periodicitePaiementPrime = periodicitePaiementPrimeDetails;
-      // tslint:disable-next-line:max-line-length
-    console.log('-----onDisplayDialogueModif-------', this.periodicitePaiementPrime.id, this.periodicitePaiementPrime.libelle, this.periodicitePaiementPrime.libelle);
-    this.displayDialogueModification = true;
-  }
+    successAlert(): void {
+        this.messageService.add({severity: 'success', summary: 'Opération réussie!'});
+    }
 
-  onHidenDialogue(): void {
-    this.displayDialogue = false;
-    this.displayDialogueModification = false;
-  }
+    onDisplayDialogue(periodicitePaiementPrime: PeriodicitePaiementPrime): void {
+        this.periodicitePaiementPrime = new PeriodicitePaiementPrime(); // Réinitialise le modèle du formulaire
+        this.displayDialogue = true;
+    }
 
-  onHidenDialogueModif(): void {
-    this.displayDialogueModification = false;
-  }
+    onDisplayDialogueModif(id: number, periodicitePaiementPrimeDetails: PeriodicitePaiementPrime): void {
+        this.periodicitePaiementPrime.id = id;
+        this.periodicitePaiementPrime = periodicitePaiementPrimeDetails;
+        // tslint:disable-next-line:max-line-length
+        console.log('-----onDisplayDialogueModif-------', this.periodicitePaiementPrime.id, this.periodicitePaiementPrime.libelle, this.periodicitePaiementPrime.libelle);
+        this.displayDialogueModification = true;
+    }
 
-  updatePeriodicitePaiementPrime(id: number, periodicitePaiementPrimeDetails: PeriodicitePaiementPrime): void {
-    console.log('==============1111111111111=================', periodicitePaiementPrimeDetails.id);
-    console.log('==============2222222=================', periodicitePaiementPrimeDetails);
-    this.onDisplayDialogueModif(id, periodicitePaiementPrimeDetails);
-    this.periodicitePaiementPrimeService.updatePeriodicitePaiementPrime(id, periodicitePaiementPrimeDetails).subscribe(
-        response => {
-          console.log('============= id updatePeriodicitePaiementPrime ==================', periodicitePaiementPrimeDetails.id);
-          console.log('Service mise à jour avec succès', response);
-          this.successAlert();
-          this.getAllPeriodicitePaiementPrimes();
-        },
-        error => {
-          console.error('Erreur lors de la mise à jour de la periodicitePaiementPrime:', error);
-        }
-    );
-    this.onHidenDialogueModif();
-  }
+    onHidenDialogue(): void {
+        this.displayDialogue = false;
+        this.displayDialogueModification = false;
+    }
+
+    onHidenDialogueModif(): void {
+        this.displayDialogueModification = false;
+    }
+
+    updatePeriodicitePaiementPrime(id: number, periodicitePaiementPrimeDetails: PeriodicitePaiementPrime): void {
+        console.log('==============1111111111111=================', periodicitePaiementPrimeDetails.id);
+        console.log('==============2222222=================', periodicitePaiementPrimeDetails);
+        this.onDisplayDialogueModif(id, periodicitePaiementPrimeDetails);
+        this.periodicitePaiementPrimeService.updatePeriodicitePaiementPrime(id, periodicitePaiementPrimeDetails).subscribe(
+            response => {
+                console.log('============= id updatePeriodicitePaiementPrime ==================', periodicitePaiementPrimeDetails.id);
+                console.log('Service mise à jour avec succès', response);
+                this.successAlert();
+                this.getAllPeriodicitePaiementPrimes();
+            },
+            error => {
+                console.error('Erreur lors de la mise à jour de la periodicitePaiementPrime:', error);
+            }
+        );
+        this.onHidenDialogueModif();
+    }
+
     deletePeriodicitePairmentPrime(id: number, periodicitePaiementPrimeDetails: PeriodicitePaiementPrime): void {
         this.confirmationService.confirm(
             {
@@ -126,8 +129,6 @@ export class PeriodicitePaiementPrimeComponent implements OnInit {
                 }
             });
     }
-
-
 
 
     onSave(periodicitePaiementPrime1: PeriodicitePaiementPrime): void {

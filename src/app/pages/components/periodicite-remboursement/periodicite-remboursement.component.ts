@@ -8,12 +8,14 @@ import {ServiceService} from '../../services/service/service.service';
 import {KeycloakService} from 'keycloak-angular';
 import {HttpResponse} from '@angular/common/http';
 import {PeriodiciteRemboursement} from '../../models/periodiciteRemboursement/periodicite-remboursement';
-import {PeriodiciteRemboursementService} from '../../services/periodiciteRemboursement/periodicite-remboursement.service';
+import {
+    PeriodiciteRemboursementService
+} from '../../services/periodiciteRemboursement/periodicite-remboursement.service';
 
 @Component({
-  selector: 'app-periodicite-remboursement',
-  templateUrl: './periodicite-remboursement.component.html',
-  styleUrls: ['./periodicite-remboursement.component.scss']
+    selector: 'app-periodicite-remboursement',
+    templateUrl: './periodicite-remboursement.component.html',
+    styleUrls: ['./periodicite-remboursement.component.scss']
 })
 export class PeriodiciteRemboursementComponent implements OnInit {
     loading = false;
@@ -28,17 +30,18 @@ export class PeriodiciteRemboursementComponent implements OnInit {
     userRole: string[] = [];
     serviceId: number;
 
-  constructor(private messageService: MessageService,
-              protected periodiciteRemboursementService: PeriodiciteRemboursementService,
-              protected serviceService: ServiceService,
-              protected keycloakService: KeycloakService,
-              private confirmationService: ConfirmationService) { }
+    constructor(private messageService: MessageService,
+                protected periodiciteRemboursementService: PeriodiciteRemboursementService,
+                protected serviceService: ServiceService,
+                protected keycloakService: KeycloakService,
+                private confirmationService: ConfirmationService) {
+    }
 
-  ngOnInit(): void {
-      this.periodiciteRemboursement = new PeriodiciteRemboursement();
-      this.getAllPeriodiciteRemboursements();
-      // this.toInitFunctions();
-  }
+    ngOnInit(): void {
+        this.periodiciteRemboursement = new PeriodiciteRemboursement();
+        this.getAllPeriodiciteRemboursements();
+        // this.toInitFunctions();
+    }
 
     clear(table: Table) {
         table.clear();
@@ -47,7 +50,7 @@ export class PeriodiciteRemboursementComponent implements OnInit {
 
 
     getAllPeriodiciteRemboursements(): void {
-      this.periodiciteRemboursementService.getAllPeriodiciteRemboursements().subscribe((res: HttpResponse<PeriodiciteRemboursement[]>) => {
+        this.periodiciteRemboursementService.getAllPeriodiciteRemboursements().subscribe((res: HttpResponse<PeriodiciteRemboursement[]>) => {
             const data = res.body ?? [];
             this.periodiciteRemboursements = data;
         });
@@ -127,8 +130,6 @@ export class PeriodiciteRemboursementComponent implements OnInit {
                 }
             });
     }
-
-
 
 
     onSave(periodiciteRemboursement1: PeriodiciteRemboursement): void {

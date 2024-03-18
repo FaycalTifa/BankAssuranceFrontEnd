@@ -1,7 +1,7 @@
-import { Agence } from './agence';
+import {Agence} from './agence';
 
 describe('Agence', () => {
-  it('should create an instance', () => {
-    expect(new Agence()).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(new Agence()).toBeTruthy();
+    });
 });

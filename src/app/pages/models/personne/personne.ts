@@ -20,30 +20,27 @@ export class Personne {
     public emailSecours?: string;
     public adresseSecours?: string;
 
-
     constructor(
         id?: number,
-
-     nom?: string,
-     prenom?: string,
-     nomDeJeuneFille?: string,
-    dateDeNaissance?: string,
-    lieuDeNaissance?: string,
-     taille?: number,
-    poids?: number,
-    tension?: string,
-     professionActuelle?: string,
-    employeur?: string,
-     numeroPiecePasseport?: string,
-    dateEtablissement?: string,
-    lieuEtablissement?: string,
-     adressePostale?: string,
-    telephone?: string,
-     email?: string,
-     telephoneSecours?: string,
-    emailSecours?: string,
-     adresseSecours?: string,
-
+        nom?: string,
+        prenom?: string,
+        nomDeJeuneFille?: string,
+        dateDeNaissance?: string,
+        lieuDeNaissance?: string,
+        taille?: number,
+        poids?: number,
+        tension?: string,
+        professionActuelle?: string,
+        employeur?: string,
+        numeroPiecePasseport?: string,
+        dateEtablissement?: string,
+        lieuEtablissement?: string,
+        adressePostale?: string,
+        telephone?: string,
+        email?: string,
+        telephoneSecours?: string,
+        emailSecours?: string,
+        adresseSecours?: string
     ) {
         this.id = id;
         this.nom = nom;
@@ -66,6 +63,4 @@ export class Personne {
         this.emailSecours = emailSecours;
         this.adresseSecours = adresseSecours;
     }
-
-
 }

@@ -48,6 +48,7 @@ export class BanqueComponent implements OnInit {
             this.banques = data;
         });
     }
+
     findById(id: number): void {
         this.banqueService.findById(id).subscribe(
             (res: Banque) => {

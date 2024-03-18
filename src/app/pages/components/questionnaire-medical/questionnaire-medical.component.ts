@@ -7,9 +7,9 @@ import {QuestionnaireMedical} from "../../models/questionnaireMedical/questionna
 import {QuestionnaireMedicalService} from "../../services/questionnaireMedical/questionnaire-medical.service";
 
 @Component({
-  selector: 'app-questionnaire-medical',
-  templateUrl: './questionnaire-medical.component.html',
-  styleUrls: ['./questionnaire-medical.component.scss']
+    selector: 'app-questionnaire-medical',
+    templateUrl: './questionnaire-medical.component.html',
+    styleUrls: ['./questionnaire-medical.component.scss']
 })
 export class QuestionnaireMedicalComponent implements OnInit {
 
@@ -63,7 +63,7 @@ export class QuestionnaireMedicalComponent implements OnInit {
     onDisplayDialogueModif(id: number, questionnaireMedicalDetails: QuestionnaireMedical): void {
         this.questionnaireMedical.id = id;
         this.questionnaireMedical = questionnaireMedicalDetails;
-        console.log('-----onDisplayDialogueModif-------', this.questionnaireMedical.id, this.questionnaireMedical.question1, this.questionnaireMedical.question2, this.questionnaireMedical.question3, this.questionnaireMedical.question4, this.questionnaireMedical.detail1 );
+        console.log('-----onDisplayDialogueModif-------', this.questionnaireMedical.id, this.questionnaireMedical.question1, this.questionnaireMedical.question2, this.questionnaireMedical.question3, this.questionnaireMedical.question4, this.questionnaireMedical.detail1);
         this.displayDialogueModification = true;
     }
 
@@ -140,9 +140,6 @@ export class QuestionnaireMedicalComponent implements OnInit {
                 }
             });
     }
-
-
-
 
 
 }

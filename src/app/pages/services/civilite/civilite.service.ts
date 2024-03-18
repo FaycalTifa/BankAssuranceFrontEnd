@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from '../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Banque} from '../../models/banque/banque';
@@ -7,31 +7,33 @@ import {EntityArrayResponseType, EntityResponseType} from '../banque/banque.serv
 import {Civilite} from '../../models/civilite/civilite';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class CiviliteService {
-  public resourceUrl = environment.api + 'civilite/';
-  private apiUrl = 'http://localhost:9999/api/civilite';
-  constructor(protected http: HttpClient) {}
+    public resourceUrl = environment.api + 'civilite/';
+    private apiUrl = 'http://localhost:9999/api/civilite';
 
-  createCivilite(civilite: Civilite): Observable<EntityResponseType> {
-    return this.http.post<Civilite>(this.apiUrl , civilite, { observe: 'response' });
-  }
-  updateCivilite(id: number, civiliteDetails: Civilite): Observable<Civilite> {
-    console.log('==============333333=================', civiliteDetails.id);
-    console.log('==============44444=================', civiliteDetails);
-    return this.http.put<Banque>(`${this.apiUrl}/${id}`, civiliteDetails);
-  }
+    constructor(protected http: HttpClient) {
+    }
 
-  deleteCivilite(id: number, civiliteDetails: Civilite): Observable<Civilite> {
-    console.log('==============333333=================', civiliteDetails.id);
-    console.log('==============44444=================', civiliteDetails);
-    return this.http.put<Civilite>(`${this.apiUrl}/deleteCivilite/${id}`, civiliteDetails);
-  }
+    createCivilite(civilite: Civilite): Observable<EntityResponseType> {
+        return this.http.post<Civilite>(this.apiUrl, civilite, {observe: 'response'});
+    }
+
+    updateCivilite(id: number, civiliteDetails: Civilite): Observable<Civilite> {
+        console.log('==============333333=================', civiliteDetails.id);
+        console.log('==============44444=================', civiliteDetails);
+        return this.http.put<Banque>(`${this.apiUrl}/${id}`, civiliteDetails);
+    }
+
+    deleteCivilite(id: number, civiliteDetails: Civilite): Observable<Civilite> {
+        console.log('==============333333=================', civiliteDetails.id);
+        console.log('==============44444=================', civiliteDetails);
+        return this.http.put<Civilite>(`${this.apiUrl}/deleteCivilite/${id}`, civiliteDetails);
+    }
 
 
-
-  getAllCivilites(): Observable<EntityArrayResponseType> {
-    return this.http.get<Civilite[]>(this.apiUrl, {  observe: 'response' });
-  }
+    getAllCivilites(): Observable<EntityArrayResponseType> {
+        return this.http.get<Civilite[]>(this.apiUrl, {observe: 'response'});
+    }
 }

@@ -8,13 +8,13 @@ export class Mandataire {
 
     constructor(
         id?: number,
-     capitalAssurer?: number,
-     primeGarantieDecesOuIAD?: number,
-     primeGarantiePerteEmploi?: number,
-     primeTotale?: number,
-     numeroDeCompteUABVie?: string,
+        capitalAssurer?: number,
+        primeGarantieDecesOuIAD?: number,
+        primeGarantiePerteEmploi?: number,
+        primeTotale?: number,
+        numeroDeCompteUABVie?: string,
     ) {
-        this.id= id;
+        this.id = id;
         this.capitalAssurer = capitalAssurer;
         this.primeGarantieDecesOuIAD = primeGarantieDecesOuIAD;
         this.primeGarantiePerteEmploi = primeGarantiePerteEmploi;

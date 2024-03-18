@@ -1,15 +1,21 @@
 # Changelog
 
 ## 13.1.1
+
 **Fixed bugs:**
+
 - Router paths fixed
 
 ## 13.1.0
+
 **Migration Guide**
+
 - Update your project to PrimeNG 13.1.0
-    
+
 ## 13.0.0
+
 **Migration Guide**
+
 - Update your project to Angular 13.
 - Update theme files and layout files.
 
@@ -18,7 +24,9 @@
 - Upgrade to Angular and PrimeNG 13
 
 ## 12.2.0
+
 **Migration Guide**
+
 - Update theme files and layout files.
 
 **Implemented New Features and Enhancements:**
@@ -26,7 +34,9 @@
 - Styles of new PrimeNG components
 
 ## 12.0.0
+
 **Migration Guide**
+
 - Update your project to Angular 12.
 - Update app.* components
 - Update theme files and layout files.
@@ -38,7 +48,9 @@
 - PrimeFlex 3+ support
 
 ## 11.0.1
+
 **Migration Guide**
+
 - Update theme files and layout files.
 
 **Fixed bugs:**
@@ -46,7 +58,9 @@
 - Search panel is not visible (dark mode)
 
 ## 11.0.0
+
 **Migration Guide**
+
 - Update your project to Angular 11.
 - Update app.main.component.ts and app.component.ts
 - Update app.menu.component.ts and app.menuitem.component.ts
@@ -60,6 +74,7 @@
 ## 10.1.0
 
 **Migration Guide**
+
 - Update theme files and layout files.
 - Update app.* components
 - Use app.inlinemenu.component instead of app.profile.component
@@ -72,6 +87,7 @@
 ## 10.0.1
 
 **Migration Guide**
+
 - Update app.component.ts and app.main.component.ts
 - Update app.login.component.html
 - Update layout css files.
@@ -85,6 +101,7 @@
 ## 10.0.0
 
 **Migration Guide**
+
 - Update your project to Angular 10.
 - Update theme files and layout files.
 
@@ -110,7 +127,8 @@ Angular 9 and PrimeNG 9
 
 ## 7.1.1 to 8.0.0
 
-- Update your project to Angular 8 with ng update. View the official update guide -[https://update.angular.io/](https://update.angular.io/)- for more information.
+- Update your project to Angular 8 with ng update. View the official update
+  guide -[https://update.angular.io/](https://update.angular.io/)- for more information.
 - Update app.main.component.ts.
 - Update app.menu.component.ts.
 - Update app.rightpanel.component.ts.
@@ -149,7 +167,8 @@ Adds support for new features in PrimeNG 6.1.x
 
 ## 5.2.4 to 6.0.0
 
-Brings support for Angular 6 and RxJS 6, adds theming for new components in PrimeNG such as the new TreeTable and improves behaviors of the layout menus.
+Brings support for Angular 6 and RxJS 6, adds theming for new components in PrimeNG such as the new TreeTable and
+improves behaviors of the layout menus.
 
 - Update app.module.ts and app.component.ts.
 - Update app.topbar.component.ts.
@@ -182,7 +201,8 @@ Aligns input focus animation with the Material specs.
 
 ## 5.0.0 to 5.2.0
 
-Adds support for PrimeNG 5.2.0 (e.g. TurboTable), replaces nanoscroller with PrimeNG ScrollPanel and reimplements ripple effect to run outside of NgZone for better performance.
+Adds support for PrimeNG 5.2.0 (e.g. TurboTable), replaces nanoscroller with PrimeNG ScrollPanel and reimplements ripple
+effect to run outside of NgZone for better performance.
 
 - Remove nanoscroller as it is replaced by ScrollPanel component of PrimeNG.
 - Update app.component.ts and app.component.html.
@@ -225,8 +245,10 @@ Adds support for PrimeNG 5.2.0 (e.g. TurboTable), replaces nanoscroller with Pri
 ## 2.0.5 to 2.1.0
 
 - Project is updated to CLI RC2, Angular 4-RC3 and PrimeNG 4-RC1.
-- Add _import {trigger,state,style,transition,animate} from '@angular/animations';_ to app.menu.components.ts and remove these imports from 'angular/core'.
-- Add _import {BrowserAnimationsModule} from '@angular/platform-browser/animations';_ to app.module.ts and import the module to your application.
+- Add _import {trigger,state,style,transition,animate} from '@angular/animations';_ to app.menu.components.ts and remove
+  these imports from 'angular/core'.
+- Add _import {BrowserAnimationsModule} from '@angular/platform-browser/animations';_ to app.module.ts and import the
+  module to your application.
 - Update theme css files, there are no changes to the layout.
 
 ## 2.0.4 to 2.0.5
@@ -241,7 +263,8 @@ Adds support for PrimeNG 5.2.0 (e.g. TurboTable), replaces nanoscroller with Pri
 
 - Update AppSubmenu component in app.menu.component.ts by replacing the itemClick method implementation.
 - Update layout css files, there are no changes on themes.
-- Update app.component.ts by changing onTopbarMenuButtonClick method implementation to add _event.preventDefault()_ at the end.
+- Update app.component.ts by changing onTopbarMenuButtonClick method implementation to add _event.preventDefault()_ at
+  the end.
 - Remove [ngClass]="{'menu-button-rotate': app.rotateMenuButton}" from menu-button in app.topbar.component.ts.
 
 ## 2.0.1 to 2.0.2

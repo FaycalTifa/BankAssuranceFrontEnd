@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { PeriodicitePaiementPrimeService } from './periodicite-paiement-prime.service';
+import {PeriodicitePaiementPrimeService} from './periodicite-paiement-prime.service';
 
 describe('PeriodicitePaiementPrimeService', () => {
-  let service: PeriodicitePaiementPrimeService;
+    let service: PeriodicitePaiementPrimeService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(PeriodicitePaiementPrimeService);
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({});
+        service = TestBed.inject(PeriodicitePaiementPrimeService);
+    });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 });

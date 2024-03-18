@@ -1,7 +1,7 @@
-import { Civilite } from './civilite';
+import {Civilite} from './civilite';
 
 describe('Civilite', () => {
-  it('should create an instance', () => {
-    expect(new Civilite()).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(new Civilite()).toBeTruthy();
+    });
 });

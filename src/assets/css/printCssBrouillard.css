@@ -4,14 +4,17 @@
     text-align: center;
 }
 
-.text_red{
+.text_red {
     color: orangered;
     font-weight: bold;
-}.text_gren{
-     color: darkgreen;
-     font-weight: bold;
- }
-.text_green{
+}
+
+.text_gren {
+    color: darkgreen;
+    font-weight: bold;
+}
+
+.text_green {
     color: darkgreen;
     font-weight: bold;
 }
@@ -20,20 +23,24 @@
 
     text-align: center;
 }
-.color_css{
+
+.color_css {
     color: darkgreen;
     font-weight: bold;
     width: 10rem;
 }
-.border_table{
+
+.border_table {
     border: 0.02rem solid black;
 }
-.header_css_image{
+
+.header_css_image {
     display: flex;
     width: 100%;
     margin: auto;
 }
-.text_info{
+
+.text_info {
     color: blue;
     font-weight: bold;
 }

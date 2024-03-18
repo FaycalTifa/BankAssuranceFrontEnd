@@ -93,10 +93,9 @@ export class AgenceComponent implements OnInit {
     }
 
 
-
     onSave(agence: Agence): void {
-    //  agence.banqueId = this.banque.id;
- //       this.agence.banqueId = this.banque.id;
+        //  agence.banqueId = this.banque.id;
+        //       this.agence.banqueId = this.banque.id;
         console.log("***************this.banque******************", this.agence)
         this.agenceService.createAgence(agence).subscribe(
             resp => {

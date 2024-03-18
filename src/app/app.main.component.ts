@@ -1,7 +1,7 @@
 import {Component, AfterViewInit, Renderer2, OnInit, OnDestroy} from '@angular/core';
-import { MenuService } from './app.menu.service';
+import {MenuService} from './app.menu.service';
 import {ConfirmationService, PrimeNGConfig} from 'primeng/api';
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {HttpResponse} from "@angular/common/http";
 import {KeycloakService} from "keycloak-angular";
 
@@ -49,17 +49,17 @@ export class AppMainComponent implements AfterViewInit, OnInit, OnDestroy {
 
     inlineMenuClick: boolean;
 
-    isLogin : boolean = false;
-    userRole :string[] = [];
-    IS_EMPLOYE ='IS_EMPLOYE';
-    IS_CHEF_SERVICE ='IS_CHEF_SERVICE';
-    IS_DG ='IS_DG';
+    isLogin: boolean = false;
+    userRole: string[] = [];
+    IS_EMPLOYE = 'IS_EMPLOYE';
+    IS_CHEF_SERVICE = 'IS_CHEF_SERVICE';
+    IS_DG = 'IS_DG';
     IS_COMPTABILITE = 'IS_COMPTABILITE';
     IS_PARAMETRAGE_MANAGER = 'IS_PARAMETRAGE_MANAGER';
     IS_CHEF_PERSONNEL = 'IS_CHEF_PERSONNEL';
     IS_CHEF_COMPTABILITE = 'IS_CHEF_COMPTABILITE';
-    IS_EMPLOYE_ROLE: string ='';
-    IS_CHEF_SERVICE_ROLE: string ='';
+    IS_EMPLOYE_ROLE: string = '';
+    IS_CHEF_SERVICE_ROLE: string = '';
     IS_DG_ROLE: string = '';
     IS_COMPTABILITE_ROLE: string = '';
     IS_PARAMETRAGE_MANAGER_ROLE: string = '';
@@ -69,32 +69,36 @@ export class AppMainComponent implements AfterViewInit, OnInit, OnDestroy {
 
     constructor(
         public confirmationService: ConfirmationService,
-        public keycloakService : KeycloakService,
+        public keycloakService: KeycloakService,
         public renderer: Renderer2, private menuService: MenuService, private primengConfig: PrimeNGConfig,
-                public app: AppComponent) { }
+        public app: AppComponent) {
+    }
 
     ngOnInit() {
-       // this.toInitFunctions();
+        // this.toInitFunctions();
         this.menuActive = this.isStatic() && !this.isMobile();
     }
+
     getUserLogedRole(): void {
         this.userRole = this.keycloakService.getUserRoles();
-        this.IS_EMPLOYE_ROLE = this.userRole.find( role => role.startsWith(this.IS_EMPLOYE));
-        this.IS_CHEF_SERVICE_ROLE = this.userRole.find( role => role.startsWith(this.IS_CHEF_SERVICE));
-        this.IS_DG_ROLE = this.userRole.find( role => role.startsWith(this.IS_DG) );
-        this.IS_COMPTABILITE_ROLE = this.userRole.find( role => role.startsWith(this.IS_COMPTABILITE));
-        this.IS_PARAMETRAGE_MANAGER_ROLE = this.userRole.find( role => role.startsWith(this.IS_PARAMETRAGE_MANAGER));
-        this.IS_CHEF_PERSONNEL_ROLE = this.userRole.find( role => role.startsWith(this.IS_CHEF_PERSONNEL));
-        this.IS_CHEF_COMPTABILITE_ROLE = this.userRole.find( role => role.startsWith(this.IS_CHEF_COMPTABILITE));
+        this.IS_EMPLOYE_ROLE = this.userRole.find(role => role.startsWith(this.IS_EMPLOYE));
+        this.IS_CHEF_SERVICE_ROLE = this.userRole.find(role => role.startsWith(this.IS_CHEF_SERVICE));
+        this.IS_DG_ROLE = this.userRole.find(role => role.startsWith(this.IS_DG));
+        this.IS_COMPTABILITE_ROLE = this.userRole.find(role => role.startsWith(this.IS_COMPTABILITE));
+        this.IS_PARAMETRAGE_MANAGER_ROLE = this.userRole.find(role => role.startsWith(this.IS_PARAMETRAGE_MANAGER));
+        this.IS_CHEF_PERSONNEL_ROLE = this.userRole.find(role => role.startsWith(this.IS_CHEF_PERSONNEL));
+        this.IS_CHEF_COMPTABILITE_ROLE = this.userRole.find(role => role.startsWith(this.IS_CHEF_COMPTABILITE));
     }
-    getUserNameLoged() : void {
+
+    getUserNameLoged(): void {
         this.keycloakUser = this.keycloakService.getUsername();
     }
 
-    canActivate() : void {
+    canActivate(): void {
         this.isLogin = !!this.keycloakService.isLoggedIn();
     }
-    toInitFunctions() :void {
+
+    toInitFunctions(): void {
         this.getUserLogedRole();
         this.getUserNameLoged();
         this.canActivate();
@@ -206,8 +210,7 @@ export class AppMainComponent implements AfterViewInit, OnInit, OnDestroy {
 
         if (this.activeTopbarItem === item) {
             this.activeTopbarItem = null;
-        }
-        else {
+        } else {
             this.activeTopbarItem = item;
         }
 

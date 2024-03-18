@@ -93,7 +93,6 @@ export class GestionnaireComponent implements OnInit {
     }
 
 
-
     onSave(gestionnaire: Gestionnaire): void {
         //  gestionnaire.agenceId = this.gestionnaire.id;
         //       this.gestionnaire.agenceId = this.gestionnaire.id;

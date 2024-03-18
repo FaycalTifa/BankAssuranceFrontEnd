@@ -19,9 +19,6 @@ export class InformationEmploi {
         telEmployeur?: string,
         numeroCNSS?: string,
         numeroRCCMIFU?: string,
-
-
-
     ) {
         this.employeur = employeur;
         this.dateEmbauche = dateEmbauche;

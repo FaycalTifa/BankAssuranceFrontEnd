@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { InformationEmploiService } from './information-emploi.service';
+import {InformationEmploiService} from './information-emploi.service';
 
 describe('InformationEmploiService', () => {
-  let service: InformationEmploiService;
+    let service: InformationEmploiService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(InformationEmploiService);
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({});
+        service = TestBed.inject(InformationEmploiService);
+    });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 });

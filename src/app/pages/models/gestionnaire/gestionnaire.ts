@@ -1,4 +1,3 @@
-
 import {Agence} from "../agence/agence";
 
 
@@ -8,7 +7,7 @@ export class Gestionnaire {
     public agenceId?: number;
     public agence?: Agence;
 
-     constructor(
+    constructor(
         id?: number,
         libelle?: string,
         agenceId?: number,

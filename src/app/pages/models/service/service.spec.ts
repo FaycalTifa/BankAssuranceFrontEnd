@@ -1,7 +1,7 @@
-import { Service } from './service';
+import {Service} from './service';
 
 describe('Service', () => {
-  it('should create an instance', () => {
-    expect(new Service()).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(new Service()).toBeTruthy();
+    });
 });

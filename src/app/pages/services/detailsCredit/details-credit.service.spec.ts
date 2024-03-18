@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { DetailsCreditService } from './details-credit.service';
+import {DetailsCreditService} from './details-credit.service';
 
 describe('DetailsCreditService', () => {
-  let service: DetailsCreditService;
+    let service: DetailsCreditService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(DetailsCreditService);
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({});
+        service = TestBed.inject(DetailsCreditService);
+    });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 });

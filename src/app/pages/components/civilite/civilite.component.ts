@@ -9,9 +9,9 @@ import {Civilite} from '../../models/civilite/civilite';
 import {CiviliteService} from '../../services/civilite/civilite.service';
 
 @Component({
-  selector: 'app-civilite',
-  templateUrl: './civilite.component.html',
-  styleUrls: ['./civilite.component.scss']
+    selector: 'app-civilite',
+    templateUrl: './civilite.component.html',
+    styleUrls: ['./civilite.component.scss']
 })
 export class CiviliteComponent implements OnInit {
     loading = false;
@@ -25,31 +25,34 @@ export class CiviliteComponent implements OnInit {
     keycloakUser = '';
     userRole: string[] = [];
     serviceId: number;
-  constructor(
-    private messageService: MessageService,
-    protected civiliteService: CiviliteService,
-    protected serviceService: ServiceService,
-    protected keycloakService: KeycloakService,
-    private confirmationService: ConfirmationService ) {
-}
 
-ngOnInit(): void {
-    this.civilite = new Civilite();
-    this.getAllCivilites();
+    constructor(
+        private messageService: MessageService,
+        protected civiliteService: CiviliteService,
+        protected serviceService: ServiceService,
+        protected keycloakService: KeycloakService,
+        private confirmationService: ConfirmationService) {
+    }
+
+    ngOnInit(): void {
+        this.civilite = new Civilite();
+        this.getAllCivilites();
 // this.toInitFunctions();
-  }
+    }
 
 
-clear(table: Table) {
-    table.clear();
-    this.filter.nativeElement.value = '';
-}
+    clear(table: Table) {
+        table.clear();
+        this.filter.nativeElement.value = '';
+    }
+
     getAllCivilites(): void {
         this.civiliteService.getAllCivilites().subscribe((res: HttpResponse<Civilite[]>) => {
             const data = res.body ?? [];
             this.civilites = data;
         });
     }
+
     successAlert(): void {
         this.messageService.add({severity: 'success', summary: 'Opération réussie!'});
     }
@@ -58,12 +61,14 @@ clear(table: Table) {
         this.civilite = new Civilite(); // Réinitialise le modèle du formulaire
         this.displayDialogue = true;
     }
+
     onDisplayDialogueModif(id: number, civiliteDetails: Civilite): void {
         this.civilite.id = id;
         this.civilite = civiliteDetails;
         console.log('-----onDisplayDialogueModif-------', this.civilite.id, this.civilite.libelle, this.civilite.libelle);
         this.displayDialogueModification = true;
     }
+
     onHidenDialogue(): void {
         this.displayDialogue = false;
         this.displayDialogueModification = false;
@@ -72,6 +77,7 @@ clear(table: Table) {
     onHidenDialogueModif(): void {
         this.displayDialogueModification = false;
     }
+
     updateCivilite(id: number, civiliteDetails: Civilite): void {
         console.log('==============1111111111111=================', civiliteDetails.id);
         console.log('==============2222222=================', civiliteDetails);
@@ -119,8 +125,6 @@ clear(table: Table) {
                 }
             });
     }
-
-
 
 
     onSave(civilite1: Civilite): void {

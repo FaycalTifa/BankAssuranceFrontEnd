@@ -1,7 +1,7 @@
-import { InformationEmploi } from './information-emploi';
+import {InformationEmploi} from './information-emploi';
 
 describe('InformationEmploi', () => {
-  it('should create an instance', () => {
-    expect(new InformationEmploi()).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(new InformationEmploi()).toBeTruthy();
+    });
 });

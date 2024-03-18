@@ -1,179 +1,173 @@
-
 <!--
                           POP-UP D'ENREGISTREMENT
 -->
 
 <p-dialog header="ENREGISTREMENT D'UNE PERSONNE" [(visible)]="displayDialogue" [style]="{width: '50vw'}">
-    <div class="col-6 md:col-6" >
-    <form  #myForm="ngForm" name="myForm" role="form" novalidate>
-        <div class="card p-fluid">
+    <div class="col-6 md:col-6">
+        <form #myForm="ngForm" name="myForm" role="form" novalidate>
+            <div class="card p-fluid">
 
-            <div class="field">
-                <div class="col"></div>
-                <label htmlFor="nom">NOM</label>
-                <input pInputText id="nom" type="text" name="description" [(ngModel)]="personne.nom"
-                       minlength="1"
-                />
-              </div>
-
-            <div class="field">
-                <div class="col"></div>
-                <label htmlFor="prenom">PRENOM</label>
-                <input pInputText id="prenom" type="text" name="description" [(ngModel)]="personne.prenom"
-                       minlength="1"
-                />
-            </div>
-
-            <div class=" flex flex-wrap gap-3 p-fluid">
-                <div class="col-4">
+                <div class="field">
+                    <div class="col"></div>
                     <label htmlFor="nom">NOM</label>
                     <input pInputText id="nom" type="text" name="description" [(ngModel)]="personne.nom"
-                           minlength="0.5" s
+                           minlength="1"
                     />
                 </div>
 
-<<<<<<< HEAD
-                <div class="col-8">
+                <div class="field">
+                    <div class="col"></div>
                     <label htmlFor="prenom">PRENOM</label>
                     <input pInputText id="prenom" type="text" name="description" [(ngModel)]="personne.prenom"
                            minlength="1"
                     />
                 </div>
+
+
+                <!--   <div class="field">-->
+                <div class="field">
+                    <div class="col"></div>
+                    <label htmlFor="nomDeJeuneFille">NOM DE JEUNE FILLE</label>
+                    <input pInputText id="nomDeJeuneFille" type="text" name="description"
+                           [(ngModel)]="personne.nomDeJeuneFille"
+                           minlength="1"
+                    />
+                </div>
+
+
+                <div class="field">
+                    <label htmlFor="dateDeNaissance">DATE DE NAISSANCE</label>
+                    <input pInputText id="dateDeNaissance" type="date" name="description"
+                           [(ngModel)]="personne.dateDeNaissance"
+                           minlength="1"
+                    />
+                </div>
+
+
+                <div class="field">
+                    <label htmlFor="lieuDeNaissance">LIEU DE NAISSANCE</label>
+                    <input pInputText id="lieuDeNaissance" type="text" name="description"
+                           [(ngModel)]="personne.lieuDeNaissance"
+                           minlength="1"
+                    />
+                </div>
+
+                <div class="field">
+                    <label htmlFor="taille">TAILLE</label>
+                    <input pInputText id="taille" type="number" name="description" [(ngModel)]="personne.taille"
+                           minlength="1"
+                    />
+                </div>
+
+                <div class="field">
+                    <label htmlFor="poids">POIDS</label>
+                    <input pInputText id="poids" type="number" name="description" [(ngModel)]="personne.poids"
+                           minlength="1"
+                    />
+                </div>
+
+                <div class="field">
+                    <label htmlFor="tension">TENSION</label>
+                    <input pInputText id="tension" type="number" name="description" [(ngModel)]="personne.tension"
+                           minlength="1"
+                    />
+                </div>
+
+                <div class="field">
+                    <label htmlFor="professionActuelle">PROFESSION ACTUELLE</label>
+                    <input pInputText id="professionActuelle" type="text" name="description"
+                           [(ngModel)]="personne.professionActuelle"
+                           minlength="1"
+                    />
+                </div>
+
+                <div class="field">
+                    <label htmlFor="employeur">EMPLOYEUR</label>
+                    <input pInputText id="employeur" type="text" name="description" [(ngModel)]="personne.employeur"
+                           minlength="1"
+                    />
+                </div>
+
+                <div class="field">
+                    <div class="col-6"></div>
+                    <label htmlFor="numeroPiecePasseport">NUMERO PIECE PASSEPORT</label>
+                    <input pInputText id="numeroPiecepasseport" type="number" name="description"
+                           [(ngModel)]="personne.numeroPiecePasseport"
+                           minlength="1"
+                    />
+
+                    <div class="field">
+                        <label htmlFor="dateEtablissement">DATE ETABLISSEMENT</label>
+                        <input pInputText id="dateEtablissement" type="date" name="description"
+                               [(ngModel)]="personne.dateEtablissement"
+                               minlength="1"
+                        />
+                    </div>
+
+                    <div class="field">
+                        <label htmlFor="lieuEtablissement">LIEU ETABLISSEMENT</label>
+                        <input pInputText id="lieuEtablissement" type="text" name="description"
+                               [(ngModel)]="personne.lieuEtablissement"
+                               minlength="1"
+                        />
+                    </div>
+
+                    <div class="field">
+                        <label htmlFor="adressePostale">ADRESSE POSTALE</label>
+                        <input pInputText id="adressePostale" type="text" name="description"
+                               [(ngModel)]="personne.adressePostale"
+                               minlength="1"
+                        />
+                    </div>
+
+                    <div class="field">
+                        <label htmlFor="telephone">TELEPHONE</label>
+                        <input pInputText id="telephone" type="number" name="description"
+                               [(ngModel)]="personne.telephone"
+                               minlength="1"
+                        />
+                    </div>
+
+                    <div class="field">
+                        <label htmlFor="email">EMAIL</label>
+                        <input pInputText id="email" type="text" name="description" [(ngModel)]="personne.email"
+                               minlength="1"
+                        />
+                    </div>
+
+                    <div class="field">
+                        <label htmlFor="telephoneSecours">TELEPHONE SECOURS</label>
+                        <input pInputText id="telephoneSecours" type="number" name="description"
+                               [(ngModel)]="personne.telephoneSecours"
+                               minlength="1"
+                        />
+                    </div>
+
+                    <div class="field">
+                        <label htmlFor="emailSecours">EMAIL SECOURS</label>
+                        <input pInputText id="emailSecours" type="text" name="description"
+                               [(ngModel)]="personne.emailSecours"
+                               minlength="1"
+                        />
+                    </div>
+
+                    <div class="field">
+                        <label htmlFor="adresseSecours">ADRESSE SECOURS</label>
+                        <input pInputText id="adresseSecours" type="text" name="description"
+                               [(ngModel)]="personne.adresseSecours"
+                               minlength="1"
+                        />
+                    </div>
+                </div>
             </div>
-
-
-            <div class="field">
-=======
-            <div class="field">
-                <div class="col"></div>
->>>>>>> a571eba1fc0da4d32585e36d590399c89b0102b2
-            <label htmlFor="nomDeJeuneFille">NOM DE JEUNE FILLE</label>
-            <input pInputText id="nomDeJeuneFille" type="text" name="description" [(ngModel)]="personne.nomDeJeuneFille"
-                   minlength="1"
-            />
-        </div>
-
-
-        <div class="field">
-            <label htmlFor="dateDeNaissance">DATE DE NAISSANCE</label>
-            <input pInputText id="dateDeNaissance" type="date" name="description" [(ngModel)]="personne.dateDeNaissance"
-                   minlength="1"
-            />
-        </div>
-
-
-        <div class="field">
-            <label htmlFor="lieuDeNaissance">LIEU DE NAISSANCE</label>
-            <input pInputText id="lieuDeNaissance" type="text" name="description" [(ngModel)]="personne.lieuDeNaissance"
-                   minlength="1"
-            />
-        </div>
-
-        <div class="field">
-            <label htmlFor="taille">TAILLE</label>
-            <input pInputText id="taille" type="number" name="description" [(ngModel)]="personne.taille"
-                   minlength="1"
-            />
-        </div>
-
-        <div class="field">
-            <label htmlFor="poids">POIDS</label>
-            <input pInputText id="poids" type="number" name="description" [(ngModel)]="personne.poids"
-                   minlength="1"
-            />
-        </div>
-
-        <div class="field">
-            <label htmlFor="tension">TENSION</label>
-            <input pInputText id="tension" type="number" name="description" [(ngModel)]="personne.tension"
-                   minlength="1"
-            />
-        </div>
-
-        <div class="field">
-            <label htmlFor="professionActuelle">PROFESSION ACTUELLE</label>
-            <input pInputText id="professionActuelle" type="text" name="description" [(ngModel)]="personne.professionActuelle"
-                   minlength="1"
-            />
-        </div>
-
-        <div class="field">
-            <label htmlFor="employeur">EMPLOYEUR</label>
-            <input pInputText id="employeur" type="text" name="description" [(ngModel)]="personne.employeur"
-                   minlength="1"
-            />
-        </div>
-
-        <div class="field">
-            <div class="col-6"></div>
-            <label htmlFor="numeroPiecePasseport">NUMERO PIECE PASSEPORT</label>
-            <input pInputText id="numeroPiecepasseport" type="number" name="description" [(ngModel)]="personne.numeroPiecePasseport"
-                   minlength="1"
-            />
-
-        <div class="field">
-            <label htmlFor="dateEtablissement">DATE ETABLISSEMENT</label>
-            <input pInputText id="dateEtablissement" type="date" name="description" [(ngModel)]="personne.dateEtablissement"
-                   minlength="1"
-            />
-        </div>
-
-        <div class="field">
-            <label htmlFor="lieuEtablissement">LIEU ETABLISSEMENT</label>
-            <input pInputText id="lieuEtablissement" type="text" name="description" [(ngModel)]="personne.lieuEtablissement"
-                   minlength="1"
-            />
-        </div>
-
-        <div class="field">
-            <label htmlFor="adressePostale">ADRESSE POSTALE</label>
-            <input pInputText id="adressePostale" type="text" name="description" [(ngModel)]="personne.adressePostale"
-                   minlength="1"
-            />
-        </div>
-
-        <div class="field">
-            <label htmlFor="telephone">TELEPHONE</label>
-            <input pInputText id="telephone" type="number" name="description" [(ngModel)]="personne.telephone"
-                   minlength="1"
-            />
-        </div>
-
-        <div class="field">
-            <label htmlFor="email">EMAIL</label>
-            <input pInputText id="email" type="text" name="description" [(ngModel)]="personne.email"
-                   minlength="1"
-            />
-        </div>
-
-        <div class="field">
-            <label htmlFor="telephoneSecours">TELEPHONE SECOURS</label>
-            <input pInputText id="telephoneSecours" type="number" name="description" [(ngModel)]="personne.telephoneSecours"
-                   minlength="1"
-            />
-        </div>
-
-        <div class="field">
-            <label htmlFor="emailSecours">EMAIL SECOURS</label>
-            <input pInputText id="emailSecours" type="text" name="description" [(ngModel)]="personne.emailSecours"
-                   minlength="1"
-            />
-        </div>
-
-        <div class="field">
-            <label htmlFor="adresseSecours">ADRESSE SECOURS</label>
-            <input pInputText id="adresseSecours" type="text" name="description" [(ngModel)]="personne.adresseSecours"
-                   minlength="1"
-            />
-        </div>
-        </div>
-        </div>
         </form>
     </div>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()" class="p-button-danger mr-2 mb-2"></button>
-        <button pButton pRipple ttype="submit" [disabled]="!myForm.valid"  label="Enregistrer" icon="pi pi-save" (click)="onSave(personne); ngOnInit();"
+        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()"
+                class="p-button-danger mr-2 mb-2"></button>
+        <button pButton pRipple ttype="submit" [disabled]="!myForm.valid" label="Enregistrer" icon="pi pi-save"
+                (click)="onSave(personne); ngOnInit();"
                 class="p-button-success mr-2 mb-2"></button>
     </ng-template>
 </p-dialog>
@@ -186,8 +180,8 @@
 -->
 
 <p-dialog header="MODIFICATION D'UNE PERSONNE" [(visible)]="displayDialogueModification" [style]="{width: '50vw'}">
-    <div class="col-12 md:col-12" >
-        <form  #myForm="ngForm" name="myForm" role="form" novalidate>
+    <div class="col-12 md:col-12">
+        <form #myForm="ngForm" name="myForm" role="form" novalidate>
             <div class="card p-fluid">
 
                 <div class="field">
@@ -198,21 +192,24 @@
                 </div>
                 <div class="field">
                     <label htmlFor="prenomModifier">PRENOM</label>
-                    <input pInputText id="prenomModifier" type="text" name="prenomModifier" [(ngModel)]="personne.prenom"
+                    <input pInputText id="prenomModifier" type="text" name="prenomModifier"
+                           [(ngModel)]="personne.prenom"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="nomDeJeuneFilleModifier">NOMDEJEUNEFILLE</label>
-                    <input pInputText id="nomDeJeuneFilleModifier" type="text" name="nomDeJeuneFilleModifier" [(ngModel)]="personne.nomDeJeuneFille"
+                    <input pInputText id="nomDeJeuneFilleModifier" type="text" name="nomDeJeuneFilleModifier"
+                           [(ngModel)]="personne.nomDeJeuneFille"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="dateDeNaaissance">DATEDENAISSANCE</label>
-                    <input pInputText id="dateDeNaissanceModifier" type="date" name="dateDeNaissanceModifier" [(ngModel)]="personne.dateDeNaissance"
+                    <input pInputText id="dateDeNaissanceModifier" type="date" name="dateDeNaissanceModifier"
+                           [(ngModel)]="personne.dateDeNaissance"
                            minlength="1"
                     />
                 </div>
@@ -220,14 +217,16 @@
 
                 <div class="field">
                     <label htmlFor="lieuDeNaissance">LIEUDENAISSANCE</label>
-                    <input pInputText id="lieuDeNaissanceModifier" type="text" name="lieuDeNaissanceModifier" [(ngModel)]="personne.lieuDeNaissance"
+                    <input pInputText id="lieuDeNaissanceModifier" type="text" name="lieuDeNaissanceModifier"
+                           [(ngModel)]="personne.lieuDeNaissance"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="taille">TAILLE</label>
-                    <input pInputText id="tailleModifier" type="number" name="tailleModifier" [(ngModel)]="personne.taille"
+                    <input pInputText id="tailleModifier" type="number" name="tailleModifier"
+                           [(ngModel)]="personne.taille"
                            minlength="1"
                     />
                 </div>
@@ -241,56 +240,64 @@
 
                 <div class="field">
                     <label htmlFor="tension">TENSION</label>
-                    <input pInputText id="tensionModifier" type="number" name="tensionModifier" [(ngModel)]="personne.tension"
+                    <input pInputText id="tensionModifier" type="number" name="tensionModifier"
+                           [(ngModel)]="personne.tension"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="professionActuelle">PROFESSIONACTUELLE</label>
-                    <input pInputText id="professionActuelleModifier" type="text" name="professionActuelleModifier" [(ngModel)]="personne.professionActuelle"
+                    <input pInputText id="professionActuelleModifier" type="text" name="professionActuelleModifier"
+                           [(ngModel)]="personne.professionActuelle"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="employeur">EMPLOYEUR</label>
-                    <input pInputText id="employeurModifier" type="text" name="employeurModifier" [(ngModel)]="personne.employeur"
+                    <input pInputText id="employeurModifier" type="text" name="employeurModifier"
+                           [(ngModel)]="personne.employeur"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="numeroPiecePasseport">NUMEROPIECEPASSEPORT</label>
-                    <input pInputText id="numeroPiecepasseportModifier" type="number" name="numeroPiecepasseportModifier" [(ngModel)]="personne.numeroPiecePasseport"
+                    <input pInputText id="numeroPiecepasseportModifier" type="number"
+                           name="numeroPiecepasseportModifier" [(ngModel)]="personne.numeroPiecePasseport"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="dateEtablissement">DATEETABLISSEMENT</label>
-                    <input pInputText id="dateEtablissementModifier" type="date" name="dateEtablissementModifier" [(ngModel)]="personne.dateEtablissement"
+                    <input pInputText id="dateEtablissementModifier" type="date" name="dateEtablissementModifier"
+                           [(ngModel)]="personne.dateEtablissement"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="lieuEtablissement">LIEUETABLISSEMENT</label>
-                    <input pInputText id="lieuEtablissementModifier" type="text" name="lieuEtablissementModifier" [(ngModel)]="personne.lieuEtablissement"
+                    <input pInputText id="lieuEtablissementModifier" type="text" name="lieuEtablissementModifier"
+                           [(ngModel)]="personne.lieuEtablissement"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="adressePostale">ADRESSEPOSTALE</label>
-                    <input pInputText id="adressePostaleModifier" type="text" name="adressePostaleModifier" [(ngModel)]="personne.adressePostale"
+                    <input pInputText id="adressePostaleModifier" type="text" name="adressePostaleModifier"
+                           [(ngModel)]="personne.adressePostale"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="telephone">TELEPHONE</label>
-                    <input pInputText id="telephoneModifier" type="number" name="telephoneModifier" [(ngModel)]="personne.telephone"
+                    <input pInputText id="telephoneModifier" type="number" name="telephoneModifier"
+                           [(ngModel)]="personne.telephone"
                            minlength="1"
                     />
                 </div>
@@ -304,21 +311,24 @@
 
                 <div class="field">
                     <label htmlFor="telephoneSecours">TELEPHONESECOURS</label>
-                    <input pInputText id="telephoneSecoursModifier" type="number" name="telephoneSecoursModifier" [(ngModel)]="personne.telephoneSecours"
+                    <input pInputText id="telephoneSecoursModifier" type="number" name="telephoneSecoursModifier"
+                           [(ngModel)]="personne.telephoneSecours"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="emailSecours">EMAILSECOURS</label>
-                    <input pInputText id="emailSecoursModifier" type="text" name="emailSecoursModifier" [(ngModel)]="personne.emailSecours"
+                    <input pInputText id="emailSecoursModifier" type="text" name="emailSecoursModifier"
+                           [(ngModel)]="personne.emailSecours"
                            minlength="1"
                     />
                 </div>
 
                 <div class="field">
                     <label htmlFor="adresseSecours">ADRESSESECOURS</label>
-                    <input pInputText id="adresseSecoursModifier" type="text" name="adresseSecoursModifier" [(ngModel)]="personne.adresseSecours"
+                    <input pInputText id="adresseSecoursModifier" type="text" name="adresseSecoursModifier"
+                           [(ngModel)]="personne.adresseSecours"
                            minlength="1"
                     />
                 </div>
@@ -328,8 +338,10 @@
     </div>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogueModif()" class="p-button-danger mr-2 mb-2"></button>
-        <button pButton pRipple ttype="submit" [disabled]="!myForm.valid"  label="Enregistrer" icon="pi pi-save" (click)="updatePersonne(personne.id, personne); ngOnInit();"
+        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogueModif()"
+                class="p-button-danger mr-2 mb-2"></button>
+        <button pButton pRipple ttype="submit" [disabled]="!myForm.valid" label="Enregistrer" icon="pi pi-save"
+                (click)="updatePersonne(personne.id, personne); ngOnInit();"
                 class="p-button-success mr-2 mb-2"></button>
     </ng-template>
 </p-dialog>
@@ -344,32 +356,41 @@
             <div class="my-custom-text">
                 <h5 class="my-custom-text">LISTES DES PERSONNES</h5>
             </div>
-            <p-table #dt1 [value]="personnes" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['nom','prenom','nomDeJeuneFille',
+            <p-table #dt1 [value]="personnes" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
+                     styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['nom','prenom','nomDeJeuneFille',
             'dateDeNaissance', 'lieuDeNaissance', 'taille', 'poids', 'tension', 'professionActuelle', 'employeur', 'numeroPiecePasseport', 'dateEtablissement',
-            'lieuEtablissement', 'adressePostale', 'telephone', 'email', 'telephoneSecours', 'emailSecours', 'adresseSecours' ]" responsiveLayout="scroll">
+            'lieuEtablissement', 'adressePostale', 'telephone', 'email', 'telephoneSecours', 'emailSecours', 'adresseSecours' ]"
+                     responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <div>
-                            <button pButton pRipple type="button" label="Ajouter une personne" icon="pi pi-plus" (click)="onDisplayDialogue(personne)"  class="p-button-info mr-2 mb-2"></button>
+                            <button pButton pRipple type="button" label="Ajouter une personne" icon="pi pi-plus"
+                                    (click)="onDisplayDialogue(personne)" class="p-button-info mr-2 mb-2"></button>
                             <!--<button pButton label="Effacer" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>-->
                         </div>
                         <span class="p-input-icon-left mb-2">
 							<i class="pi pi-search"></i>
-							<input pInputText type="text" #filter (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Recherche" class="w-full"/>
+							<input pInputText type="text" #filter
+                                   (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Recherche"
+                                   class="w-full"/>
 						</span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="nom">NOM <p-sortIcon field="nom"></p-sortIcon>
+                        <th pSortableColumn="nom">NOM
+                            <p-sortIcon field="nom"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="prenom"> PRENOM <p-sortIcon field="prenom"></p-sortIcon>
+                        <th pSortableColumn="prenom"> PRENOM
+                            <p-sortIcon field="prenom"></p-sortIcon>
                         </th>
 
-                        <th pSortableColumn="dateDeNaissance"> DATE DE NAISSANCE<p-sortIcon field="dateDeNaissance"></p-sortIcon>
+                        <th pSortableColumn="dateDeNaissance"> DATE DE NAISSANCE
+                            <p-sortIcon field="dateDeNaissance"></p-sortIcon>
                         </th>
 
-                        <th pSortableColumn="employeur"> EMPLOYEUR<p-sortIcon field="employeur"></p-sortIcon>
+                        <th pSortableColumn="employeur"> EMPLOYEUR
+                            <p-sortIcon field="employeur"></p-sortIcon>
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
@@ -382,19 +403,18 @@
 
 
                     <tr>
-                        <td >
+                        <td>
                             {{personne?.nom}}
                         </td>
-                        <td >
+                        <td>
                             {{personne?.prenom}}
                         </td>
-                         <td>
-                             {{personne?.dateDeNaissance}}
-                         </td>
+                        <td>
+                            {{personne?.dateDeNaissance}}
+                        </td>
                         <td>
                             {{personne?.employeur}}
                         </td>
-
 
 
                         <td>
@@ -403,12 +423,12 @@
                                     class="p-button-success mr-2 mb-2">
                             </button>
 
-                            <button pButton pRipple type="button"  icon="pi pi-trash"
+                            <button pButton pRipple type="button" icon="pi pi-trash"
                                     (click)="deletePersonne(this.personne?.id, this.personne)"
                                     class="p-button-danger mr-2 mb-2"></button>
                         </td>
                     </tr>
-                    </ng-template>
+                </ng-template>
                 <ng-template pTemplate="emptymessage">
                     <tr>
                         <td colspan="12">Pas de Personne</td>
@@ -431,6 +451,6 @@
 
 </div>
 <p-toast></p-toast>
-<p-confirmPopup  [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-confirmPopup>
+<p-confirmPopup [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-confirmPopup>
 
 
