@@ -3,368 +3,461 @@
 -->
 
 
-<p-dialog header="ENREGISTREMENT D'UNE SOUSCRIPTION" [(visible)]="displayDialogue" [style]="{width: '150vw'}">
-        <p-steps [model]="items" [activeIndex]="activeIndex"></p-steps>
+<p-dialog header="ENREGISTREMENT D'UNE SOUSCRIPTION" [(visible)]="displayDialogue"
+          [style]="{width: '90vw', height: '70vh'} ">
+    <p-steps [model]="items" [activeIndex]="activeIndex"></p-steps>
 
-        <!--
-                Adhérent
+    <!--
+            Adhérent
 
-            -->
-        <div *ngIf="activeIndex === 0 ">
-
-
-            <div class="card p-fluid">
-                <div class=" flex flex-wrap gap-3 p-fluid">
-
-                    <div class="col-3">
-                        <label htmlFor="nom"> <b>Nom</b> </label>
-                        <input pInputText id="nom" type="text" name="nom"
-                               [(ngModel)]="souscription?.personne.nom"
-                               minlength="0.5"
-                        />
-                    </div>
+        -->
+    <div *ngIf="activeIndex === 0 ">
 
 
-                    <div class="col-3">
-                        <label htmlFor="prenom"> <b>Prénom</b> </label>
-                        <input pInputText id="prenom" type="text" name="description"
-                               [(ngModel)]="souscription?.personne.prenom"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-3">
-                        <label htmlFor="nomDeJeuneFille"> <b>Nom de jeune fille</b> </label>
-                        <input pInputText id="nomDeJeuneFille" type="text" name="description"
-                               [(ngModel)]="souscription?.personne.nomDeJeuneFille"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-3">
-                        <label htmlFor="dateDeNaissance"> <b>Date de naissance</b> </label>
-                        <input pInputText id="dateDeNaissance" type="date" name="description"
-                               [(ngModel)]="souscription?.personne.dateDeNaissance"
-                               minlength="1"
-                        />
-                    </div>
-                </div>
+        <div class="card p-fluid">
+            <div class=" flex flex-wrap gap-3 p-fluid">
 
-                <div class=" flex flex-wrap gap-3 p-fluid">
-                    <div class="col-3">
-                        <label htmlFor="lieuDeNaissance"> <b> Lieu de naissance </b> </label>
-                        <input pInputText id="lieuDeNaissance" type="text" name="description"
-                               [(ngModel)]="souscription?.personne.lieuDeNaissance"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-1">
-                        <label htmlFor="taille"> <b>Taille</b> </label>
-                        <input pInputText id="taille" type="number" name="description"
-                               [(ngModel)]="souscription?.personne.taille"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-1">
-                        <label htmlFor="poids"><b>Poids</b></label>
-                        <input pInputText id="poids" type="number" name="description"
-                               [(ngModel)]="souscription?.personne.poids"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-1">
-                        <label htmlFor="tension"><b>Tension</b></label>
-                        <input pInputText id="tension" type="number" name="description"
-                               [(ngModel)]="souscription?.personne.tension"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-3">
-                        <label htmlFor="professionActuelle"><b>Profession actuelle</b></label>
-                        <input pInputText id="professionActuelle" type="text" name="description"
-                               [(ngModel)]="souscription?.personne.professionActuelle"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-3">
-                        <label htmlFor="employeur"><b>Emloyeur</b></label>
-                        <input pInputText id="employeur" type="text" name="description"
-                               [(ngModel)]="souscription?.personne.employeur"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label htmlFor="numeroPiecePasseport"><b>Numero passport</b></label>
-                        <input pInputText id="numeroPiecepasseport" type="number" name="description"
-                               [(ngModel)]="souscription?.personne.numeroPiecePasseport"
-                               minlength="1"
-                        />
-                    </div>
-
-                    <div class="col-2">
-                        <label htmlFor="dateEtablissement"><b>Date etablissement</b></label>
-                        <input pInputText id="dateEtablissement" type="date" name="description"
-                               [(ngModel)]="souscription?.personne.dateEtablissement"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label htmlFor="lieuEtablissement"><b>Lieu etablissement</b></label>
-                        <input pInputText id="lieuEtablissement" type="text" name="description"
-                               [(ngModel)]="souscription?.personne.lieuEtablissement"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-1">
-                        <label htmlFor="adressePostale"><b>B P</b></label>
-                        <input pInputText id="adressePostale" type="text" name="description"
-                               [(ngModel)]="souscription?.personne.adressePostale"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label htmlFor="telephone"><b>Telephone</b></label>
-                        <input pInputText id="telephone" type="number" name="description"
-                               [(ngModel)]="souscription?.personne.telephone"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label htmlFor="email"><b>Email</b></label>
-                        <input pInputText id="email" type="email" name="description"
-                               [(ngModel)]="souscription?.personne.email"
-                               minlength="1"
-                        />
-                    </div>
-
-                </div>
-                <div class=" flex flex-wrap gap-3 p-fluid">
-
-                    <div class="col-2">
-                        <label htmlFor="telephoneSecours"><b>Telephone 2</b></label>
-                        <input pInputText id="telephoneSecours" type="number" name="description"
-                               [(ngModel)]="souscription?.personne.telephoneSecours"
-                               minlength="1"
-                        />
-                    </div>
-
-                    <div class="col-2">
-                        <label htmlFor="emailSecours"><b>Email 2</b></label>
-                        <input pInputText id="emailSecours" type="text" name="description"
-                               [(ngModel)]="souscription?.personne.emailSecours"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label htmlFor="adresseSecours"><b>Adresse secours</b></label>
-                        <input pInputText id="adresseSecours" type="text" name="description"
-                               [(ngModel)]="souscription?.personne.adresseSecours"
-                               minlength="1"
-                        />
-                    </div>
-
+                <div class="col-3">
+                    <label htmlFor="nom"> <b>Nom</b> </label>
+                    <input pInputText id="nom" type="text" name="nom"
+                           [(ngModel)]="souscription?.personne.nom"
+                           minlength="0.5"
+                    />
                 </div>
 
 
-            </div>
-            <button pButton pRipple type="button" label="Suivant" icon="pi pi-times" (click)="nextStep()"
-                    class="p-button-info mr-2 mb-2"></button>
-
-        </div>
-
-        <div *ngIf="activeIndex === 1">
-            <!-- CREDIT -->
-            <div class="card p-fluid">
-                <div class=" flex flex-wrap gap-3 p-fluid">
-                    <div class="col-2">
-                        <label htmlFor="montantCreditAssurer"><b>Montant crédit</b></label>
-                        <input pInputText id="montantCreditAssurer" type="number" name="description"
-                               [(ngModel)]="souscription?.detailsCredit.montantCreditAssurer"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label htmlFor="montantCreditDecouvert"><b>Montant decouvert</b></label>
-                        <input pInputText id="montantCreditDecouvert" type="number" name="description"
-                               [(ngModel)]="souscription?.detailsCredit.montantCreditDecouvert"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label htmlFor="nombreDeRemboursement"><b>Nombre remboursement</b></label>
-                        <input pInputText id="nombreDeRemboursement" type="number" name="description"
-                               [(ngModel)]="souscription?.detailsCredit.nombreDeRemboursement"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label htmlFor="montantDesTermes"><b>Montant termes</b></label>
-                        <input pInputText id="montantDesTermes" type="number" name="montantDesTermes"
-                               [(ngModel)]="souscription?.detailsCredit.montantDesTermes"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label htmlFor="dureeTotaleCredit"><b>Durée Credit(mois)</b></label>
-                        <input pInputText id="dureeTotaleCredit" type="number" name="dureeTotaleCredit"
-                               [(ngModel)]="souscription?.detailsCredit.dureeTotaleCredit"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label htmlFor="differerAmortissement"><b>Différé mortissement(mois)</b></label>
-                        <input pInputText id="differerAmortissement" type="number" name="differerAmortissement"
-                               [(ngModel)]="souscription?.detailsCredit.differerAmortissement"
-                               minlength="1"
-                        />
-                    </div>
-
+                <div class="col-3">
+                    <label htmlFor="prenom"> <b>Prénom</b> </label>
+                    <input pInputText id="prenom" type="text" name="description"
+                           [(ngModel)]="souscription?.personne.prenom"
+                           minlength="1"
+                    />
                 </div>
-                <div class=" flex flex-wrap gap-3 p-fluid">
-                    <div class="col-2">
-                        <label htmlFor="datePremierRemboursementTerme"><b>Date 1er remboursement</b></label>
-                        <input pInputText id="datePremierRemboursementTerme" type="date"
-                               name="datePremierRemboursementTerme"
-                               [(ngModel)]="souscription?.detailsCredit.datePremierRemboursementTerme"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label htmlFor="dateEffet"><b>Date effet</b></label>
-                        <input pInputText id="dateEffet" type="date" name="dateEffet"
-                               [(ngModel)]="souscription?.detailsCredit.dateEffet"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label htmlFor="dateEcheance"><b>Date écheance</b></label>
-                        <input pInputText id="dateEcheance" type="date" name="dateEcheance"
-                               [(ngModel)]="souscription?.detailsCredit.dateEcheance"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label htmlFor="numeroCompteClient"><b>Numero compte</b></label>
-                        <input pInputText id="numeroCompteClient" type="number" name="numeroCompteClient"
-                               [(ngModel)]="souscription?.detailsCredit.numeroCompteClient"
-                               minlength="1"
-                        />
-                    </div>
-                    <div class="col-2">
-                        <!-- <label htmlFor="periodiciteRemboursement"> periodiciteRemboursement </label>
-                         &lt;!&ndash; Dans votre fichier .component.html &ndash;&gt;
-                         <p-dropdown [(ngModel)]="this.detailsCredit.periodiciteRemboursement" optionLabel="code"
-                                     [options]="periodiciteRemboursements"
-                                     placeholder="Sélectionnez une option"></p-dropdown>
- -->
-                    </div>
+                <div class="col-3">
+                    <label htmlFor="nomDeJeuneFille"> <b>Nom de jeune fille</b> </label>
+                    <input pInputText id="nomDeJeuneFille" type="text" name="description"
+                           [(ngModel)]="souscription?.personne.nomDeJeuneFille"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-3">
+                    <label htmlFor="dateDeNaissance"> <b>Date de naissance</b> </label>
+                    <input pInputText id="dateDeNaissance" type="date" name="description"
+                           [(ngModel)]="souscription?.personne.dateDeNaissance"
+                           minlength="1"
+                    />
                 </div>
             </div>
 
-            <button pButton pRipple type="button" label="Precedent" icon="pi pi-times" (click)="prevStep()"
-                    class="p-button-info mr-2 mb-2"></button>
-            <button pButton pRipple type="button" label="Suivant" icon="pi pi-times" (click)="nextStep()"
-                    class="p-button-info mr-2 mb-2"></button>
+            <div class=" flex flex-wrap gap-3 p-fluid">
+                <div class="col-3">
+                    <label htmlFor="lieuDeNaissance"> <b> Lieu de naissance </b> </label>
+                    <input pInputText id="lieuDeNaissance" type="text" name="description"
+                           [(ngModel)]="souscription?.personne.lieuDeNaissance"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-1">
+                    <label htmlFor="taille"> <b>Taille</b> </label>
+                    <input pInputText id="taille" type="number" name="description"
+                           [(ngModel)]="souscription?.personne.taille"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-1">
+                    <label htmlFor="poids"><b>Poids</b></label>
+                    <input pInputText id="poids" type="number" name="description"
+                           [(ngModel)]="souscription?.personne.poids"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-1">
+                    <label htmlFor="tension"><b>Tension</b></label>
+                    <input pInputText id="tension" type="number" name="description"
+                           [(ngModel)]="souscription?.personne.tension"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-3">
+                    <label htmlFor="professionActuelle"><b>Profession actuelle</b></label>
+                    <input pInputText id="professionActuelle" type="text" name="description"
+                           [(ngModel)]="souscription?.personne.professionActuelle"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-3">
+                    <label htmlFor="employeur"><b>Emloyeur</b></label>
+                    <input pInputText id="employeur" type="text" name="description"
+                           [(ngModel)]="souscription?.personne.employeur"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <label htmlFor="numeroPiecePasseport"><b>Numero passport</b></label>
+                    <input pInputText id="numeroPiecepasseport" type="number" name="description"
+                           [(ngModel)]="souscription?.personne.numeroPiecePasseport"
+                           minlength="1"
+                    />
+                </div>
 
-        </div>
+                <div class="col-2">
+                    <label htmlFor="dateEtablissement"><b>Date etablissement</b></label>
+                    <input pInputText id="dateEtablissement" type="date" name="description"
+                           [(ngModel)]="souscription?.personne.dateEtablissement"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <label htmlFor="lieuEtablissement"><b>Lieu etablissement</b></label>
+                    <input pInputText id="lieuEtablissement" type="text" name="description"
+                           [(ngModel)]="souscription?.personne.lieuEtablissement"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-1">
+                    <label htmlFor="adressePostale"><b>B P</b></label>
+                    <input pInputText id="adressePostale" type="text" name="description"
+                           [(ngModel)]="souscription?.personne.adressePostale"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <label htmlFor="telephone"><b>Telephone</b></label>
+                    <input pInputText id="telephone" type="number" name="description"
+                           [(ngModel)]="souscription?.personne.telephone"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <label htmlFor="email"><b>Email</b></label>
+                    <input pInputText id="email" type="email" name="description"
+                           [(ngModel)]="souscription?.personne.email"
+                           minlength="1"
+                    />
+                </div>
 
-        <div *ngIf="activeIndex === 2">
-            <!-- PERTE EMPLOIS -->
-            <div class="card p-fluid">
-
-                <!--
-                                <div class=" flex flex-wrap gap-3 p-fluid">
-                                    <div class="col-3">
-                                        <label htmlFor="nom"> <b>Nom</b> </label>
-                                        <input pInputText id="nom" type="text" name="description" [(ngModel)]="personne.nom"
-                                               minlength="0.5" s
-                                        />
-                                    </div>
-
-                                    <div class="col-3">
-                                        <label htmlFor="prenom"> <b>Prénom</b> </label>
-                                        <input pInputText id="prenom" type="text" name="description" [(ngModel)]="personne.prenom"
-                                               minlength="1"
-                                        />
-                                    </div>X
-                                </div>
-                -->
             </div>
-            <button pButton pRipple type="button" label="Précédent" icon="pi pi-times" (click)="prevStep()"
-                    class="p-button-info mr-2 mb-2"></button>
-            <button pButton pRipple type="button" label="Suivant" icon="pi pi-times" (click)="nextStep()"
-                    class="p-button-info mb-2" style="margin-right: auto;"></button>
+            <div class=" flex flex-wrap gap-3 p-fluid">
 
-        </div>
+                <div class="col-2">
+                    <label htmlFor="telephoneSecours"><b>Telephone 2</b></label>
+                    <input pInputText id="telephoneSecours" type="number" name="description"
+                           [(ngModel)]="souscription?.personne.telephoneSecours"
+                           minlength="1"
+                    />
+                </div>
 
+                <div class="col-2">
+                    <label htmlFor="emailSecours"><b>Email 2</b></label>
+                    <input pInputText id="emailSecours" type="text" name="description"
+                           [(ngModel)]="souscription?.personne.emailSecours"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <label htmlFor="adresseSecours"><b>Adresse secours</b></label>
+                    <input pInputText id="adresseSecours" type="text" name="description"
+                           [(ngModel)]="souscription?.personne.adresseSecours"
+                           minlength="1"
+                    />
+                </div>
 
-    <div class="col-12 md:col-12">
-        <div *ngIf="activeIndex === 3">
-            <!-- PERTE EMPLOIS -->
-            <div class="card p-fluid">
-
-                <!--
-                                <div class=" flex flex-wrap gap-3 p-fluid">
-                                    <div class="col-3">
-                                        <label htmlFor="nom"> <b>Nom</b> </label>
-                                        <input pInputText id="nom" type="text" name="description" [(ngModel)]="personne.nom"
-                                               minlength="0.5" s
-                                        />
-                                    </div>
-
-                                    <div class="col-3">
-                                        <label htmlFor="prenom"> <b>Prénom</b> </label>
-                                        <input pInputText id="prenom" type="text" name="description" [(ngModel)]="personne.prenom"
-                                               minlength="1"
-                                        />
-                                    </div>X
-                                </div>
-                -->
             </div>
-            <button pButton pRipple type="button" label="Precedant" icon="pi pi-times" (click)="prevStep()"
-                    class="p-button-info mr-2 mb-2"></button>
-            <button pButton pRipple type="button" label="Suivant" icon="pi pi-times" (click)="nextStep()"
-                    class="p-button-info mr-2 mb-2"></button>
+
 
         </div>
+        <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right" (click)="nextStep()"
+                class="p-button-info mr-2 mb-2"></button>
 
     </div>
 
-    <div class="col-12 md:col-12">
-        <div *ngIf="activeIndex === 4">
-            <!-- PERTE EMPLOIS -->
-            <div class="card p-fluid">
+    <div *ngIf="activeIndex === 1">
+        <!-- CREDIT -->
+        <div class="card p-fluid">
+            <div class=" flex flex-wrap gap-3 p-fluid">
+                <div class="col-2">
+                    <label htmlFor="montantCreditAssurer"><b>Montant crédit</b></label>
+                    <input pInputText id="montantCreditAssurer" type="number" name="description"
+                           [(ngModel)]="souscription?.detailsCredit.montantCreditAssurer"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <label htmlFor="montantCreditDecouvert"><b>Montant decouvert</b></label>
+                    <input pInputText id="montantCreditDecouvert" type="number" name="description"
+                           [(ngModel)]="souscription?.detailsCredit.montantCreditDecouvert"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <label htmlFor="nombreDeRemboursement"><b>Nombre remboursement</b></label>
+                    <input pInputText id="nombreDeRemboursement" type="number" name="description"
+                           [(ngModel)]="souscription?.detailsCredit.nombreDeRemboursement"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <label htmlFor="montantDesTermes"><b>Montant termes</b></label>
+                    <input pInputText id="montantDesTermes" type="number" name="montantDesTermes"
+                           [(ngModel)]="souscription?.detailsCredit.montantDesTermes"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <label htmlFor="dureeTotaleCredit"><b>Durée Credit(mois)</b></label>
+                    <input pInputText id="dureeTotaleCredit" type="number" name="dureeTotaleCredit"
+                           [(ngModel)]="souscription?.detailsCredit.dureeTotaleCredit"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <label htmlFor="differerAmortissement"><b>Différé mortissement(mois)</b></label>
+                    <input pInputText id="differerAmortissement" type="number" name="differerAmortissement"
+                           [(ngModel)]="souscription?.detailsCredit.differerAmortissement"
+                           minlength="1"
+                    />
+                </div>
 
-                <!--
-                                <div class=" flex flex-wrap gap-3 p-fluid">
-                                    <div class="col-3">
-                                        <label htmlFor="nom"> <b>Nom</b> </label>
-                                        <input pInputText id="nom" type="text" name="description" [(ngModel)]="personne.nom"
-                                               minlength="0.5" s
-                                        />
-                                    </div>
-
-                                    <div class="col-3">
-                                        <label htmlFor="prenom"> <b>Prénom</b> </label>
-                                        <input pInputText id="prenom" type="text" name="description" [(ngModel)]="personne.prenom"
-                                               minlength="1"
-                                        />
-                                    </div>X
-                                </div>
-                -->
             </div>
-            <button pButton pRipple type="button" label="Precedant" icon="pi pi-times" (click)="prevStep()"
-                    class="p-button-info mr-2 mb-2"></button>
-            <!--            <button pButton pRipple type="button" label="Suivant" icon="pi pi-times" (click)="nextStep()" class="p-button-info mr-2 mb-2"></button>-->
-
-            <!--            <ng-template pTemplate="footer">-->
-            <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()"
-                    class="p-button-danger mr-2 mb-2"></button>
-            <button pButton pRipple ttype="submit" [disabled]="!myForm.valid" label="Enregistrer" icon="pi pi-save"
-                    (click)="onSave(souscription); ngOnInit();"
-                    class="p-button-success mr-2 mb-2"></button>
-            <!--            </ng-template>-->
+            <div class=" flex flex-wrap gap-3 p-fluid">
+                <div class="col-2">
+                    <label htmlFor="datePremierRemboursementTerme"><b>Date 1er remboursement</b></label>
+                    <input pInputText id="datePremierRemboursementTerme" type="date"
+                           name="datePremierRemboursementTerme"
+                           [(ngModel)]="souscription?.detailsCredit.datePremierRemboursementTerme"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <label htmlFor="dateEffet"><b>Date effet</b></label>
+                    <input pInputText id="dateEffet" type="date" name="dateEffet"
+                           [(ngModel)]="souscription?.detailsCredit.dateEffet"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <label htmlFor="dateEcheance"><b>Date écheance</b></label>
+                    <input pInputText id="dateEcheance" type="date" name="dateEcheance"
+                           [(ngModel)]="souscription?.detailsCredit.dateEcheance"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <label htmlFor="numeroCompteClient"><b>Numero compte</b></label>
+                    <input pInputText id="numeroCompteClient" type="number" name="numeroCompteClient"
+                           [(ngModel)]="souscription?.detailsCredit.numeroCompteClient"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-2">
+                    <!-- <label htmlFor="periodiciteRemboursement"> periodiciteRemboursement </label>
+                     &lt;!&ndash; Dans votre fichier .component.html &ndash;&gt;
+                     <p-dropdown [(ngModel)]="this.detailsCredit.periodiciteRemboursement" optionLabel="code"
+                                 [options]="periodiciteRemboursements"
+                                 placeholder="Sélectionnez une option"></p-dropdown>
+-->
+                </div>
+            </div>
         </div>
 
+        <button pButton pRipple type="button" label="Precedent" icon="pi pi-angle-double-left" (click)="prevStep()"
+                class="p-button-info mr-2 mb-2"></button>
+        <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right" (click)="nextStep()"
+                class="p-button-info mr-2 mb-2"></button>
 
+    </div>
+
+    <div *ngIf="activeIndex === 2">
+        <!-- MANDATAIRE -->
+        <div class="card p-fluid">
+
+
+            <div class=" flex flex-wrap gap-3 p-fluid">
+                <div class="col-4">
+                    <label htmlFor="capitalAssurer"> <b>Nom</b> </label>
+                    <input pInputText id="capitalAssurer" type="number" name="capitalAssurer"
+                           [(ngModel)]="souscription.mandataire.capitalAssurer"
+                           minlength="0.5" s
+                    />
+                </div>
+
+                <div class="col-4">
+                    <label htmlFor="primeGarantieDecesOuIAD"> <b>Prénom</b> </label>
+                    <input pInputText id="primeGarantieDecesOuIAD" type="number" name="primeGarantieDecesOuIAD"
+                           [(ngModel)]="souscription.mandataire.primeGarantieDecesOuIAD"
+                           minlength="1"
+                    />
+                </div>
+                <div class="col-4">
+                    <label htmlFor="primeGarantiePerteEmploi"> <b>Prénom</b> </label>
+                    <input pInputText id="primeGarantiePerteEmploi" type="number" name="primeGarantiePerteEmploi"
+                           [(ngModel)]="souscription.mandataire.primeGarantiePerteEmploi"
+                           minlength="1"
+                    />
+                </div>
+            </div>
+            <div class=" flex flex-wrap gap-3 p-fluid">
+                <div class="col-6">
+                    <label htmlFor="primeTotale"> <b>Nom</b> </label>
+                    <input pInputText id="primeTotale" type="number" name="primeTotale"
+                           [(ngModel)]="souscription.mandataire.primeTotale"
+                           minlength="0.5" s
+                    />
+                </div>
+
+                <div class="col-6">
+                    <label htmlFor="numeroDeCompteUABVie"> <b>Prénom</b> </label>
+                    <input pInputText id="numeroDeCompteUABVie" type="number" name="numeroDeCompteUABVie"
+                           [(ngModel)]="souscription.mandataire.numeroDeCompteUABVie"
+                           minlength="1"
+                    />
+                </div>
+
+            </div>
+
+        </div>
+        <button pButton pRipple type="button" label="Précédent" icon="pi pi-angle-double-left" (click)="prevStep()"
+                class="p-button-info mr-2 mb-2"></button>
+        <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right" (click)="nextStep()"
+                class="p-button-info mb-2" style="margin-right: auto;"></button>
+
+    </div>
+
+
+    <div *ngIf="activeIndex == 3">
+        <!-- QUESTIONNAIRE MEDICAL -->
+        <div class="card p-fluid">
+            <div class="mt-4">
+                <label htmlFor="detail1"> <b><h4>Question 1</h4></b> </label>
+
+                <div class=" flex flex-wrap gap-3 p-fluid ">
+                    <div class="col-1">
+                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question1" onLabel="Yes"
+                                        offLabel="No"></p-toggleButton>
+                    </div>
+                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question1 === true">
+                        <label htmlFor="detail1"> <b>Detail</b> </label>
+                        <input pInputText id="detail1" type="text" name="detail1"
+                               [(ngModel)]="souscription.questionnaireMedical.detail1"
+                               minlength="1"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label htmlFor="detail1"> <b><h4>Question 2</h4></b> </label>
+                <div class=" flex flex-wrap gap-3 p-fluid ">
+                    <div class="col-1">
+                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question2" onLabel="Yes"
+                                        offLabel="No"></p-toggleButton>
+                    </div>
+                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question2 === true">
+                        <label htmlFor="detail2"> <b>Detail</b> </label>
+                        <input pInputText id="detail2" type="text" name="detail2"
+                               [(ngModel)]="souscription.questionnaireMedical.detail2"
+                               minlength="1"
+                        />
+                    </div>
+                </div>
+            </div>
+        <div class="mt-4">
+            <label htmlFor="detail1"> <b><h4>Question 3</h4></b> </label>
+                <div class=" flex flex-wrap gap-3 p-fluid ">
+                    <div class="col-1">
+                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question3" onLabel="Yes"
+                                        offLabel="No"></p-toggleButton>
+                    </div>
+                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question3 === true">
+                        <label htmlFor="detail3"> <b>Detail</b> </label>
+                        <input pInputText id="detail3" type="text" name="detail3"
+                               [(ngModel)]="souscription.questionnaireMedical.detail3"
+                               minlength="1"
+                        />
+                    </div>
+                </div>
+        </div>
+        <div class="mt-4">
+            <label htmlFor="detail1"> <b><h4>Question 4</h4></b> </label>
+                <div class=" flex flex-wrap gap-3 p-fluid ">
+                    <div class="col-1">
+                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question4" onLabel="Yes"
+                                        offLabel="No"></p-toggleButton>
+                    </div>
+                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question4 === true">
+                        <label htmlFor="detail4"> <b>Detail</b> </label>
+                        <input pInputText id="detail4" type="text" name="detail4"
+                               [(ngModel)]="souscription.questionnaireMedical.detail4"
+                               minlength="1"
+                        />
+                    </div>
+                </div>
+        </div>
+        <div class="mt-4">
+            <label htmlFor="detail1"> <b><h4>Question 5</h4></b> </label>
+                <div class=" flex flex-wrap gap-3 p-fluid ">
+                    <div class="col-1">
+                        <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                        <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question5" onLabel="Yes"
+                                        offLabel="No"></p-toggleButton>
+                    </div>
+                    <div class="col-11" *ngIf="souscription.questionnaireMedical.question5 === true">
+                        <label htmlFor="detail5"> <b>Detail</b> </label>
+                        <input pInputText id="detail5" type="text" name="detail5"
+                               [(ngModel)]="souscription.questionnaireMedical.detail5"
+                               minlength="1"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button pButton pRipple type="button" label="Précédent" icon="pi pi-angle-double-left" (click)="prevStep()"
+                class="p-button-info mr-2 mb-2"></button>
+        <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right" (click)="nextStep()"
+                class="p-button-info mb-2" style="margin-right: auto;"></button>
+
+    </div>
+
+
+    <div *ngIf="activeIndex === 4">
+        <!-- PERTE EMPLOIS -->
+        <div class="card p-fluid">
+
+            <!--
+                            <div class=" flex flex-wrap gap-3 p-fluid">
+                                <div class="col-3">
+                                    <label htmlFor="nom"> <b>Nom</b> </label>
+                                    <input pInputText id="nom" type="text" name="description" [(ngModel)]="personne.nom"
+                                           minlength="0.5" s
+                                    />
+                                </div>
+
+                                <div class="col-3">
+                                    <label htmlFor="prenom"> <b>Prénom</b> </label>
+                                    <input pInputText id="prenom" type="text" name="description" [(ngModel)]="personne.prenom"
+                                           minlength="1"
+                                    />
+                                </div>X
+                            </div>
+            -->
+        </div>
+        <button pButton pRipple type="button" label="Precedant" icon="pi pi-angle-double-left" (click)="prevStep()"
+                class="p-button-info mr-2 mb-2"></button>
+        <!--            <button pButton pRipple type="button" label="Suivant" icon="
+       pi pi-angle-double-right" class="p-button-info mr-2 mb-2"></button>-->
+
+        <!--            <ng-template pTemplate="footer">-->
+        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()"
+                class="p-button-danger mr-2 mb-2"></button>
+        <button pButton pRipple ttype="submit" [disabled]="!myForm.valid" label="Enregistrer" icon="pi pi-save"
+                (click)="onSave(); ngOnInit();"
+                class="p-button-success mr-2 mb-2"></button>
+        <!--            </ng-template>-->
     </div>
 
 

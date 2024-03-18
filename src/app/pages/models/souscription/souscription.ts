@@ -2,6 +2,7 @@
 
 export interface Souscription {
     id?: number;
+
     personne: Personne;
     detailsCredit: DetailsCredit;
     questionnaireMedical: QuestionnaireMedical;
@@ -71,6 +72,7 @@ export interface Mandataire {
 
 export interface InformationEmploi {
     id?: number,
+    isPerte?: boolean,
     employeur?: string,
     dateEmbauche?: string,
     adresseEmployeur?: string,
