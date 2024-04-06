@@ -88,6 +88,7 @@ export class AppMenuComponent implements OnInit {
                 label: 'SOUSCRIPTION', icon: 'pi pi-fw pi-star', routerLink: ['/souscription'],
                 items: [
                     {label: 'SOUSCRIPTION', icon: 'pi pi-star-fill', routerLink: ['/souscription/souscription']},
+                    {label: 'PSOUSCRIPTION', icon: 'pi pi-star-fill', routerLink: ['/psouscription/psouscription']},
                 ]
             },
         ];

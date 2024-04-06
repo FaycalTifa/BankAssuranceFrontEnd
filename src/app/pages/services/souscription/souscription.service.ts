@@ -26,4 +26,20 @@ export class SouscriptionService {
     }
 
 
+ getAllSouscriptionIsSuperieurFalse(): Observable<EntityArrayResponseType> {
+        console.log("============ SERVICE SOUSCRPTION ================")
+        return this.http.get<Souscription[]>(`${this.apiUrl}/findAllByIsSuperieurFalse`, {observe: 'response'});
+    }
+getAllSouscriptionIsSuperieurTrue(): Observable<EntityArrayResponseType> {
+        console.log("============ SERVICE SOUSCRPTION ================")
+        return this.http.get<Souscription[]>(`${this.apiUrl}/findAllByIsSuperieurTrue`, {observe: 'response'});
+    }
+
+    updateSouscription(id: number, souscription: Souscription): Observable<Agence> {
+        console.log('==============333333=================', souscription.id);
+        console.log('==============44444=================', souscription);
+        return this.http.put<Souscription>(`${this.apiUrl}/${id}`, souscription);
+    }
+
+
 }

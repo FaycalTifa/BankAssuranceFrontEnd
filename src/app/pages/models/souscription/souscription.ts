@@ -2,7 +2,7 @@
 
 export interface Souscription {
     id?: number;
-
+    isCuperieur?: boolean;
     personne: Personne;
     detailsCredit: DetailsCredit;
     questionnaireMedical: QuestionnaireMedical;
@@ -35,13 +35,15 @@ export interface Personne {
 
 export interface DetailsCredit {
     id?: number,
+    isDiffere?: boolean,
+    isDecouvert?: boolean,
     montantCreditAssurer?: number,
     montantCreditDecouvert?: number,
     nombreDeRemboursement?: string,
     montantDesTermes?: number,
     numeroCompteClient?: string,
     dureeTotaleCredit?: string,
-    differerAmortissement?: string,
+    differerAmortissement?: number,
     datePremierRemboursementTerme?: string,
     dateEffet?: string,
     dateEcheance?: string,
@@ -67,12 +69,18 @@ export interface Mandataire {
     primeGarantieDecesOuIAD?: number,
     primeGarantiePerteEmploi?: number,
     primeTotale?: number,
+    primeSimple?: number,
+    primeDiffere?: number,
+    primeDecouvert?: number,
     numeroDeCompteUABVie?: string,
+    tauxAmortissement?: number,
+    tauxDecouvert?: number,
 }
 
 export interface InformationEmploi {
     id?: number,
     isPerte?: boolean,
+    isDeleted?: boolean,
     employeur?: string,
     dateEmbauche?: string,
     adresseEmployeur?: string,

@@ -1,21 +1,21 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Table} from "primeng/table";
-import {Banque} from "../../models/banque/banque";
+import {Souscription} from "../../models/souscription/souscription";
 import {ConfirmationService, MenuItem, MessageService} from "primeng/api";
 import {SouscriptionService} from "../../services/souscription/souscription.service";
 import {KeycloakService} from "keycloak-angular";
-import {Souscription} from "../../models/souscription/souscription";
-import {Personne} from "../../models/personne/personne";
-import {Agence} from "../../models/agence/agence";
-import moment from "moment";
+import {Banque} from "../../models/banque/banque";
 import {HttpResponse} from "@angular/common/http";
+import moment from "moment/moment";
 
 @Component({
-    selector: 'app-souscription',
-    templateUrl: './souscription.component.html',
-    styleUrls: ['./souscription.component.scss']
+  selector: 'app-souscription-prod',
+  templateUrl: './souscription-prod.component.html',
+  styleUrls: ['./souscription-prod.component.scss']
 })
-export class SouscriptionComponent implements OnInit {
+export class SouscriptionProdComponent implements OnInit {
+
+
 
     loading = false;
     @ViewChild('dt') table: Table;
@@ -34,6 +34,7 @@ export class SouscriptionComponent implements OnInit {
     tauxDec: number;
     tauxDec1an: number;
     montantSuperieur: boolean = false;
+    Superieur: boolean = false;
     // personne = this.souscription.personne
     souscription: Souscription = {
         isCuperieur: false,
@@ -200,9 +201,9 @@ export class SouscriptionComponent implements OnInit {
 
 
     getAllSouscription(): void {
-        this.souscriptionService.getAllSouscriptionIsSuperieurFalse().subscribe((res: HttpResponse<Souscription[]>) => {
+        this.souscriptionService.getAllSouscriptionIsSuperieurTrue().subscribe((res: HttpResponse<Souscription[]>) => {
             const data = res.body ?? [];
-            console.log("*************** getAllSouscription List getAllAgences******************", data)
+            console.log("*************** getAllSouscriptionIsSuperieurTrue List getAllAgences******************", data)
             this.souscriptions = data;
         });
     }
@@ -227,6 +228,7 @@ export class SouscriptionComponent implements OnInit {
             console.log("============ onSave tauxAmortissement ================", this.souscription.mandataire.tauxAmortissement)
             this.souscription.mandataire.primeDiffere = 0;
             this.souscription.mandataire.primeDecouvert = 0;
+
             this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
 
             this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple;
@@ -246,7 +248,7 @@ export class SouscriptionComponent implements OnInit {
             console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
             console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
             console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-            this.souscription.mandataire.primeDiffere = 0;
+            this.souscription.mandataire.primeDecouvert = 0;
             this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
 
             this.souscription.mandataire.primeDiffere =  (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement);
@@ -264,7 +266,6 @@ export class SouscriptionComponent implements OnInit {
             this.tauxDec1an;
             console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
             this.souscription.mandataire.primeDiffere = 0;
-
             this.souscription.mandataire.primeDecouvert = (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100))
 
             this.souscription.mandataire.primeTotale =   this.souscription.mandataire.primeDecouvert
@@ -301,7 +302,8 @@ export class SouscriptionComponent implements OnInit {
 
 
     onSave(): void {
-
+        this.souscription.isCuperieur = this.Superieur;
+        console.log("============ isSuperieur ================",  this.souscription.isCuperieur)
         this.souscription.mandataire.tauxDecouvert = this.tauxDec;
         if (this.souscription.detailsCredit.isDiffere === false && this.souscription.detailsCredit.isDecouvert === false) {
             console.log("============ isDiffere === false && isDecouvert === false ================")
@@ -312,11 +314,15 @@ export class SouscriptionComponent implements OnInit {
             console.log("============ onSave tauxAmortissement ================", this.souscription.mandataire.tauxAmortissement)
             this.souscription.mandataire.primeDiffere = 0;
             this.souscription.mandataire.primeDecouvert = 0;
+
             this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
 
             this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple;
 
             console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
+
+            this.souscription.isCuperieur = false;
+            console.log("============ isSuperieur ================",  this.souscription.isCuperieur)
             this.souscriptionService.createSouscription(this.souscription).subscribe(
                 resp => {
                     if (resp) {
@@ -353,6 +359,9 @@ export class SouscriptionComponent implements OnInit {
             this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere
 
             console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
+
+            this.souscription.isCuperieur = false;
+            console.log("============ isSuperieur ================",  this.souscription.isCuperieur)
             this.souscriptionService.createSouscription(this.souscription).subscribe(
                 resp => {
                     if (resp) {
@@ -383,6 +392,9 @@ export class SouscriptionComponent implements OnInit {
             this.souscription.mandataire.primeTotale =   this.souscription.mandataire.primeDecouvert
 
             console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale)
+
+            this.souscription.isCuperieur = false;
+            console.log("============ isSuperieur ================",  this.souscription.isCuperieur)
             this.souscriptionService.createSouscription(this.souscription).subscribe(
                 resp => {
                     if (resp) {
@@ -416,6 +428,9 @@ export class SouscriptionComponent implements OnInit {
             this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere;
 
             console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
+
+            this.souscription.isCuperieur = false;
+            console.log("============ isSuperieur ================",  this.souscription.isCuperieur)
             this.souscriptionService.createSouscription(this.souscription).subscribe(
                 resp => {
                     if (resp) {

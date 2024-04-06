@@ -126,6 +126,8 @@ import {InformationEmploiComponent} from './pages/components/information-emploi/
 import {MandataireComponent} from './pages/components/mandataire/mandataire.component';
 import {SouscriptionsComponent} from './pages/souscriptions/souscriptions.component';
 import {SouscriptionComponent} from './pages/components/souscription/souscription.component';
+import { PipePipe } from './pages/pipe/pipe.pipe';
+import { SouscriptionProdComponent } from './pages/components/souscription-prod/souscription-prod.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -243,6 +245,8 @@ FullCalendarModule.registerPlugins([
         MandataireComponent,
         SouscriptionsComponent,
         SouscriptionComponent,
+        PipePipe,
+        SouscriptionProdComponent,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
