@@ -128,12 +128,18 @@ import {SouscriptionsComponent} from './pages/souscriptions/souscriptions.compon
 import {SouscriptionComponent} from './pages/components/souscription/souscription.component';
 import { PipePipe } from './pages/pipe/pipe.pipe';
 import { SouscriptionProdComponent } from './pages/components/souscription-prod/souscription-prod.component';
+import { TypeContratComponent } from './pages/components/type-contrat/type-contrat.component';
+import {KeycloackSecurityService} from './pages/services/keycloack/keycloack.service';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
     timeGridPlugin,
     interactionPlugin
 ]);
+export function kcFactory(kcSecurity: KeycloackSecurityService) {
+    return () => kcSecurity.init();
+
+}
 
 @NgModule({
     imports: [
@@ -247,14 +253,17 @@ FullCalendarModule.registerPlugins([
         SouscriptionComponent,
         PipePipe,
         SouscriptionProdComponent,
+        TypeContratComponent,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
+        {provide: APP_INITIALIZER, deps: [KeycloackSecurityService], useFactory: kcFactory, multi: true},
         MessageService,
         MenuService,
         ConfirmationService,
         DatePipe,
         [{provide: LOCALE_ID, useValue: "fr-FR"}],
+
         KeycloakService
     ],
     bootstrap: [AppComponent]

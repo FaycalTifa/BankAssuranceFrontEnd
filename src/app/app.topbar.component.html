@@ -32,7 +32,7 @@
                     </div>
                 </li>
                 <li class="layout-topbar-item notifications"
-                    *ngIf=" allNeedsSendedByChefServiceToDgLenght > 0 && IS_DG_ROLE">
+                    *ngIf=" allNeedsSendedByChefServiceToDgLenght > 0 && IS_ADMIN_ROLE">
                     <a class="layout-topbar-action rounded-circle"
                        (click)="appMain.onTopbarItemClick($event, 'notifications')" pRipple>
                         <span class="p-overlay-badge">
@@ -45,10 +45,10 @@
                         *ngIf="appMain.activeTopbarItem === 'notifications'">
                         <li class="mb-3">
                             <span class="px-3 fs-small"
-                                  *ngIf="allNeedsSendedByChefServiceToDgLenght &&  IS_DG_ROLE == 1">Vous avez <b> <span
+                                  *ngIf="allNeedsSendedByChefServiceToDgLenght &&  IS_ADMIN_ROLE == 1">Vous avez <b> <span
                                     class="p-badge-warning p-badge">{{allNeedsSendedByChefServiceToDgLenght}}</span></b> nouvelle notification</span>
                             <span class="px-3 fs-small"
-                                  *ngIf="allNeedsSendedByChefServiceToDgLenght &&  IS_DG_ROLE > 1">Vous avez <b> <span
+                                  *ngIf="allNeedsSendedByChefServiceToDgLenght &&  IS_ADMIN_ROLE > 1">Vous avez <b> <span
                                     class="p-badge-warning p-badge">{{allNeedsSendedByChefServiceToDgLenght}}</span></b> nouvelles notifications</span>
                         </li>
                         <li class="layout-topbar-action-item" *ngFor=" let  need of allNeedsSendedByChefServiceToDg">

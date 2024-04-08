@@ -302,7 +302,7 @@
         <!-- QUESTIONNAIRE MEDICAL -->
         <div class="card p-fluid">
             <div class="mt-4">
-                <label htmlFor="detail1"> <b><h4>Question 1</h4></b> </label>
+                <label htmlFor="detail1"> <b><h4>Question 1:  Avez-vous des antécédents médicaux et ou churirgicaux?</h4></b> </label>
 
                 <div class=" flex flex-wrap gap-3 p-fluid ">
                     <div class="col-1">
@@ -321,7 +321,7 @@
             </div>
 
             <div class="mt-4">
-                <label htmlFor="detail1"> <b><h4>Question 2</h4></b> </label>
+                <label htmlFor="detail1"> <b><h4>Question 2: Etes vous porteur d’une maladie chronique nécéssitant un traitement?</h4></b> </label>
                 <div class=" flex flex-wrap gap-3 p-fluid ">
                     <div class="col-1">
                         <label htmlFor="detail1"> <b>Oui / Non</b> </label>
@@ -338,7 +338,7 @@
                 </div>
             </div>
             <div class="mt-4">
-                <label htmlFor="detail1"> <b><h4>Question 3</h4></b> </label>
+                <label htmlFor="detail1"> <b><h4>Question 3: Suivez vous un traitement médical?</h4></b> </label>
                 <div class=" flex flex-wrap gap-3 p-fluid ">
                     <div class="col-1">
                         <label htmlFor="detail1"> <b>Oui / Non</b> </label>
@@ -355,7 +355,7 @@
                 </div>
             </div>
             <div class="mt-4">
-                <label htmlFor="detail1"> <b><h4>Question 4</h4></b> </label>
+                <label htmlFor="detail1"> <b><h4>Question 4: Avez-vous fait récemment un test d’Hepatite B et ou SIDA?</h4></b> </label>
                 <div class=" flex flex-wrap gap-3 p-fluid ">
                     <div class="col-1">
                         <label htmlFor="detail1"> <b>Oui / Non</b> </label>
@@ -372,7 +372,7 @@
                 </div>
             </div>
             <div class="mt-4">
-                <label htmlFor="detail1"> <b><h4>Question 5</h4></b> </label>
+                <label htmlFor="detail1"> <b><h4>Question 5: Etes vous titulaire d’une pension d’invadilité?</h4></b> </label>
                 <div class=" flex flex-wrap gap-3 p-fluid ">
                     <div class="col-1">
                         <label htmlFor="detail1"> <b>Oui / Non</b> </label>
@@ -847,7 +847,7 @@
                           POP-UP DE MODIFICATION
 -->
 
-<p-dialog header="ENREGISTREMENT D'UNE SOUSCRIPTION" [(visible)]="displayDialogueModification"
+<p-dialog header="MODIFICATION D'UNE SOUSCRIPTION" [(visible)]="displayDialogueModification"
           [style]="{width: '90vw', height: '100vh'} ">
 
     <p-steps [model]="items" [activeIndex]="activeIndex"></p-steps>
@@ -1140,7 +1140,7 @@
         <!-- QUESTIONNAIRE MEDICAL -->
         <div class="card p-fluid">
             <div class="mt-4">
-                <label htmlFor="detail1Modif"> <b><h4>Question 1</h4></b> </label>
+                <label htmlFor="detail1Modif"> <b><h4>Question1: Avez-vous des antécédents médicaux et ou churirgicaux?</h4></b> </label>
 
                 <div class=" flex flex-wrap gap-3 p-fluid ">
                     <div class="col-1">
@@ -1159,7 +1159,7 @@
             </div>
 
             <div class="mt-4">
-                <label htmlFor="detail1"> <b><h4>Question 2</h4></b> </label>
+                <label htmlFor="detail1"> <b><h4>Question2: Etes vous porteur d’une maladie chronique nécéssitant un traitement?</h4></b> </label>
                 <div class=" flex flex-wrap gap-3 p-fluid ">
                     <div class="col-1">
                         <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
@@ -1176,7 +1176,7 @@
                 </div>
             </div>
             <div class="mt-4">
-                <label htmlFor="detail1Modif"> <b><h4>Question 3</h4></b> </label>
+                <label htmlFor="detail1Modif"> <b><h4>Question3: Suivez vous un traitement médical?</h4></b> </label>
                 <div class=" flex flex-wrap gap-3 p-fluid ">
                     <div class="col-1">
                         <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
@@ -1193,7 +1193,7 @@
                 </div>
             </div>
             <div class="mt-4">
-                <label htmlFor="detail1"> <b><h4>Question 4</h4></b> </label>
+                <label htmlFor="detail1"> <b><h4>Question4:Avez-vous fait récemment un test d’Hepatite B et ou SIDA?</h4></b> </label>
                 <div class=" flex flex-wrap gap-3 p-fluid ">
                     <div class="col-1">
                         <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
@@ -1210,7 +1210,7 @@
                 </div>
             </div>
             <div class="mt-4">
-                <label htmlFor="detail1"> <b><h4>Question 5</h4></b> </label>
+                <label htmlFor="detail1"> <b><h4>Question5: Etes vous titulaire d’une pension d’invadilité?</h4></b> </label>
                 <div class=" flex flex-wrap gap-3 p-fluid ">
                     <div class="col-1">
                         <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
@@ -1694,7 +1694,7 @@
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <div>
-                            <button pButton pRipple type="button" label="Ajouter une agence" icon="pi pi-plus"
+                            <button pButton pRipple type="button" label="Ajouter une souscription" icon="pi pi-plus"
                                     (click)="onDisplayDialogue(souscription)" class="p-button-info mr-2 mb-2"></button>
                             <!--<button pButton label="Effacer" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>-->
                         </div>
@@ -1785,7 +1785,7 @@
                 </ng-template>
                 <ng-template pTemplate="summary">
                     <div class="p-d-flex p-ai-center p-jc-between">
-                        Il y'a au total {{ souscriptions ? souscriptions.length : 0 }} emplois.
+                        Il y'a au total {{ souscriptions ? souscriptions.length : 0 }} souscriptions.
                     </div>
                 </ng-template>
             </p-table>

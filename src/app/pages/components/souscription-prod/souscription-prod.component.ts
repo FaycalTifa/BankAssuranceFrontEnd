@@ -24,8 +24,18 @@ export class SouscriptionProdComponent implements OnInit {
     displayDialogue: boolean;
     displayDialogueDetail: boolean;
     displayDialogueModification: boolean;
+    IS_ADMIN ='IS_ADMIN';
+    IS_SUPER_ADMIN ='IS_SUPER_ADMIN';
+    IS_USER_BANK = 'IS_USER_BANK';
+    IS_USER_UAB = 'IS_USER_UAB ';
+
+    IS_ADMIN_ROLE : string = '';
+    IS_SUPER_ADMIN_ROLE: string ='';
+    IS_USER_BANK_ROLE: string ='';
+    IS_USER_UAB_ROLE : string = '';
+    isLogin : boolean;
     keycloakUser = '';
-    userRole: string[] = [];
+    userRole: any;
     messageSup: string;
     items: MenuItem[];
     activeIndex = 0;
@@ -127,11 +137,18 @@ export class SouscriptionProdComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+        console.log("IS_ADMIN_ROLE", this.IS_ADMIN_ROLE);
+        console.log("IS_USER_BANK_ROLE", this.IS_USER_BANK_ROLE);
+        console.log("IS_USER_UAB_ROLE", this.IS_USER_UAB_ROLE);
         this.getAllSouscription();
+
+
         //let  personne = this.souscription.personne
         //  console.log(' =================== this.trouverTaux() :', this.trouverTauxDecouvert(65, 1));
         // console.log('Souscription initiale :', this.souscription);
         // console.log('Souscription personne initiale :', this.souscription.personne);
+        // this.toInitFunctions();
 
 
     }
@@ -713,7 +730,29 @@ export class SouscriptionProdComponent implements OnInit {
             return "Indices de tranche d'âge ou de durée invalides.";
         }
     }
+   /* getUserLogedRole(): void {
+        this.userRole = this.keycloakService.getUserRoles();
+        this.IS_ADMIN_ROLE = this.userRole.find(role => role.startsWith(this.IS_ADMIN));
+        this.IS_USER_BANK_ROLE = this.userRole.find(role => role.startsWith(this.IS_USER_BANK));
+        this.IS_USER_UAB_ROLE = this.userRole.find(role => role.startsWith(this.IS_USER_UAB));
+        console.log('ggggggggggggg');
+        console.log(this.userRole);
+    }
 
+
+    getUserNameLoged(): void {
+        this.keycloakUser = this.keycloakService.getUsername();
+    }
+
+    canActivate(): void {
+        this.isLogin = !!this.keycloakService.isLoggedIn();
+    }
+
+    toInitFunctions(): void {
+        this.getUserLogedRole();
+        this.getUserNameLoged();
+        this.canActivate();
+    }*/
 // Exemple d'utilisation de la fonction
 
 

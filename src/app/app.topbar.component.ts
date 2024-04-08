@@ -26,26 +26,15 @@ import isOnline from 'is-online';
 export class AppTopBarComponent implements OnInit {
     keycloakUser: string = '';
     userRole: string[] = [];
-    IS_EMPLOYE = 'IS_EMPLOYE';
-    IS_CHEF_SERVICE = 'IS_CHEF_SERVICE';
-    IS_CHEF_COMPTABILITE = 'IS_CHEF_COMPTABILITE';
-    IS_DG = 'IS_DG';
-    IS_COMPTABILITE = 'IS_COMPTABILITE';
-    IS_PARAMETRAGE_MANAGER = 'IS_PARAMETRAGE_MANAGER';
-    IS_CHEF_PERSONNEL = 'IS_CHEF_PERSONNEL';
     IS_ADMIN = 'IS_ADMIN';
-    IS_EMPLOYE_ROLE: string = '';
-    IS_CHEF_SERVICE_ROLE: string = '';
-    IS_DG_ROLE: string = '';
-    IS_COMPTABILITE_ROLE: string = '';
-    IS_CHEF_COMPTABILITE_ROLE: string = '';
-    IS_PARAMETRAGE_MANAGER_ROLE: string = '';
-    IS_CHEF_PERSONNEL_ROLE: string = '';
+    IS_SUPER_ADMIN = 'IS_SUPER_ADMIN';
+    IS_USER_BANK = 'IS_USER_BANK';
+    IS_USER_UAB = 'IS_USER_UAB ';
     IS_ADMIN_ROLE: string = '';
-    isLogin: boolean = false;
-    firstName: string = '';
-    lastName: string = '';
-    userName: any;
+    IS_SUPER_ADMIN_ROLE: string = '';
+    IS_USER_BANK_ROLE: string = '';
+    IS_USER_UAB_ROLE: string = '';
+
     isCliked: boolean = false;
     allNeedsSendedByAgentToChefServiceLength = 0;
     allNeedsSendedByChefServiceToDgLenght: number = 0;
@@ -55,18 +44,23 @@ export class AppTopBarComponent implements OnInit {
     isAgentRole = false;
     networkStatus = false;
     display = true;
+    firstName : string;
+    lastName : string;
+    isLogin : boolean;
 
     constructor(
+
         public confirmationService: ConfirmationService,
         public appMain: AppMainComponent,
         public app: AppComponent,
         public keycloakService: KeycloakService,
         public messageService: MessageService,
     ) {
+
     }
 
     ngOnInit(): void {
-        // this.toInitFunctions();
+        this.toInitFunctions();
     }
 
     networkChecked() {
@@ -103,12 +97,12 @@ export class AppTopBarComponent implements OnInit {
 
     getUserLogedRole(): void {
         this.userRole = this.keycloakService.getUserRoles();
-        this.IS_EMPLOYE_ROLE = this.userRole.find(role => role.startsWith(this.IS_EMPLOYE));
-        this.IS_CHEF_SERVICE_ROLE = this.userRole.find(role => role.startsWith(this.IS_CHEF_SERVICE));
-        this.IS_DG_ROLE = this.userRole.find(role => role.startsWith(this.IS_DG));
-        this.IS_COMPTABILITE_ROLE = this.userRole.find(role => role.startsWith(this.IS_COMPTABILITE));
-        this.IS_PARAMETRAGE_MANAGER_ROLE = this.userRole.find(role => role.startsWith(this.IS_PARAMETRAGE_MANAGER));
-        this.IS_CHEF_PERSONNEL_ROLE = this.userRole.find(role => role.startsWith(this.IS_CHEF_PERSONNEL));
+        this.IS_ADMIN_ROLE = this.userRole.find(role => role.startsWith(this.IS_ADMIN ));
+        this.IS_SUPER_ADMIN_ROLE = this.userRole.find(role => role.startsWith(this.IS_SUPER_ADMIN));
+        this.IS_USER_BANK_ROLE = this.userRole.find(role => role.startsWith(this.IS_USER_BANK));
+        this.IS_USER_UAB_ROLE = this.userRole.find(role => role.startsWith(this.IS_USER_UAB));
+
+
     }
 
     getUserNameLoged(): void {
@@ -218,3 +212,4 @@ export class AppTopBarComponent implements OnInit {
     //     }
     // }
 }
+

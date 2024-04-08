@@ -19,6 +19,7 @@ import {DetailsCreditComponent} from "./pages/components/details-credit/details-
 import {InformationEmploiComponent} from "./pages/components/information-emploi/information-emploi.component";
 import {MandataireComponent} from "./pages/components/mandataire/mandataire.component";
 import {SouscriptionProdComponent} from "./pages/components/souscription-prod/souscription-prod.component";
+import {TypeContratComponent} from './pages/components/type-contrat/type-contrat.component';
 
 @NgModule({
     imports: [
@@ -39,6 +40,7 @@ import {SouscriptionProdComponent} from "./pages/components/souscription-prod/so
                     {path: 'parametre/detailsCredits', component: DetailsCreditComponent},
                     {path: 'parametre/informationEmplois', component: InformationEmploiComponent},
                     {path: 'parametre/mandataires', component: MandataireComponent},
+                    {path: 'parametre/typeContrats', component: TypeContratComponent},
 
                 ]
             },
