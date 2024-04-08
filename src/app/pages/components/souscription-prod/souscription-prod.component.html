@@ -1027,34 +1027,33 @@
                         <label htmlFor="montantCreditAssurerModif"><b>Montant crédit  </b> <span style="color: red;"> *</span></label>
                         <input pInputText id="montantCreditAssurerModif" type="number" name="montantCreditAssurerModif"
                                [(ngModel)]="souscription?.detailsCredit.montantCreditAssurer"
-                               [max]="50000000"
                                required
                                (ngModelChange)="checkMontantCredit($event)"
 
                         />
                     </div>
-                    <div class="col-2" *ngIf="montantSuperieur">
+                    <div class="col-2" *ngIf="souscription.isCuperieur === false">
                         <label htmlFor="dateEffetModif"><b>Date effet </b><span style="color: red;"> *</span></label>
                         <input pInputText id="dateEffetModif" type="date" name="dateEffetModif"
                                [(ngModel)]="souscription?.detailsCredit.dateEffet"
                                minlength="1"
                         />
                     </div>
-                    <div class="col-2" *ngIf="montantSuperieur">
+                    <div class="col-2" *ngIf="souscription.isCuperieur === false">
                         <label htmlFor="nombreDeRemboursementModif"><b>Nombre remboursement</b></label>
                         <input pInputText id="nombreDeRemboursementModif" type="number" name="nombreDeRemboursementModif"
                                [(ngModel)]="souscription?.detailsCredit.nombreDeRemboursement"
                                minlength="1"
                         />
                     </div>
-                    <div class="col-2" *ngIf="montantSuperieur">
+                    <div class="col-2" *ngIf="souscription.isCuperieur === false">
                         <label htmlFor="dureeTotaleCreditModif"><b>Durée Credit(mois) </b> <span style="color: red;"> *</span></label>
                         <input pInputText id="dureeTotaleCreditModif" type="number" name="dureeTotaleCreditModif"
                                [(ngModel)]="souscription?.detailsCredit.dureeTotaleCredit"
                                minlength="1" required
                         />
                     </div>
-                    <div class="col-2" *ngIf="montantSuperieur">
+                    <div class="col-2" *ngIf="souscription.isCuperieur === false">
                         <label htmlFor="montantDesTermesModif"><b>Montant termes</b></label>
                         <input pInputText id="montantDesTermesModif" type="number" name="montantDesTermesModif"
                                [(ngModel)]="souscription?.detailsCredit.montantDesTermes"
@@ -1062,7 +1061,7 @@
                         />
                     </div>
 
-                    <div class="col-2" *ngIf="montantSuperieur">
+                    <div class="col-2" *ngIf="souscription.isCuperieur === false">
                         <label htmlFor="numeroCompteClientModif"><b>Numero compte </b><span style="color: red;"> *</span></label>
                         <input pInputText id="numeroCompteClientModif" type="number" name="numeroCompteClientModif"
                                [(ngModel)]="souscription?.detailsCredit.numeroCompteClient"
@@ -1073,7 +1072,7 @@
 
                 </div>
                 <div class=" flex flex-wrap gap-3 p-fluid">
-                    <div class="col-2" *ngIf="montantSuperieur">
+                    <div class="col-2" *ngIf="souscription.isCuperieur === false">
                         <label htmlFor="datePremierRemboursementTermeModif"><b>Date 1er remboursement</b></label>
                         <input pInputText id="datePremierRemboursementTermeModif" type="date"
                                name="datePremierRemboursementTermeModif"
@@ -1082,17 +1081,17 @@
                         />
                     </div>
 
-                    <div class="col-2" *ngIf="montantSuperieur">
+                    <div class="col-2" *ngIf="souscription.isCuperieur === false">
                         <label htmlFor="dateEcheanceModif"><b>Date écheance</b></label>
                         <input pInputText id="dateEcheanceModif" type="date" name="dateEcheanceModif"
                                [(ngModel)]="souscription?.detailsCredit.dateEcheance"
                                minlength="1"
                         />
                     </div>
-                    <div class="col-1" *ngIf="montantSuperieur">
+                    <div class="col-1" *ngIf="souscription.isCuperieur === false">
                         <label htmlFor="detail1Modif"> <b>Decouvert</b> </label>
                         <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDecouvert" onLabel="Oui"
-                                        offLabel="Non"  [disabled]="montantSuperieur" ></p-toggleButton>
+                                        offLabel="Non" ></p-toggleButton>
                     </div>
 
                     <!-- <div class="col-2" *ngIf="souscription.detailsCredit.isDecouvert === true">
@@ -1102,13 +1101,13 @@
                                 minlength="1"
                          />
                      </div>-->
-                    <div class="col-1" *ngIf="montantSuperieur">
+                    <div class="col-1" *ngIf="souscription.isCuperieur === false">
                         <label htmlFor="detail1Modif"> <b>Differé</b> </label>
                         <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDiffere" onLabel="Oui"
-                                        offLabel="Non"  [disabled]="montantSuperieur" ></p-toggleButton>
+                                        offLabel="Non"   ></p-toggleButton>
                     </div>
 
-                    <div class="col-2" *ngIf="souscription.detailsCredit.isDiffere === true">
+                    <div class="col-2" *ngIf="souscription.isCuperieur === false && souscription?.detailsCredit.isDiffere === true">
                         <label htmlFor="differerAmortissementModif"><b>Différé mortissement(mois)</b></label>
                         <input pInputText id="differerAmortissementModif" type="number" name="differerAmortissementModif"
                                [(ngModel)]="souscription?.detailsCredit.differerAmortissement"
@@ -1116,6 +1115,11 @@
                         />
                     </div>
 
+                </div>
+                <div >
+                    <label htmlFor="isSuperieurModif"> <b>Passer le Dossier au producteur UAB ASSURANCE</b> </label>
+                    <p-toggleButton [(ngModel)]="souscription.isCuperieur" onLabel="Oui"
+                                    offLabel="Non"></p-toggleButton>
                 </div>
             </div>
 
@@ -1685,7 +1689,7 @@
     <div class="col-12">
         <div class="card">
             <div class="my-custom-text">
-                <h5 class="my-custom-text">LISTES DES SOUSCRIPTIONS</h5>
+                <h5 class="my-custom-text">LISTES DES SOUSCRIPTIONS PRODUCTEUR</h5>
             </div>
             <p-table #dt1 [value]="souscriptions" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
                      styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['code','libelle']"
@@ -1693,7 +1697,7 @@
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <div>
-                            <button pButton pRipple type="button" label="Ajouter une agence" icon="pi pi-plus"
+                            <button pButton pRipple type="button" label="Ajouter" icon="pi pi-plus"
                                     (click)="onDisplayDialogue(souscription)" class="p-button-info mr-2 mb-2"></button>
                             <!--<button pButton label="Effacer" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>-->
                         </div>

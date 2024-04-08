@@ -302,7 +302,7 @@ export class SouscriptionProdComponent implements OnInit {
 
 
     onSave(): void {
-        this.souscription.isCuperieur = this.Superieur;
+      //  this.souscription.isCuperieur = this.Superieur;
         console.log("============ isSuperieur ================",  this.souscription.isCuperieur)
         this.souscription.mandataire.tauxDecouvert = this.tauxDec;
         if (this.souscription.detailsCredit.isDiffere === false && this.souscription.detailsCredit.isDecouvert === false) {
@@ -450,6 +450,7 @@ export class SouscriptionProdComponent implements OnInit {
 
     updateSouscription(id: number, souscription1: Souscription): void {
         this.souscription.mandataire.tauxDecouvert = this.tauxDec;
+        this.souscription.isCuperieur = false;
         if (this.souscription.detailsCredit.isDiffere === false && this.souscription.detailsCredit.isDecouvert === false) {
             console.log("============ isDiffere === false && isDecouvert === false ================")
             this.calculateAge();
@@ -466,7 +467,7 @@ export class SouscriptionProdComponent implements OnInit {
             console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
             this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
                 response => {
-                    console.log('+++++++++ TEST UPDATE', response);
+                    console.log('+++++++++ TEST UPDATE', response.isCuperieur);
                     this.successAlert();
                     this.getAllSouscription();
                 },
