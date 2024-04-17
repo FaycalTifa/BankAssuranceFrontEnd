@@ -85,6 +85,7 @@ import {ToolbarModule} from 'primeng/toolbar';
 import {TooltipModule} from 'primeng/tooltip';
 import {TreeModule} from 'primeng/tree';
 import {TreeTableModule} from 'primeng/treetable';
+import { TreeSelectModule } from 'primeng/treeselect';
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
 
 import {AppComponent} from './app.component';
@@ -227,6 +228,7 @@ export function kcFactory(kcSecurity: KeycloackSecurityService) {
         TooltipModule,
         TreeModule,
         TreeTableModule,
+        TreeSelectModule,
         VirtualScrollerModule,
         NgxPrintModule,
     ],

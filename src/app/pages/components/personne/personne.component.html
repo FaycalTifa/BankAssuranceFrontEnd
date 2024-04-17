@@ -350,6 +350,130 @@
                         FIN  POP-UP DE MODIFICATION
 -->
 
+
+<!--
+                          POP-UP DETAILS
+-->
+
+<p-dialog header="ENREGISTREMENT D'UNE PERSONNE" [(visible)]="displayDialogueDetail" [style]="{width: '50vw'}">
+    <div class="col-12 md:col-12">
+        <div class="col-12 md:col-12">
+            <div>
+                <h5>
+                    <span style="color: black;">NOM :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.nom }}</span>
+
+                </h5>
+            </div>
+            <div>
+                <h5>
+                    <span style="color: black;">PRENOM :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.prenom }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">NOM DE JEUNE FILLE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.nomDeJeuneFille }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">DATE DE NAISSANCE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.dateDeNaissance }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">LIEU DE NAISSANCE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.lieuDeNaissance }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">TAILLE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.taille }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">POIDS :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.poids }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">TENSION :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.tension }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">PROFESSION ACTUELLE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.professionActuelle }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">EMPLOYEUR :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.employeur }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">LIBELLE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.numeroPiecePasseport }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">DATE D'ETABLISSEMENT :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.dateEtablissement }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">LIEU D'ETABLISSEMENT :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.lieuEtablissement }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">ADRESSE POSTALE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.adressePostale }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">TELEPHONE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.telephone }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">EMAIL :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.email }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">TELEPHONE SECOURS :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.telephoneSecours }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">EMAIL SECOURS :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.emailSecours }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">ADRESSE SECOURS :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ personne?.adresseSecours }}</span>
+
+                </h5>
+
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple type="button" label="Fermer" icon="pi pi-times"
+                    (click)="displayDialogueDetail = false"
+                    class="p-button-danger mr-2 mb-2"></button>
+        </ng-template>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()"
+                class="p-button-danger mr-2 mb-2"></button>
+    </ng-template>
+</p-dialog>
+<!--
+                      FIN POP-UP DETAILS
+-->
+
 <div class="grid centerClass">
     <div class="col-12">
         <div class="card">
@@ -426,6 +550,11 @@
                             <button pButton pRipple type="button" icon="pi pi-trash"
                                     (click)="deletePersonne(this.personne?.id, this.personne)"
                                     class="p-button-danger mr-2 mb-2"></button>
+
+                            <button pButton pRipple type="button" icon="pi pi-eye"
+                                    (click)="onDisplayDialoguDetail(this.personne)"
+                                    class="p-button-info mr-2 mb-2">
+                            </button>
                         </td>
                     </tr>
                 </ng-template>

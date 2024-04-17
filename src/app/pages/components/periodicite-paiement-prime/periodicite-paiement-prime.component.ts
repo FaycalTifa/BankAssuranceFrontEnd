@@ -9,6 +9,7 @@ import {PeriodicitePaiementPrime} from '../../models/periodicitePaiementPrime/pe
 import {
     PeriodicitePaiementPrimeService
 } from '../../services/periodicitePaiementPrime/periodicite-paiement-prime.service';
+import {Civilite} from '../../models/civilite/civilite';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class PeriodicitePaiementPrimeComponent implements OnInit {
     services?: IService[];
     displayDialogue: boolean;
     displayDialogueModification: boolean;
+    displayDialogueDetail: boolean;
     periodicitePaiementPrime: PeriodicitePaiementPrime = new PeriodicitePaiementPrime();
     keycloakUser = '';
     userRole: string[] = [];
@@ -66,6 +68,11 @@ export class PeriodicitePaiementPrimeComponent implements OnInit {
         this.displayDialogue = true;
     }
 
+    onDisplayDialoguDetail(periodicitePaiementPrime: PeriodicitePaiementPrime) {
+        this.periodicitePaiementPrime = periodicitePaiementPrime;
+        this.displayDialogueDetail = true;
+    }
+
     onDisplayDialogueModif(id: number, periodicitePaiementPrimeDetails: PeriodicitePaiementPrime): void {
         this.periodicitePaiementPrime.id = id;
         this.periodicitePaiementPrime = periodicitePaiementPrimeDetails;
@@ -77,6 +84,7 @@ export class PeriodicitePaiementPrimeComponent implements OnInit {
     onHidenDialogue(): void {
         this.displayDialogue = false;
         this.displayDialogueModification = false;
+        this.displayDialogueDetail = false;
     }
 
     onHidenDialogueModif(): void {

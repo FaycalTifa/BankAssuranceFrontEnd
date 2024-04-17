@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {trigger, style, transition, animate, AnimationEvent} from '@angular/animations';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import {ConfirmationService, MenuItem, MessageService} from 'primeng/api';
 import {AppComponent} from './app.component';
 import {AppMainComponent} from './app.main.component';
 import {KeycloakService} from "keycloak-angular";
@@ -62,6 +62,7 @@ export class AppTopBarComponent implements OnInit {
     ngOnInit(): void {
         this.toInitFunctions();
     }
+
 
     networkChecked() {
         (async () => {
@@ -145,6 +146,8 @@ export class AppTopBarComponent implements OnInit {
         */
 
     activeItem: number;
+    parametrageMenuOpen: boolean = false;
+
     // model: MegaMenuItem[] = [
     //     {
     //         label: 'UI KIT',

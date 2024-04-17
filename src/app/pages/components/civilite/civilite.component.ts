@@ -7,6 +7,7 @@ import {KeycloakService} from 'keycloak-angular';
 import {HttpResponse} from '@angular/common/http';
 import {Civilite} from '../../models/civilite/civilite';
 import {CiviliteService} from '../../services/civilite/civilite.service';
+import {Banque} from '../../models/banque/banque';
 
 @Component({
     selector: 'app-civilite',
@@ -20,6 +21,7 @@ export class CiviliteComponent implements OnInit {
     civilites?: Civilite[];
     services?: IService[];
     displayDialogue: boolean;
+    displayDialogueDetail: boolean;
     displayDialogueModification: boolean;
     civilite: Civilite = new Civilite();
     keycloakUser = '';
@@ -62,6 +64,12 @@ export class CiviliteComponent implements OnInit {
         this.displayDialogue = true;
     }
 
+
+    onDisplayDialoguDetail(civilite: Civilite) {
+        this.civilite = civilite;
+        this.displayDialogueDetail = true;
+    }
+
     onDisplayDialogueModif(id: number, civiliteDetails: Civilite): void {
         this.civilite.id = id;
         this.civilite = civiliteDetails;
@@ -72,6 +80,7 @@ export class CiviliteComponent implements OnInit {
     onHidenDialogue(): void {
         this.displayDialogue = false;
         this.displayDialogueModification = false;
+        this.displayDialogueDetail = false;
     }
 
     onHidenDialogueModif(): void {

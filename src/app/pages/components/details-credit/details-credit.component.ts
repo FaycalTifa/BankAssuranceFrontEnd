@@ -5,6 +5,7 @@ import {KeycloakService} from "keycloak-angular";
 import {HttpResponse} from "@angular/common/http";
 import {DetailsCredit} from "../../models/detailsCredit/details-credit";
 import {DetailsCreditService} from "../../services/detailsCredit/details-credit.service";
+import {Civilite} from '../../models/civilite/civilite';
 
 @Component({
     selector: 'app-details-credit',
@@ -19,6 +20,7 @@ export class DetailsCreditComponent implements OnInit {
     detailsCredits?: DetailsCredit[];
     displayDialogue: boolean;
     displayDialogueModification: boolean;
+    displayDialogueDetail: boolean;
     detailsCredit: DetailsCredit = new DetailsCredit();
     keycloakUser = '';
     userRole: string[] = [];
@@ -70,6 +72,12 @@ export class DetailsCreditComponent implements OnInit {
     onHidenDialogue(): void {
         this.displayDialogue = false;
         this.displayDialogueModification = false;
+        this.displayDialogueDetail = false;
+    }
+
+    onDisplayDialoguDetail(detailsCredit: DetailsCredit) {
+        this.detailsCredit = detailsCredit;
+        this.displayDialogueDetail = true;
     }
 
     onHidenDialogueModif(): void {

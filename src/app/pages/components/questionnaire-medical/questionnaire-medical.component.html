@@ -7,62 +7,96 @@
         <form #myForm="ngForm" name="myForm" role="form" novalidate>
             <div class="card p-fluid">
 
-                <div class="field">
-                    <label htmlFor="question1">AVEZ VOUS DES ANTECEDEANTS MEDICAUX ET OU CHURIRGICAUX??</label>
-                    <input type="radio" id="oui1" name="question1" value="oui">
-                    <label for="oui1">Oui </label>
-                    <input type="radio" id="non1" name="question1" value="non">
-                    <label for="non1">Non</label>
-                    <p>Précisez si "oui" :</p>
-                    <textarea id="precisions1" name="precisions" rows="5" cols="30" pInputTextarea
-                              [autoResize]="true"></textarea>
+                <div class="card p-fluid">
+                    <div class="mt-4">
+                        <label htmlFor="detail1"> <b><h4>Question 1:  Avez-vous des antécédents médicaux et ou churirgicaux?</h4></b> </label>
 
-                </div>
-                <div class="field">
-                    <div class="question">
-                        <label htmlFor="question2">ETES VOUS PORTEUR D'UNE MALADIE CHRONIQUE NECESSITANT UN
-                            TRAITEMENT??</label>
-                        <input type="radio" id="oui2" name="question2" value="oui">
-                        <label for="oui2">Oui </label>
-                        <input type="radio" id="non2" name="question2" value="non">
-                        <label for="non2">Non</label>
-                        <p>Précisez si "oui" :</p>
-                        <textarea id="precisions2" name="precisions" rows="5" cols="30" pInputTextarea
-                                  [autoResize]="true"></textarea>
+                        <div class=" flex flex-wrap gap-3 p-fluid ">
+                            <div class="col-1">
+                                <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                                <p-toggleButton [(ngModel)]="questionnaireMedical.question1" onLabel="Yes"
+                                                offLabel="No"></p-toggleButton>
+                            </div>
+                            <div class="col-11" *ngIf="questionnaireMedical.question1 === true">
+                                <label htmlFor="detail1"> <b>Detail</b> </label>
+                                <input pInputText id="detail1" type="text" name="detail1"
+                                       [(ngModel)]="questionnaireMedical.detail1"
+                                       minlength="1"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <label htmlFor="detail1"> <b><h4>Question 2: Etes vous porteur d’une maladie chronique nécéssitant un traitement?</h4></b> </label>
+                        <div class=" flex flex-wrap gap-3 p-fluid ">
+                            <div class="col-1">
+                                <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                                <p-toggleButton [(ngModel)]="questionnaireMedical.question2" onLabel="Yes"
+                                                offLabel="No"></p-toggleButton>
+                            </div>
+                            <div class="col-11" *ngIf="questionnaireMedical.question2 === true">
+                                <label htmlFor="detail2"> <b>Detail</b> </label>
+                                <input pInputText id="detail2" type="text" name="detail2"
+                                       [(ngModel)]="questionnaireMedical.detail2"
+                                       minlength="1"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label htmlFor="detail1"> <b><h4>Question 3: Suivez vous un traitement médical?</h4></b> </label>
+                        <div class=" flex flex-wrap gap-3 p-fluid ">
+                            <div class="col-1">
+                                <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                                <p-toggleButton [(ngModel)]="questionnaireMedical.question3" onLabel="Yes"
+                                                offLabel="No"></p-toggleButton>
+                            </div>
+                            <div class="col-11" *ngIf="questionnaireMedical.question3 === true">
+                                <label htmlFor="detail3"> <b>Detail</b> </label>
+                                <input pInputText id="detail3" type="text" name="detail3"
+                                       [(ngModel)]="questionnaireMedical.detail3"
+                                       minlength="1"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label htmlFor="detail1"> <b><h4>Question 4: Avez-vous fait récemment un test d’Hepatite B et ou SIDA?</h4></b> </label>
+                        <div class=" flex flex-wrap gap-3 p-fluid ">
+                            <div class="col-1">
+                                <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                                <p-toggleButton [(ngModel)]="questionnaireMedical.question4" onLabel="Yes"
+                                                offLabel="No"></p-toggleButton>
+                            </div>
+                            <div class="col-11" *ngIf="questionnaireMedical.question4 === true">
+                                <label htmlFor="detail4"> <b>Detail</b> </label>
+                                <input pInputText id="detail4" type="text" name="detail4"
+                                       [(ngModel)]="questionnaireMedical.detail4"
+                                       minlength="1"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label htmlFor="detail1"> <b><h4>Question 5: Etes vous titulaire d’une pension d’invadilité?</h4></b> </label>
+                        <div class=" flex flex-wrap gap-3 p-fluid ">
+                            <div class="col-1">
+                                <label htmlFor="detail1"> <b>Oui / Non</b> </label>
+                                <p-toggleButton [(ngModel)]="questionnaireMedical.question5" onLabel="Yes"
+                                                offLabel="No"></p-toggleButton>
+                            </div>
+                            <div class="col-11" *ngIf="questionnaireMedical.question5 === true">
+                                <label htmlFor="detail5"> <b>Detail</b> </label>
+                                <input pInputText id="detail5" type="text" name="detail5"
+                                       [(ngModel)]="questionnaireMedical.detail5"
+                                       minlength="1"
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="field">
-                    <label htmlFor="question3">SUIVEZ-VOUS UN TRAITEMENT MEDICAL??</label>
-                    <input type="radio" id="oui3" name="question3" value="oui">
-                    <label for="oui3">Oui </label>
-                    <input type="radio" id="non3" name="question3" value="non">
-                    <label for="non3">Non</label>
-                    <p>Précisez si "oui" :</p>
-                    <textarea id="precisions3" name="precisions" rows="5" cols="30" pInputTextarea
-                              [autoResize]="true"></textarea>
-                </div>
-                <div class="field">
-                    <label htmlFor="question4">AVEZ-VOUS RECEMMENT FAIT LE TEST l'HEPATITE B ET OU SIDA?</label>
-                    <input type="radio" id="oui4" name="question4" value="oui">
-                    <label for="oui4">Oui </label>
-                    <input type="radio" id="non4" name="question4" value="non">
-                    <label for="non4">Non</label>
-                    <p>Précisez si "oui" :</p>
-                    <textarea id="precisions4" name="precisions4" rows="5" cols="30" pInputTextarea
-                              [autoResize]="true"></textarea>
-                </div>
-                <div class="field">
-                    <label htmlFor="question5">ETES-VOUS TITULAIRE D'UNE PENSION D'INVALIDITE?</label>
-                    <input type="radio" id="oui5" name="question5" value="oui">
-                    <label for="oui5">Oui </label>
-                    <input type="radio" id="non5" name="question5" value="non">
-                    <label for="non5">Non</label>
-                    <p>Précisez si "oui" :</p>
-                    <textarea id="precisions5" name="precisions" rows="5" cols="30" pInputTextarea
-                              [autoResize]="true"></textarea>
-                </div>
             </div>
-
 
         </form>
     </div>
@@ -89,7 +123,7 @@
             <div class="card p-fluid">
 
                 <div class="field">
-                    <label htmlFor="question1Modifier">AVEZ VOUS DES ANTECEDENTS MEDICAUX ET OU CHURIRGICAUX</label>
+                    <label htmlFor="question1Modifier"> QUESTION 1 :AVEZ VOUS DES ANTECEDENTS MEDICAUX ET OU CHURIRGICAUX</label>
                     <input pInputText id="question1Modifier" type="text" name="question1Modifier"
                            [(ngModel)]="questionnaireMedical.question1"
                            minlength="1"
@@ -147,6 +181,60 @@
 <!--
                         FIN  POP-UP DE MODIFICATION
 -->
+
+<!--
+                          POP-UP DETAILS
+-->
+
+<p-dialog header="ENREGISTREMENT DES INFORMATIONS MEDICALES" [(visible)]="displayDialogueDetail" [style]="{width: '50vw'}">
+    <div class="col-12 md:col-12">
+        <div class="col-12 md:col-12">
+            <div>
+                <h5>
+                    <span style="color: black;">QUESTION 1 :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ questionnaireMedical?.question1 }}</span>
+
+                </h5>
+            </div>
+            <div>
+                <h5>
+                    <span style="color: black;">QUESTION 2 :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ questionnaireMedical?.question2 }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">QUESTION 3 :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ questionnaireMedical?.question3 }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">QUESTION 4 :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ questionnaireMedical?.question4 }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">QUESTION 5 :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ questionnaireMedical?.question5 }}</span>
+
+                </h5>
+
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple type="button" label="Fermer" icon="pi pi-times"
+                    (click)="displayDialogueDetail = false"
+                    class="p-button-danger mr-2 mb-2"></button>
+        </ng-template>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()"
+                class="p-button-danger mr-2 mb-2"></button>
+    </ng-template>
+</p-dialog>
+<!--
+                      FIN POP-UP DETAILS
+-->
+
 
 <div class="grid centerClass">
     <div class="col-12">
@@ -234,6 +322,11 @@
                             <button pButton pRipple type="button" icon="pi pi-trash"
                                     (click)="deleteQuestionnaireMedical(this.questionnaireMedical?.id, this.questionnaireMedical)"
                                     class="p-button-danger mr-2 mb-2"></button>
+
+                            <button pButton pRipple type="button" icon="pi pi-eye"
+                                    (click)="onDisplayDialoguDetail(this.questionnaireMedical)"
+                                    class="p-button-info mr-2 mb-2">
+                            </button>
                         </td>
                     </tr>
                 </ng-template>

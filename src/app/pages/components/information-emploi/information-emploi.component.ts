@@ -5,6 +5,7 @@ import {KeycloakService} from "keycloak-angular";
 import {HttpResponse} from "@angular/common/http";
 import {InformationEmploi} from "../../models/informationEmploi/information-emploi";
 import {InformationEmploiService} from "../../services/informationEmploi/information-emploi.service";
+import {Civilite} from '../../models/civilite/civilite';
 
 @Component({
     selector: 'app-information-emploi',
@@ -19,6 +20,7 @@ export class InformationEmploiComponent implements OnInit {
     informationEmplois?: InformationEmploi[];
     displayDialogue: boolean;
     displayDialogueModification: boolean;
+    displayDialogueDetail: boolean;
     informationEmploi: InformationEmploi = new InformationEmploi();
     keycloakUser = '';
     userRole: string[] = [];
@@ -60,6 +62,12 @@ export class InformationEmploiComponent implements OnInit {
         this.displayDialogue = true;
     }
 
+    onDisplayDialoguDetail(informationEmploi: InformationEmploi) {
+        this.informationEmploi = informationEmploi;
+        this.displayDialogueDetail = true;
+    }
+
+
     onDisplayDialogueModif(id: number, informationEmploiDetails: InformationEmploi): void {
         this.informationEmploi.id = id;
         this.informationEmploi = informationEmploiDetails;
@@ -67,9 +75,12 @@ export class InformationEmploiComponent implements OnInit {
         this.displayDialogueModification = true;
     }
 
+
+
     onHidenDialogue(): void {
         this.displayDialogue = false;
         this.displayDialogueModification = false;
+        this.displayDialogueDetail = false;
     }
 
     onHidenDialogueModif(): void {

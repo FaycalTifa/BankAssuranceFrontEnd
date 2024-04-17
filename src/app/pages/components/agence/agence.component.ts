@@ -7,6 +7,7 @@ import {KeycloakService} from "keycloak-angular";
 import {HttpResponse} from "@angular/common/http";
 import {Agence} from "../../models/agence/agence";
 import {AgenceService} from "../../services/agence/agence.service";
+import {Civilite} from '../../models/civilite/civilite';
 
 @Component({
     selector: 'app-agence',
@@ -22,6 +23,7 @@ export class AgenceComponent implements OnInit {
     agences?: Agence[];
     displayDialogue: boolean;
     displayDialogueModification: boolean;
+    displayDialogueDetail: boolean;
     banque: Banque;
     agence: Agence = new Agence();
     keycloakUser = '';
@@ -86,6 +88,13 @@ export class AgenceComponent implements OnInit {
     onHidenDialogue(): void {
         this.displayDialogue = false;
         this.displayDialogueModification = false;
+        this.displayDialogueDetail = false;
+    }
+
+
+    onDisplayDialoguDetail(agence: Agence) {
+        this.agence = agence;
+        this.displayDialogueDetail = true;
     }
 
     onHidenDialogueModif(): void {

@@ -756,5 +756,4 @@ export class SouscriptionProdComponent implements OnInit {
     }*/
 // Exemple d'utilisation de la fonction
 
-
 }

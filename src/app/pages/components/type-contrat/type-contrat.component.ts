@@ -7,6 +7,8 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 import {ServiceService} from '../../services/service/service.service';
 import {HttpResponse} from '@angular/common/http';
 import {TypeContratService} from '../../services/typeContrat/type-contrat.service';
+import {Civilite} from '../../models/civilite/civilite';
+import {Banque} from '../../models/banque/banque';
 
 @Component({
   selector: 'app-type-contrat',
@@ -22,6 +24,7 @@ export class TypeContratComponent implements OnInit {
   services?: IService[];
   displayDialogue: boolean;
   displayDialogueModification: boolean;
+    displayDialogueDetail: boolean;
   typeContrat: TypeContrat = new TypeContrat();
   keycloakUser = '';
   userRole: string[] = [];
@@ -63,6 +66,11 @@ export class TypeContratComponent implements OnInit {
     this.displayDialogue = true;
   }
 
+    onDisplayDialoguDetail(typeContrat: TypeContrat) {
+        this.typeContrat = typeContrat;
+        this.displayDialogueDetail = true;
+    }
+
   onDisplayDialogueModif(id: number, typeContratDetails: TypeContrat): void {
     this.typeContrat.id = id;
     this.typeContrat = typeContratDetails;
@@ -73,6 +81,7 @@ export class TypeContratComponent implements OnInit {
   onHidenDialogue(): void {
     this.displayDialogue = false;
     this.displayDialogueModification = false;
+      this.displayDialogueDetail = false;
   }
 
   onHidenDialogueModif(): void {

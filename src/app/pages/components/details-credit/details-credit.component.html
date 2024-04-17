@@ -113,6 +113,89 @@
                           POP-UP DE MODIFICATION
 -->
 
+
+
+<!--
+                          POP-UP DETAILS
+-->
+
+<p-dialog header="ENREGISTREMENT D'UN CREDIT" [(visible)]="displayDialogueDetail" [style]="{width: '50vw'}">
+    <div class="col-12 md:col-12">
+        <div class="col-12 md:col-12">
+            <div>
+                <h5>
+                    <span style="color: black;">MONTANT DU CREDIT A ASSURER :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ detailsCredit?.montantCreditAssurer}}</span>
+
+                </h5>
+            </div>
+            <div>
+                <h5>
+                    <span style="color: black;">MONTANT DU CREDIT DECOUVERT :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ detailsCredit?.montantCreditDecouvert }}</span>
+
+                </h5>
+
+                <h5>
+                    <span style="color: black;">NOMBRE DE REMBOURSEMENT :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ detailsCredit?.nombreDeRemboursement }}</span>
+
+                </h5>
+
+                <h5>
+                    <span style="color: black;">MONTANT DES TERMES :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ detailsCredit?.montantDesTermes }}</span>
+
+                </h5>
+
+                <h5>
+                    <span style="color: black;">NUMERO DE COMPTE DU CLIENT :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ detailsCredit?.numeroCompteClient }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">DUREE TOTALE DU CREDIT :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ detailsCredit?.dureeTotaleCredit }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">DIFFERE AMORTISSEMENT :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ detailsCredit?.differerAmortissement }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">DATE DU PREMIER REMBOURSEMENT TERME :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ detailsCredit?.datePremierRemboursementTerme }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">DATE EFFET :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ detailsCredit?.dateEffet }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">DATE ECHEANCE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ detailsCredit?.dateEcheance }}</span>
+
+                </h5>
+
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple type="button" label="Fermer" icon="pi pi-times"
+                    (click)="displayDialogueDetail = false"
+                    class="p-button-danger mr-2 mb-2"></button>
+        </ng-template>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()"
+                class="p-button-danger mr-2 mb-2"></button>
+    </ng-template>
+</p-dialog>
+<!--
+                      FIN POP-UP DETAILS
+-->
+
 <p-dialog header="MODIFICATION D'UN CREDIT" [(visible)]="displayDialogueModification" [style]="{width: '50vw'}">
     <div class="col-12 md:col-12">
         <form #myForm="ngForm" name="myForm" role="form" novalidate>
@@ -295,6 +378,11 @@
                                     (click)="deleteDetailsCredit(this.detailsCredit?.id, this.detailsCredit)"
                                     class="p-button-danger mr-2 mb-2">
 
+                            </button>
+
+                            <button pButton pRipple type="button" icon="pi pi-eye"
+                                    (click)="onDisplayDialoguDetail(this.detailsCredit)"
+                                    class="p-button-info mr-2 mb-2">
                             </button>
                         </td>
                     </tr>

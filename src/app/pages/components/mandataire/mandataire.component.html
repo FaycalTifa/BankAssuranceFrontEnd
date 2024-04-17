@@ -127,6 +127,61 @@
                         FIN  POP-UP DE MODIFICATION
 -->
 
+
+<!--
+                          POP-UP DETAILS
+-->
+
+<p-dialog header="ENREGISTREMENT D'UN MANDATAIRE" [(visible)]="displayDialogueDetail" [style]="{width: '50vw'}">
+    <div class="col-12 md:col-12">
+        <div class="col-12 md:col-12">
+            <div>
+                <h5>
+                    <span style="color: black;">CAPITAL ASSURER :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ mandataire?.capitalAssurer }}</span>
+
+                </h5>
+            </div>
+            <div>
+                <h5>
+                    <span style="color: black;">PRIME GARANTIE DECES OU IAD :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ mandataire?.primeGarantieDecesOuIAD }}</span>
+
+                </h5>
+
+                <h5>
+                    <span style="color: black;">PRIME GARANTIE PERTE EMPLOI :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ mandataire?.primeGarantiePerteEmploi }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">PRIME TOTALE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ mandataire?.primeTotale }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">NUMERO DE COMPTE UAB VIE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ mandataire?.numeroDeCompteUABVie }}</span>
+
+                </h5>
+
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple type="button" label="Fermer" icon="pi pi-times"
+                    (click)="displayDialogueDetail = false"
+                    class="p-button-danger mr-2 mb-2"></button>
+        </ng-template>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()"
+                class="p-button-danger mr-2 mb-2"></button>
+    </ng-template>
+</p-dialog>
+<!--
+                      FIN POP-UP DETAILS
+-->
+
 <div class="grid centerClass">
     <div class="col-12">
         <div class="card">
@@ -202,6 +257,11 @@
                             <button pButton pRipple type="button" icon="pi pi-trash"
                                     (click)="deleteMandataire(this.mandataire?.id, this.mandataire)"
                                     class="p-button-danger mr-2 mb-2"></button>
+
+                            <button pButton pRipple type="button" icon="pi pi-eye"
+                                    (click)="onDisplayDialoguDetail(this.mandataire)"
+                                    class="p-button-info mr-2 mb-2">
+                            </button>
                         </td>
                     </tr>
                 </ng-template>

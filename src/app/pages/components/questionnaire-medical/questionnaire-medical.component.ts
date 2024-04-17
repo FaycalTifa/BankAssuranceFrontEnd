@@ -5,6 +5,7 @@ import {KeycloakService} from "keycloak-angular";
 import {HttpResponse} from "@angular/common/http";
 import {QuestionnaireMedical} from "../../models/questionnaireMedical/questionnaire-medical";
 import {QuestionnaireMedicalService} from "../../services/questionnaireMedical/questionnaire-medical.service";
+import {Civilite} from '../../models/civilite/civilite';
 
 @Component({
     selector: 'app-questionnaire-medical',
@@ -19,6 +20,7 @@ export class QuestionnaireMedicalComponent implements OnInit {
     questionnaireMedicals?: QuestionnaireMedical[];
     displayDialogue: boolean;
     displayDialogueModification: boolean;
+    displayDialogueDetail: boolean;
     questionnaireMedical: QuestionnaireMedical = new QuestionnaireMedical();
     keycloakUser = '';
     userRole: string[] = [];
@@ -60,6 +62,12 @@ export class QuestionnaireMedicalComponent implements OnInit {
         this.displayDialogue = true;
     }
 
+    onDisplayDialoguDetail(questionnaireMedical: QuestionnaireMedical) {
+        this.questionnaireMedical = questionnaireMedical;
+        this.displayDialogueDetail = true;
+    }
+
+
     onDisplayDialogueModif(id: number, questionnaireMedicalDetails: QuestionnaireMedical): void {
         this.questionnaireMedical.id = id;
         this.questionnaireMedical = questionnaireMedicalDetails;
@@ -70,6 +78,7 @@ export class QuestionnaireMedicalComponent implements OnInit {
     onHidenDialogue(): void {
         this.displayDialogue = false;
         this.displayDialogueModification = false;
+        this.displayDialogueDetail = false;
     }
 
     onHidenDialogueModif(): void {

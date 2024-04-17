@@ -2,6 +2,7 @@
                           POP-UP D'ENREGISTREMENT
 -->
 
+
 <p-dialog header="ENREGISTREMENT D'UNE BANQUE" [(visible)]="displayDialogue" [style]="{width: '50vw'}">
     <div class="col-12 md:col-12">
         <form #myForm="ngForm" name="myForm" role="form" novalidate>
@@ -171,7 +172,7 @@
                                     (click)="deleteBanque(this.banque?.id, this.banque)"
                                     class="p-button-danger mr-2 mb-2">
                             </button>
-                            <button pButton pRipple type="button" icon="pi pi-trash"
+                            <button pButton pRipple type="button" icon="pi pi-eye"
                                     (click)="onDisplayDialoguDetail(this.banque)"
                                     class="p-button-info mr-2 mb-2">
                             </button>
@@ -190,7 +191,7 @@
                 </ng-template>
                 <ng-template pTemplate="summary">
                     <div class="p-d-flex p-ai-center p-jc-between">
-                        Il y'a au total {{ banques ? banques.length : 0 }} emplois.
+                        Il y'a au total {{ banques ? banques.length : 0 }} banques.
                     </div>
                 </ng-template>
             </p-table>

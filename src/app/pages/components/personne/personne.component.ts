@@ -5,6 +5,7 @@ import {KeycloakService} from "keycloak-angular";
 import {HttpResponse} from "@angular/common/http";
 import {PersonneService} from "../../services/personne/personne.service";
 import {Personne} from "../../models/personne/personne";
+import {Civilite} from '../../models/civilite/civilite';
 
 @Component({
     selector: 'app-personne',
@@ -19,6 +20,7 @@ export class PersonneComponent implements OnInit {
     personnes?: Personne[];
     displayDialogue: boolean;
     displayDialogueModification: boolean;
+    displayDialogueDetail: boolean;
     personne: Personne = new Personne();
     keycloakUser = '';
     userRole: string[] = [];
@@ -61,6 +63,11 @@ export class PersonneComponent implements OnInit {
         this.displayDialogue = true;
     }
 
+    onDisplayDialoguDetail(personne: Personne) {
+        this.personne = personne;
+        this.displayDialogueDetail = true;
+    }
+
     onDisplayDialogueModif(id: number, personneDetails: Personne): void {
         this.personne.id = id;
         this.personne = personneDetails;
@@ -71,6 +78,7 @@ export class PersonneComponent implements OnInit {
     onHidenDialogue(): void {
         this.displayDialogue = false;
         this.displayDialogueModification = false;
+        this.displayDialogueDetail = false;
     }
 
     onHidenDialogueModif(): void {

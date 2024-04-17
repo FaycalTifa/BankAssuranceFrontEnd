@@ -7,6 +7,7 @@ import {KeycloakService} from "keycloak-angular";
 import {HttpResponse} from "@angular/common/http";
 import {Mandataire} from "../../models/mandataire/mandataire";
 import {MandataireService} from "../../services/mandataire/mandataire.service";
+import {Civilite} from '../../models/civilite/civilite';
 
 @Component({
     selector: 'app-mandataire',
@@ -22,6 +23,7 @@ export class MandataireComponent implements OnInit {
     services?: IService[];
     displayDialogue: boolean;
     displayDialogueModification: boolean;
+    displayDialogueDetail: boolean;
     mandataire: Mandataire = new Mandataire();
     keycloakUser = '';
     userRole: string[] = [];
@@ -63,6 +65,11 @@ export class MandataireComponent implements OnInit {
         this.displayDialogue = true;
     }
 
+    onDisplayDialoguDetail(mandataire: Mandataire) {
+        this.mandataire = mandataire;
+        this.displayDialogueDetail = true;
+    }
+
     onDisplayDialogueModif(id: number, mandataireDetails: Mandataire): void {
         this.mandataire.id = id;
         this.mandataire = mandataireDetails;
@@ -73,6 +80,7 @@ export class MandataireComponent implements OnInit {
     onHidenDialogue(): void {
         this.displayDialogue = false;
         this.displayDialogueModification = false;
+        this.displayDialogueDetail = false;
     }
 
     onHidenDialogueModif(): void {

@@ -1,6 +1,6 @@
 import {Component, AfterViewInit, Renderer2, OnInit, OnDestroy} from '@angular/core';
 import {MenuService} from './app.menu.service';
-import {ConfirmationService, PrimeNGConfig} from 'primeng/api';
+import {ConfirmationService, MenuItem, PrimeNGConfig} from 'primeng/api';
 import {AppComponent} from './app.component';
 import {HttpResponse} from '@angular/common/http';
 import {KeycloakService} from 'keycloak-angular';
@@ -63,6 +63,7 @@ export class AppMainComponent implements AfterViewInit, OnInit, OnDestroy {
     IS_CHEF_PERSONNEL_ROLE: string = '';
     IS_CHEF_COMPTABILITE_ROLE: string = '';
     keycloakUser: string = '';
+
 
     constructor(
         public confirmationService: ConfirmationService,

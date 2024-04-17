@@ -90,7 +90,7 @@ export class BanqueComponent implements OnInit {
     }
 
     onHidenDialogueModif(): void {
-        this.displayDialogueModification = true;
+        this.displayDialogueModification = false;
     }
 
     onSave(banque1: Banque): void {

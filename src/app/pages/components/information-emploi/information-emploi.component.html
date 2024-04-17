@@ -176,6 +176,76 @@
                         FIN  POP-UP DE MODIFICATION
 -->
 
+
+
+<!--
+                          POP-UP DETAILS
+-->
+
+<p-dialog header="ENREGISTREMENT D'UNE INFORMATION EMPLOIE" [(visible)]="displayDialogueDetail" [style]="{width: '50vw'}">
+    <div class="col-12 md:col-12">
+        <div class="col-12 md:col-12">
+            <div>
+                <h5>
+                    <span style="color: black;">EMPLOYEUR :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ informationEmploi?.employeur }}</span>
+
+                </h5>
+            </div>
+            <div>
+                <h5>
+                    <span style="color: black;">DATE D'EMBAUCHE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ informationEmploi?.dateEmbauche }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">ADRESSE EMPLOYEUR :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ informationEmploi?.adresseEmployeur }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">PROFESSION ACTUELLE :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ informationEmploi?.professionActuelle }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">TYPE DE CONTRAT :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ informationEmploi?.typeDeContrat }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">TELEPHONE EMPLOYEUR :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ informationEmploi?.telEmployeur }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">NUMERO CNSS :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ informationEmploi?.numeroCNSS }}</span>
+
+                </h5>
+                <h5>
+                    <span style="color: black;">NUMERO RCCM IFU :  </span>
+                    <span [ngStyle]="{ color: 'blue' }">{{ informationEmploi?.numeroRCCMIFU }}</span>
+
+                </h5>
+
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple type="button" label="Fermer" icon="pi pi-times"
+                    (click)="displayDialogueDetail = false"
+                    class="p-button-danger mr-2 mb-2"></button>
+        </ng-template>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()"
+                class="p-button-danger mr-2 mb-2"></button>
+    </ng-template>
+</p-dialog>
+<!--
+                      FIN POP-UP DETAILS
+-->
+
 <div class="grid centerClass">
     <div class="col-12">
         <div class="card">
@@ -272,6 +342,11 @@
                             <button pButton pRipple type="button" icon="pi pi-trash"
                                     (click)="deleteInformationEmploi(this.informationEmploi?.id, this.informationEmploi)"
                                     class="p-button-danger mr-2 mb-2"></button>
+
+                            <button pButton pRipple type="button" icon="pi pi-eye"
+                                    (click)="onDisplayDialoguDetail(this.informationEmploi)"
+                                    class="p-button-info mr-2 mb-2">
+                            </button>
                         </td>
                     </tr>
                 </ng-template>

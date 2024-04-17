@@ -5,6 +5,8 @@
                  style="height: 4rem; width: 7rem; ">
         </a>
 
+
+
         <a class="layout-menu-button shadow-6" (click)="appMain.onMenuButtonClick($event)" pRipple>
             <i class="pi pi-chevron-right"></i>
         </a>
@@ -12,10 +14,15 @@
         <a class="layout-topbar-mobile-button" (click)="appMain.onTopbarMobileButtonClick($event)" pRipple>
             <i class="pi pi-ellipsis-v fs-large"></i>
         </a>
+
+
     </div>
     <div class="layout-topbar-right" [ngClass]="{'layout-topbar-mobile-active': appMain.mobileTopbarActive}">
         <div class="layout-topbar-actions-left">
         </div>
+
+
+
         <div class="layout-topbar-actions-right">
             <ul class="layout-topbar-items">
                 <li class="layout-topbar-item layout-search-item">

@@ -11,6 +11,7 @@ import {PeriodiciteRemboursement} from '../../models/periodiciteRemboursement/pe
 import {
     PeriodiciteRemboursementService
 } from '../../services/periodiciteRemboursement/periodicite-remboursement.service';
+import {Civilite} from '../../models/civilite/civilite';
 
 @Component({
     selector: 'app-periodicite-remboursement',
@@ -25,6 +26,7 @@ export class PeriodiciteRemboursementComponent implements OnInit {
     services?: IService[];
     displayDialogue: boolean;
     displayDialogueModification: boolean;
+    displayDialogueDetail: boolean;
     periodiciteRemboursement: PeriodiciteRemboursement = new Banque();
     keycloakUser = '';
     userRole: string[] = [];
@@ -66,6 +68,11 @@ export class PeriodiciteRemboursementComponent implements OnInit {
         this.displayDialogue = true;
     }
 
+    onDisplayDialoguDetail(periodiciteRemboursement: PeriodiciteRemboursement) {
+        this.periodiciteRemboursement = periodiciteRemboursement;
+        this.displayDialogueDetail = true;
+    }
+
     onDisplayDialogueModif(id: number, periodiciteRemboursementDetails: PeriodiciteRemboursement): void {
         this.periodiciteRemboursement.id = id;
         this.periodiciteRemboursement = periodiciteRemboursementDetails;
@@ -77,6 +84,7 @@ export class PeriodiciteRemboursementComponent implements OnInit {
     onHidenDialogue(): void {
         this.displayDialogue = false;
         this.displayDialogueModification = false;
+        this.displayDialogueDetail = false;
     }
 
     onHidenDialogueModif(): void {

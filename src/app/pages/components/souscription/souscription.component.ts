@@ -9,6 +9,7 @@ import {Personne} from "../../models/personne/personne";
 import {Agence} from "../../models/agence/agence";
 import moment from "moment";
 import {HttpResponse} from "@angular/common/http";
+import {TypeContrat} from '../../models/typeContrat/type-contrat';
 
 @Component({
     selector: 'app-souscription',
@@ -21,6 +22,7 @@ export class SouscriptionComponent implements OnInit {
     @ViewChild('dt') table: Table;
     @ViewChild('filter') filter: ElementRef;
     souscriptions?: Souscription[];
+    typeContrats?: TypeContrat[];
     displayDialogue: boolean;
     displayDialogueDetail: boolean;
     displayDialogueModification: boolean;

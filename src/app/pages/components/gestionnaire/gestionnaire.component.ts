@@ -9,6 +9,7 @@ import {Agence} from "../../models/agence/agence";
 import {AgenceService} from "../../services/agence/agence.service";
 import {Gestionnaire} from "../../models/gestionnaire/gestionnaire";
 import {GestionnaireService} from "../../services/gestionnaire/gestionnaire.service";
+import {Civilite} from '../../models/civilite/civilite';
 
 @Component({
     selector: 'app-gestionnaire',
@@ -24,6 +25,7 @@ export class GestionnaireComponent implements OnInit {
     gestionnaires?: Gestionnaire[];
     displayDialogue: boolean;
     displayDialogueModification: boolean;
+    displayDialogueDetail: boolean;
     agence: Agence;
     gestionnaire: Gestionnaire = new Gestionnaire();
     keycloakUser = '';
@@ -76,6 +78,11 @@ export class GestionnaireComponent implements OnInit {
         this.displayDialogue = true;
     }
 
+    onDisplayDialoguDetail(gestionnaire: Gestionnaire) {
+        this.gestionnaire = gestionnaire;
+        this.displayDialogueDetail = true;
+    }
+
     onDisplayDialogueModif(id: number, gestionnaire1: Gestionnaire): void {
         this.gestionnaire.id = id;
         this.gestionnaire = gestionnaire1;
@@ -86,6 +93,7 @@ export class GestionnaireComponent implements OnInit {
     onHidenDialogue(): void {
         this.displayDialogue = false;
         this.displayDialogueModification = false;
+        this.displayDialogueDetail = false;
     }
 
     onHidenDialogueModif(): void {
