@@ -1,5 +1,6 @@
 // souscription.model.ts
 
+
 export interface Souscription {
     id?: number;
     isCuperieur?: boolean;
@@ -30,11 +31,13 @@ export interface Personne {
     email?: string,
     telephoneSecours?: string,
     emailSecours?: string,
-    adresseSecours?: string
+    adresseSecours?: string,
+    civilite: Civilite
 }
 
 export interface DetailsCredit {
     id?: number,
+    periodicite_remboursement_id?: number,
     isDiffere?: boolean,
     isDecouvert?: boolean,
     montantCreditAssurer?: number,
@@ -42,11 +45,13 @@ export interface DetailsCredit {
     nombreDeRemboursement?: string,
     montantDesTermes?: number,
     numeroCompteClient?: string,
-    dureeTotaleCredit?: string,
+    dureeTotaleCreditAnnee?: number,
+    dureeTotaleCreditMois?: number,
     differerAmortissement?: number,
     datePremierRemboursementTerme?: string,
     dateEffet?: string,
     dateEcheance?: string,
+    periodiciteRemboursement: PeriodiciteRemboursement
 }
 
 export interface QuestionnaireMedical {
@@ -72,6 +77,7 @@ export interface Mandataire {
     primeSimple?: number,
     primeDiffere?: number,
     primeDecouvert?: number,
+    primePerteEmploi?: number,
     numeroDeCompteUABVie?: string,
     tauxAmortissement?: number,
     tauxDecouvert?: number,
@@ -89,4 +95,16 @@ export interface InformationEmploi {
     telEmployeur?: string,
     numeroCNSS?: string,
     numeroRCCMIFU?: string,
+}
+
+export interface PeriodiciteRemboursement {
+    id?: number,
+    isDeleted?: boolean,
+    code?: string,
+    libelle?: string,
+}
+export interface Civilite {
+     id?: number,
+     code?: string,
+     libelle?: string,
 }
