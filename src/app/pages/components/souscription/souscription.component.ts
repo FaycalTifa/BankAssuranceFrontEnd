@@ -230,6 +230,19 @@ export class SouscriptionComponent implements OnInit {
 
     downloadPdf(id: number) {
         this.reportService.generatePdfReport(id).subscribe(response => {
+            const blob = new Blob([response.body], { type: 'application/pdf' });
+            const url = window.URL.createObjectURL(blob);
+
+            // Ouvre le PDF dans une nouvelle fenêtre du navigateur
+            window.open(url, '_blank', 'toolbar=0,location=0,menubar=0');
+
+            // Nettoie l'URL temporaire après l'ouverture du PDF
+            window.URL.revokeObjectURL(url);
+        });
+    }
+
+viewPdf(id: number) {
+        this.reportService.generatePdfReport(id).subscribe(response => {
             const filename = 'souscription.pdf';
 
             // Créer un objet Blob à partir des données de la réponse
@@ -242,7 +255,7 @@ export class SouscriptionComponent implements OnInit {
             const link = document.createElement('a');
             link.href = url;
             window.open(url, '_blank');
-            link.download = filename;
+            //link.download = filename;
 
             // Ajouter le lien au DOM et déclencher le téléchargement
             document.body.appendChild(link);
@@ -526,13 +539,15 @@ export class SouscriptionComponent implements OnInit {
                             this.onHidenDialogue();
                             this.successAlert();
                             this.getAllSouscription();
+
                         }
                     },
                     error => {
                         console.error('Erreur lors de la création du poste', error);
                     }
                 );
-            } else {
+            }
+            else {
                 console.log("============ isDiffere === false && isDecouvert === false ================")
                 this.calculateAge();
                 console.log("============ onSave this.age ================", this.age)
@@ -547,6 +562,7 @@ export class SouscriptionComponent implements OnInit {
                 this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple;
 
                 console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
+
                 this.souscriptionService.createSouscription(this.souscription).subscribe(
                     resp => {
                         if (resp) {
@@ -555,6 +571,7 @@ export class SouscriptionComponent implements OnInit {
                             this.successAlert();
                             this.getAllSouscription();
                         }
+
                     },
                     error => {
                         console.error('Erreur lors de la création du poste', error);
@@ -602,7 +619,8 @@ export class SouscriptionComponent implements OnInit {
                         console.error('Erreur lors de la création du poste', error);
                     }
                 );
-            } else {
+            }
+            else {
                 console.log("============ if isDiffere === true ================")
                 this.calculateAge();
                 console.log("============ onSave this.age ================", this.age)
@@ -711,7 +729,8 @@ export class SouscriptionComponent implements OnInit {
                 );
             }
 
-        } else if (this.souscription.detailsCredit.isDiffere === true && this.souscription.detailsCredit.isDecouvert === true) {
+        }
+        else if (this.souscription.detailsCredit.isDiffere === true && this.souscription.detailsCredit.isDecouvert === true) {
             console.log("============ if isDiffere === true ================");
             if (this.souscription.informationEmploi.isPerte == true) {
 
@@ -751,7 +770,8 @@ export class SouscriptionComponent implements OnInit {
                         console.error('Erreur lors de la création du poste', error);
                     }
                 );
-            } else {
+            }
+            else {
                 console.log("============ if isDiffere === true ================")
                 this.calculateAge();
                 console.log("============ onSave this.age ================", this.age)
@@ -789,6 +809,8 @@ export class SouscriptionComponent implements OnInit {
             }
 
         }
+        console.log("============ this.souscription.id ================", this.souscription.id);
+
 
         this.resetForm();
     }
