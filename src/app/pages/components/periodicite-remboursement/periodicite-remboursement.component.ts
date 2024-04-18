@@ -7,11 +7,11 @@ import {BanqueService} from '../../services/banque/banque.service';
 import {ServiceService} from '../../services/service/service.service';
 import {KeycloakService} from 'keycloak-angular';
 import {HttpResponse} from '@angular/common/http';
-import {PeriodiciteRemboursement} from '../../models/periodiciteRemboursement/periodicite-remboursement';
 import {
     PeriodiciteRemboursementService
 } from '../../services/periodiciteRemboursement/periodicite-remboursement.service';
-import {Civilite} from '../../models/civilite/civilite';
+import {PeriodiciteRemboursement, Souscription} from "../../models/souscription/souscription";
+
 
 @Component({
     selector: 'app-periodicite-remboursement',
@@ -27,12 +27,20 @@ export class PeriodiciteRemboursementComponent implements OnInit {
     displayDialogue: boolean;
     displayDialogueModification: boolean;
     displayDialogueDetail: boolean;
-    periodiciteRemboursement: PeriodiciteRemboursement = new Banque();
+
+   // periodiciteRemboursement: PeriodiciteRemboursement = new Banque();
+
     keycloakUser = '';
     userRole: string[] = [];
     serviceId: number;
+    periodiciteRemboursement: PeriodiciteRemboursement ={
+        isDeleted: false,
+        code: '',
+        libelle: '',
+}
 
-    constructor(private messageService: MessageService,
+
+constructor(private messageService: MessageService,
                 protected periodiciteRemboursementService: PeriodiciteRemboursementService,
                 protected serviceService: ServiceService,
                 protected keycloakService: KeycloakService,
@@ -40,7 +48,7 @@ export class PeriodiciteRemboursementComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.periodiciteRemboursement = new PeriodiciteRemboursement();
+      //  this.periodiciteRemboursement = new PeriodiciteRemboursement();
         this.getAllPeriodiciteRemboursements();
         // this.toInitFunctions();
     }
@@ -64,7 +72,12 @@ export class PeriodiciteRemboursementComponent implements OnInit {
     }
 
     onDisplayDialogue(periodiciteRemboursemernt: PeriodiciteRemboursement): void {
-        this.periodiciteRemboursement = new PeriodiciteRemboursement(); // Réinitialise le modèle du formulaire
+        this.periodiciteRemboursement = new class implements PeriodiciteRemboursement {
+            code: string;
+            id: number;
+            isDeleted: boolean;
+            libelle: string;
+        }(); // Réinitialise le modèle du formulaire
         this.displayDialogue = true;
     }
 

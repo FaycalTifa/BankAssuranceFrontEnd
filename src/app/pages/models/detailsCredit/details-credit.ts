@@ -1,3 +1,5 @@
+import {PeriodiciteRemboursement} from "../souscription/souscription";
+
 export class DetailsCredit {
     public id?: number;
     public montantCreditAssurer?: number;
@@ -10,6 +12,7 @@ export class DetailsCredit {
     public datePremierRemboursementTerme?: string;
     public dateEffet?: string;
     public dateEcheance?: string;
+    public periodiciteRemboursement?: PeriodiciteRemboursement;
 
 
     constructor(
@@ -24,6 +27,7 @@ export class DetailsCredit {
         datePremierRemboursementTerme?: string,
         dateEffet?: string,
         dateEcheance?: string,
+        periodiciteRemboursement?: PeriodiciteRemboursement,
     ) {
         this.id = id;
         this.montantCreditAssurer = montantCreditAssurer;
@@ -36,5 +40,6 @@ export class DetailsCredit {
         this.datePremierRemboursementTerme = datePremierRemboursementTerme;
         this.dateEffet = dateEffet;
         this.dateEcheance = dateEcheance;
+        this.periodiciteRemboursement = periodiciteRemboursement;
     }
 }
