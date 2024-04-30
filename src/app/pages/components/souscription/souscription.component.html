@@ -46,9 +46,13 @@
                     <label htmlFor="dateDeNaissance"> <b [ngStyle]="{ color: 'red' }">Date de naissance </b><span style="color: red;"> *</span> </label>
                     <input pInputText id="dateDeNaissance" type="date" name="dateDeNaissance"
                            [(ngModel)]="souscription?.personne.dateDeNaissance"
-                           minlength="1" required
+                           required
+                           [appGestionDate]="18"
                     />
+
                 </div>
+
+
             </div>
 
             <div class=" flex flex-wrap gap-3 p-fluid">
@@ -189,12 +193,11 @@
                     <label htmlFor="montantCreditAssurer"><b [ngStyle]="{ color: 'red' }">Montant crédit  </b> <span style="color: red;"> *</span></label>
                     <input pInputText id="montantCreditAssurer" type="number" name="montantCreditAssurer"
                            [(ngModel)]="souscription?.detailsCredit.montantCreditAssurer"
-                           [max]="50000000"
-                    required
+                           [max]="50000000" required
                            (ngModelChange)="checkMontantCredit($event)"
-
                     />
                 </div>
+
                 <div class="col-2" *ngIf="!montantSuperieur">
                     <label htmlFor="dateEffet"><b>Date effet </b><span style="color: red;"> *</span></label>
                     <input pInputText id="dateEffet" type="date" name="dateEffet"
@@ -264,7 +267,7 @@
                 <div class="col-2" *ngIf="!montantSuperieur">
                     <label htmlFor="banque">Periodicité</label>
                     <!-- Dans votre fichier .component.html -->
-                    <p-dropdown [(ngModel)]="souscription?.detailsCredit.periodiciteRemboursement" optionLabel="code" [options]="periodiciteRemboursements"
+                    <p-dropdown [(ngModel)]="souscription?.detailsCredit.periodiciteRemboursement" optionLabel="libelle" [options]="periodiciteRemboursements"
                                 placeholder="Sélectionnez une option" name="periodiciteRemboursementId"></p-dropdown>
                 </div>
                 <div class="col-1" *ngIf="!montantSuperieur">
@@ -323,7 +326,7 @@
                     <div class="col-1">
                         <label htmlFor="detail1"> <b>Oui / Non</b> </label>
                         <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question1" onLabel="Yes"
-                                        offLabel="No"></p-toggleButton>
+                                        offLabel="No" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
                     </div>
                     <div class="col-11" *ngIf="souscription.questionnaireMedical.question1 === true">
                         <label htmlFor="detail1"> <b>Detail</b> </label>
@@ -341,7 +344,7 @@
                     <div class="col-1">
                         <label htmlFor="detail1"> <b>Oui / Non</b> </label>
                         <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question2" onLabel="Yes"
-                                        offLabel="No"></p-toggleButton>
+                                        offLabel="No" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
                     </div>
                     <div class="col-11" *ngIf="souscription.questionnaireMedical.question2 === true">
                         <label htmlFor="detail2"> <b>Detail</b> </label>
@@ -358,7 +361,7 @@
                     <div class="col-1">
                         <label htmlFor="detail1"> <b>Oui / Non</b> </label>
                         <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question3" onLabel="Yes"
-                                        offLabel="No"></p-toggleButton>
+                                        offLabel="No" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
                     </div>
                     <div class="col-11" *ngIf="souscription.questionnaireMedical.question3 === true">
                         <label htmlFor="detail3"> <b>Detail</b> </label>
@@ -375,7 +378,7 @@
                     <div class="col-1">
                         <label htmlFor="detail1"> <b>Oui / Non</b> </label>
                         <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question4" onLabel="Yes"
-                                        offLabel="No"></p-toggleButton>
+                                        offLabel="No" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
                     </div>
                     <div class="col-11" *ngIf="souscription.questionnaireMedical.question4 === true">
                         <label htmlFor="detail4"> <b>Detail</b> </label>
@@ -392,7 +395,7 @@
                     <div class="col-1">
                         <label htmlFor="detail1"> <b>Oui / Non</b> </label>
                         <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question5" onLabel="Yes"
-                                        offLabel="No"></p-toggleButton>
+                                        offLabel="No" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
                     </div>
                     <div class="col-11" *ngIf="souscription.questionnaireMedical.question5 === true">
                         <label htmlFor="detail5"> <b>Detail</b> </label>
@@ -428,7 +431,7 @@
             <div>
                 <label htmlFor="detail1"> <b>Perte d'emploi</b> </label>
                 <p-toggleButton [(ngModel)]="souscription.informationEmploi.isPerte" onLabel="Oui"
-                                offLabel="Non"></p-toggleButton>
+                                offLabel="Non" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
             </div>
 
             <div class=" flex flex-wrap gap-3 p-fluid" *ngIf="souscription.informationEmploi.isPerte === true">
@@ -457,7 +460,7 @@
 
                 <div class="col-3">
                     <label htmlFor="typeContrat"> <b>type Contrat</b> </label>
-                    <p-dropdown [(ngModel)]="souscription?.informationEmploi.typeContrat" optionLabel="libelle" [options]="typeContrats"
+                    <p-dropdown [(ngModel)]="souscription?.informationEmploi.typeContrat" optionLabel="code" [options]="typeContrats"
                                 placeholder="Sélectionnez une option" name="typeContratId"></p-dropdown>
 
 
@@ -505,7 +508,7 @@
                         class="p-button-info mr-2 mb-2"></button>
             </div>
             <div class="text-right">
-                <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right"
+                <button pButton pRipple type="button" label="Suivant 111" icon="pi pi-angle-double-right"
                         (click)="calculPrime()"
                         class="p-button-info mr-2 mb-2"></button>
             </div>
@@ -697,7 +700,9 @@
                 <div class="col-4">
                     <h5>
                         <span style="color: black;">Contrat :  </span>
-                        <span [ngStyle]="{ color: 'blue' }">{{ souscription?.informationEmploi.typeContrat }}</span>
+<!--
+                        <span [ngStyle]="{ color: 'blue' }">{{ souscription?.informationEmploi.typeContrat.code }}</span>
+-->
 
                     </h5>
                 </div>
@@ -1094,7 +1099,7 @@
                 <div class="col-2" *ngIf="!montantSuperieur">
                     <label htmlFor="banqueModif">Periodicité</label>
                     <!-- Dans votre fichier .component.html -->
-                    <p-dropdown [(ngModel)]="souscription?.detailsCredit.periodiciteRemboursement" optionLabel="code" [options]="periodiciteRemboursements"
+                    <p-dropdown [(ngModel)]="souscription?.detailsCredit.periodiciteRemboursement" optionLabel="libelle" [options]="periodiciteRemboursements"
                                 placeholder="Sélectionnez une option" name="periodiciteRemboursementIdModif"></p-dropdown>
                 </div>
 
@@ -1106,13 +1111,7 @@
                                     offLabel="Non"  [disabled]="montantSuperieur" ></p-toggleButton>
                 </div>
 
-                <!-- <div class="col-2" *ngIf="souscription.detailsCredit.isDecouvert === true">
-                     <label htmlFor="montantCreditDecouvert"><b>Montant decouvert</b></label>
-                     <input pInputText id="montantCreditDecouvert" type="number" name="montantCreditDecouvert"
-                            [(ngModel)]="souscription?.detailsCredit.montantCreditDecouvert"
-                            minlength="1"
-                     />
-                 </div>-->
+
                 <div class="col-1" *ngIf="!montantSuperieur">
                     <label htmlFor="detail1Modif"> <b>Differé</b> </label>
                     <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDiffere" onLabel="Oui"
@@ -1127,6 +1126,11 @@
                     />
                 </div>
 
+            </div>
+            <div *ngIf="montantSuperieur">
+                <label htmlFor="isSuperieur"> <b>Passer le Dossier au producteur UAB ASSURANCE</b> </label>
+                <p-toggleButton [(ngModel)]="souscription.isCuperieur" onLabel="Oui"
+                                offLabel="Non"></p-toggleButton>
             </div>
         </div>
 
@@ -1336,7 +1340,7 @@
                         class="p-button-info mr-2 mb-2"></button>
             </div>
             <div class="text-right">
-                <button pButton pRipple type="button" label="Suivant" icon="pi pi-angle-double-right"
+                <button pButton pRipple type="button" label="Suiva" icon="pi pi-angle-double-right"
                         (click)="calculPrime()"
                         class="p-button-info mr-2 mb-2"></button>
             </div>
@@ -1349,55 +1353,11 @@
         <!-- MANDATAIRE -->
         <div class="card p-fluid">
 
-            <!--     <div class=" flex flex-wrap gap-3 p-fluid">
-                     <div class="col-4">
-                         <label htmlFor="capitalAssurer"> <b>capital Assurer</b> </label>
-                         <input pInputText id="capitalAssurer" type="number" name="capitalAssurer"
-                                [(ngModel)]="souscription.mandataire.capitalAssurer"
-                                minlength="0.5" s
-                         />
-                     </div>
 
-                     <div class="col-4">
-                         <label htmlFor="primeGarantieDecesOuIAD"> <b>prime Garantie Deces Ou IAD</b> </label>
-                         <input pInputText id="primeGarantieDecesOuIAD" type="number" name="primeGarantieDecesOuIAD"
-                                [(ngModel)]="souscription.mandataire.primeGarantieDecesOuIAD"
-                                minlength="1"
-                         />
-                     </div>
-                     <div class="col-4">
-                         <label htmlFor="primeGarantiePerteEmploi"> <b>prime Garantie Perte Emploi</b> </label>
-                         <input pInputText id="primeGarantiePerteEmploi" type="number" name="primeGarantiePerteEmploi"
-                                [(ngModel)]="souscription.mandataire.primeGarantiePerteEmploi"
-                                minlength="1"
-                         />
-                     </div>
-                 </div>
-                 <div class=" flex flex-wrap gap-3 p-fluid">
-                     <div class="col-6">
-                         <label htmlFor="primeTotale"> <b>prime Totale</b> </label>
-                         <input pInputText id="primeTotale" type="number" name="primeTotale"
-                                [(ngModel)]="souscription.mandataire.primeTotale"
-                                minlength="0.5" s
-                         />
-                     </div>
-
-                     <div class="col-6">
-                         <label htmlFor="numeroDeCompteUABVie"> <b>numero De Compte UAB Vie</b> </label>
-                         <input pInputText id="numeroDeCompteUABVie" type="number" name="numeroDeCompteUABVie"
-                                [(ngModel)]="souscription.mandataire.numeroDeCompteUABVie"
-                                minlength="1"
-                         />
-                     </div>
-
-                 </div>-->
             <div class="card p-fluid">
                 <h3>
                     <span [ngStyle]="{ color: 'green' }">Adherent :  </span>
                 </h3>
-
-
-                </div>
                 <div class=" flex flex-wrap gap-3 p-fluid">
                     <div class="col-4">
                         <h5>
@@ -1473,7 +1433,7 @@
                     </div>
                     <div class="col-4">
                         <h5>
-                            <span style="color: black;">Durée Année :  </span>
+                            <span style="color: black;">Durée Année  :  </span>
                             <span [ngStyle]="{ color: 'blue' }">{{ souscription?.detailsCredit.dureeTotaleCreditAnnee }}</span>
 
                         </h5>
@@ -1507,7 +1467,7 @@
                 <div class=" flex flex-wrap gap-3 p-fluid">
                     <div class="col-4">
                         <h5>
-                            <span style="color: black;">Durée Mois :  </span>
+                            <span style="color: black;">Durée Mois  :  </span>
                             <span [ngStyle]="{ color: 'blue' }">{{ souscription?.detailsCredit.dureeTotaleCreditMois }}</span>
 
                         </h5>
@@ -1620,7 +1580,6 @@
                     <span [ngStyle]="{ color: 'green' }">Prime :  </span>
                 </h3>
                 <div class=" flex flex-wrap gap-3 p-fluid">
-
                     <div class="col-4">
                         <h5>
                             <span style="color: black;">Montant :  </span>
@@ -1628,7 +1587,6 @@
 
                         </h5>
                     </div>
-
 
                     <div class="col-4">
                         <h5>
@@ -1644,7 +1602,7 @@
 
                         </h5>
                     </div>
-
+                </div>
                 <div class=" flex flex-wrap gap-3 p-fluid">
                     <div class="col-4">
                         <h5>
@@ -1653,7 +1611,6 @@
 
                         </h5>
                     </div>
-
                     <div class="col-4">
                         <h5>
                             <span style="color: black;">prime PE :  </span>
@@ -1662,9 +1619,9 @@
                         </h5>
                     </div>
 
- <div class="col-4">
+                    <div class="col-4">
                         <h5>
-                            <span style="color: black;">prime Perte Emplois :  </span>
+                            <span style="color: black;">prime Differe :  </span>
                             <span [ngStyle]="{ color: 'blue' }">{{ souscription.mandataire.primeDiffere }}</span>
 
                         </h5>
@@ -1692,7 +1649,7 @@
         <div class="text-right">
             <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()"
                     class="p-button-danger mr-2 mb-2"></button>
-            <button pButton pRipple ttype="submit" [disabled]="!myForm.valid" label="Enregistrer" icon="pi pi-save"
+            <button pButton pRipple type="submit" [disabled]="!myForm.valid" label="Enregistrer" icon="pi pi-save"
                     (click)="updateSouscription(this.souscription?.id, this.souscription); ngOnInit();"
                     class="p-button-success mr-2 mb-2"></button>
         </div>
@@ -1795,16 +1752,9 @@
                                    class="p-button-alert mr-2 mb-2">
                            </button>
                            <button pButton pRipple type="button" icon="pi pi-pencil"
-
                                    (click)="onDisplayDialogueModif(this.souscription?.id, this.souscription)"
-                                   class="p-button-info mr-2 mb-2"></button>
-
-                           <button pButton pRipple type="button" icon="pi pi-bars"
-
-
-                                   class="p-button-success mr-2 mb-2">
+                                   class="p-button-info mr-2 mb-2">
                            </button>
-
 
                        </td>
                    </tr>

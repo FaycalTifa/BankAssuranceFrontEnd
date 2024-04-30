@@ -50,6 +50,7 @@
                         <input pInputText id="dateDeNaissance" type="date" name="dateDeNaissance"
                                [(ngModel)]="souscription?.personne.dateDeNaissance"
                                minlength="1" required
+                               [appGestionDate]="18"
                         />
                     </div>
                 </div>
@@ -259,7 +260,7 @@
                                minlength="1"
                         />
                     </div>
-                    <div class="col-2" *ngIf="!montantSuperieur">
+                    <div class="col-2">
                         <label htmlFor="banque">Periodicité</label>
                         <!-- Dans votre fichier .component.html -->
                         <p-dropdown [(ngModel)]="souscription?.detailsCredit.periodiciteRemboursement" optionLabel="code" [options]="periodiciteRemboursements"
@@ -269,20 +270,14 @@
                     <div class="col-1">
                         <label htmlFor="detail1"> <b>Decouvert</b> </label>
                         <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDecouvert" onLabel="Oui"
-                                        offLabel="Non"  [disabled]="montantSuperieur" ></p-toggleButton>
+                                        offLabel="Non"   ></p-toggleButton>
                     </div>
 
-                    <!-- <div class="col-2" *ngIf="souscription.detailsCredit.isDecouvert === true">
-                         <label htmlFor="montantCreditDecouvert"><b>Montant decouvert</b></label>
-                         <input pInputText id="montantCreditDecouvert" type="number" name="montantCreditDecouvert"
-                                [(ngModel)]="souscription?.detailsCredit.montantCreditDecouvert"
-                                minlength="1"
-                         />
-                     </div>-->
+
                     <div class="col-1" >
                         <label htmlFor="detail1"> <b>Differé</b> </label>
                         <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDiffere" onLabel="Oui"
-                                        offLabel="Non"  [disabled]="montantSuperieur" ></p-toggleButton>
+                                        offLabel="Non"  ></p-toggleButton>
                     </div>
 
                     <div class="col-2" *ngIf="souscription.detailsCredit.isDiffere == true">
@@ -402,6 +397,98 @@
                             />
                         </div>
                     </div>
+                </div>
+            </div>
+            <div>
+                <h4>Question supplementaire</h4>
+            </div>
+            <div class="card p-fluid">
+                <div class="mt-4">
+                    <label htmlFor="detail1Modif"> <b><h4>Question1: Avez-vous des antécédents médicaux et ou churirgicaux?</h4></b> </label>
+
+                    <!--    <div class=" flex flex-wrap gap-3 p-fluid ">
+                            <div class="col-1">
+                                <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
+                                <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question1" onLabel="Yes"
+                                                offLabel="No"></p-toggleButton>
+                            </div>
+                            <div class="col-11" *ngIf="souscription.questionnaireMedical.question1 === true">
+                                <label htmlFor="detail1Modif"> <b>Detail</b> </label>
+                                <input pInputText id="detail1Modif" type="text" name="detail1Modif"
+                                       [(ngModel)]="souscription.questionnaireMedical.detail1"
+                                       minlength="1"
+                                />
+                            </div>
+                        </div>-->
+                </div>
+
+                <div class="mt-4">
+                    <label htmlFor="detail1"> <b><h4> Question2: Etes vous porteur d’une maladie chronique nécéssitant un traitement?</h4></b> </label>
+                    <!--   <div class=" flex flex-wrap gap-3 p-fluid ">
+                           <div class="col-1">
+                               <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
+                               <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question2" onLabel="Yes"
+                                               offLabel="No"></p-toggleButton>
+                           </div>
+                           <div class="col-11" *ngIf="souscription.questionnaireMedical.question2 === true">
+                               <label htmlFor="detail2Modif"> <b>Detail</b> </label>
+                               <input pInputText id="detail2Modif" type="text" name="detail2Modif"
+                                      [(ngModel)]="souscription.questionnaireMedical.detail2"
+                                      minlength="1"
+                               />
+                           </div>
+                       </div>-->
+                </div>
+                <div class="mt-4">
+                    <label htmlFor="detail1Modif"> <b><h4>  Question3: Suivez vous un traitement médical?</h4></b> </label>
+                    <!--  <div class=" flex flex-wrap gap-3 p-fluid ">
+                          <div class="col-1">
+                              <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
+                              <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question3" onLabel="Yes"
+                                              offLabel="No"></p-toggleButton>
+                          </div>
+                          <div class="col-11" *ngIf="souscription.questionnaireMedical.question3 === true">
+                              <label htmlFor="detail3Modif"> <b>Detail</b> </label>
+                              <input pInputText id="detail3Modif" type="text" name="detail3Modif"
+                                     [(ngModel)]="souscription.questionnaireMedical.detail3"
+                                     minlength="1"
+                              />
+                          </div>
+                      </div>-->
+                </div>
+                <div class="mt-4">
+                    <label htmlFor="detail1"> <b><h4>Question4:Avez-vous fait récemment un test d’Hepatite B et ou SIDA?</h4></b> </label>
+                    <!--<div class=" flex flex-wrap gap-3 p-fluid ">
+                        <div class="col-1">
+                            <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
+                            <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question4" onLabel="Yes"
+                                            offLabel="No"></p-toggleButton>
+                        </div>
+                        <div class="col-11" *ngIf="souscription.questionnaireMedical.question4 === true">
+                            <label htmlFor="detail4Modif"> <b>Detail</b> </label>
+                            <input pInputText id="detail4Modif" type="text" name="detail4Modif"
+                                   [(ngModel)]="souscription.questionnaireMedical.detail4"
+                                   minlength="1"
+                            />
+                        </div>
+                    </div>-->
+                </div>
+                <div class="mt-4">
+                    <label htmlFor="detail1"> <b><h4>Question5: Etes vous titulaire d’une pension d’invadilité?</h4></b> </label>
+                    <!-- <div class=" flex flex-wrap gap-3 p-fluid ">
+                         <div class="col-1">
+                             <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
+                             <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question5" onLabel="Yes"
+                                             offLabel="No"></p-toggleButton>
+                         </div>
+                         <div class="col-11" *ngIf="souscription.questionnaireMedical.question5 === true">
+                             <label htmlFor="detail5Modif"> <b>Detail</b> </label>
+                             <input pInputText id="detail5Modif" type="text" name="detail5Modif"
+                                    [(ngModel)]="souscription.questionnaireMedical.detail5"
+                                    minlength="1"
+                             />
+                         </div>
+                     </div>-->
                 </div>
             </div>
 
@@ -1087,7 +1174,7 @@
                     </div>
 
 
-                    <div class="col-2" *ngIf="!montantSuperieur">
+                    <div class="col-2" *ngIf="souscription.isCuperieur === false">
                         <label htmlFor="banqueModif">Periodicité</label>
                         <!-- Dans votre fichier .component.html -->
                         <p-dropdown [(ngModel)]="souscription?.detailsCredit.periodiciteRemboursement" optionLabel="code" [options]="periodiciteRemboursements"
@@ -1101,13 +1188,6 @@
                                         offLabel="Non" ></p-toggleButton>
                     </div>
 
-                    <!-- <div class="col-2" *ngIf="souscription.detailsCredit.isDecouvert === true">
-                         <label htmlFor="montantCreditDecouvert"><b>Montant decouvert</b></label>
-                         <input pInputText id="montantCreditDecouvert" type="number" name="montantCreditDecouvert"
-                                [(ngModel)]="souscription?.detailsCredit.montantCreditDecouvert"
-                                minlength="1"
-                         />
-                     </div>-->
                     <div class="col-1" *ngIf="souscription.isCuperieur === false">
                         <label htmlFor="detail1Modif"> <b>Differé</b> </label>
                         <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDiffere" onLabel="Oui"
@@ -1235,6 +1315,98 @@
                             />
                         </div>
                     </div>
+                </div>
+            </div>
+            <div>
+                <h4>Question supplementaire</h4>
+            </div>
+            <div class="card p-fluid">
+                <div class="mt-4">
+                    <label htmlFor="detail1Modif"> <b><h4>Question1: Avez-vous des antécédents médicaux et ou churirgicaux?</h4></b> </label>
+
+                <!--    <div class=" flex flex-wrap gap-3 p-fluid ">
+                        <div class="col-1">
+                            <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
+                            <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question1" onLabel="Yes"
+                                            offLabel="No"></p-toggleButton>
+                        </div>
+                        <div class="col-11" *ngIf="souscription.questionnaireMedical.question1 === true">
+                            <label htmlFor="detail1Modif"> <b>Detail</b> </label>
+                            <input pInputText id="detail1Modif" type="text" name="detail1Modif"
+                                   [(ngModel)]="souscription.questionnaireMedical.detail1"
+                                   minlength="1"
+                            />
+                        </div>
+                    </div>-->
+                </div>
+
+                <div class="mt-4">
+                    <label htmlFor="detail1"> <b><h4> Question2: Etes vous porteur d’une maladie chronique nécéssitant un traitement?</h4></b> </label>
+                 <!--   <div class=" flex flex-wrap gap-3 p-fluid ">
+                        <div class="col-1">
+                            <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
+                            <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question2" onLabel="Yes"
+                                            offLabel="No"></p-toggleButton>
+                        </div>
+                        <div class="col-11" *ngIf="souscription.questionnaireMedical.question2 === true">
+                            <label htmlFor="detail2Modif"> <b>Detail</b> </label>
+                            <input pInputText id="detail2Modif" type="text" name="detail2Modif"
+                                   [(ngModel)]="souscription.questionnaireMedical.detail2"
+                                   minlength="1"
+                            />
+                        </div>
+                    </div>-->
+                </div>
+                <div class="mt-4">
+                    <label htmlFor="detail1Modif"> <b><h4>  Question3: Suivez vous un traitement médical?</h4></b> </label>
+                  <!--  <div class=" flex flex-wrap gap-3 p-fluid ">
+                        <div class="col-1">
+                            <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
+                            <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question3" onLabel="Yes"
+                                            offLabel="No"></p-toggleButton>
+                        </div>
+                        <div class="col-11" *ngIf="souscription.questionnaireMedical.question3 === true">
+                            <label htmlFor="detail3Modif"> <b>Detail</b> </label>
+                            <input pInputText id="detail3Modif" type="text" name="detail3Modif"
+                                   [(ngModel)]="souscription.questionnaireMedical.detail3"
+                                   minlength="1"
+                            />
+                        </div>
+                    </div>-->
+                </div>
+                <div class="mt-4">
+                    <label htmlFor="detail1"> <b><h4>Question4:Avez-vous fait récemment un test d’Hepatite B et ou SIDA?</h4></b> </label>
+                    <!--<div class=" flex flex-wrap gap-3 p-fluid ">
+                        <div class="col-1">
+                            <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
+                            <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question4" onLabel="Yes"
+                                            offLabel="No"></p-toggleButton>
+                        </div>
+                        <div class="col-11" *ngIf="souscription.questionnaireMedical.question4 === true">
+                            <label htmlFor="detail4Modif"> <b>Detail</b> </label>
+                            <input pInputText id="detail4Modif" type="text" name="detail4Modif"
+                                   [(ngModel)]="souscription.questionnaireMedical.detail4"
+                                   minlength="1"
+                            />
+                        </div>
+                    </div>-->
+                </div>
+                <div class="mt-4">
+                    <label htmlFor="detail1"> <b><h4>Question5: Etes vous titulaire d’une pension d’invadilité?</h4></b> </label>
+                   <!-- <div class=" flex flex-wrap gap-3 p-fluid ">
+                        <div class="col-1">
+                            <label htmlFor="detail1Modif"> <b>Oui / Non</b> </label>
+                            <p-toggleButton [(ngModel)]="souscription.questionnaireMedical.question5" onLabel="Yes"
+                                            offLabel="No"></p-toggleButton>
+                        </div>
+                        <div class="col-11" *ngIf="souscription.questionnaireMedical.question5 === true">
+                            <label htmlFor="detail5Modif"> <b>Detail</b> </label>
+                            <input pInputText id="detail5Modif" type="text" name="detail5Modif"
+                                   [(ngModel)]="souscription.questionnaireMedical.detail5"
+                                   minlength="1"
+                            />
+                        </div>
+                    </div>-->
                 </div>
             </div>
 
@@ -1644,7 +1816,7 @@
             <div class="text-right">
                 <button pButton pRipple type="button" label="Annuler" icon="pi pi-times" (click)="onHidenDialogue()"
                         class="p-button-danger mr-2 mb-2"></button>
-                <button pButton pRipple ttype="submit" [disabled]="!myForm.valid" label="Enregistrer" icon="pi pi-save"
+                <button pButton pRipple type="submit" [disabled]="!myForm.valid" label="Enregistrer" icon="pi pi-save"
                         (click)="updateSouscription(this.souscription?.id, this.souscription); ngOnInit();"
                         class="p-button-success mr-2 mb-2"></button>
             </div>

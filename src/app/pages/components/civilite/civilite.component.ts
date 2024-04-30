@@ -5,9 +5,9 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 import {ServiceService} from '../../services/service/service.service';
 import {KeycloakService} from 'keycloak-angular';
 import {HttpResponse} from '@angular/common/http';
-import {Civilite} from '../../models/civilite/civilite';
 import {CiviliteService} from '../../services/civilite/civilite.service';
 import {Banque} from '../../models/banque/banque';
+import {Civilite} from "../../models/souscription/souscription";
 
 @Component({
     selector: 'app-civilite',
@@ -23,10 +23,14 @@ export class CiviliteComponent implements OnInit {
     displayDialogue: boolean;
     displayDialogueDetail: boolean;
     displayDialogueModification: boolean;
-    civilite: Civilite = new Civilite();
+   // civilite: Civilite = new Civilite();
     keycloakUser = '';
     userRole: string[] = [];
     serviceId: number;
+    civilite: Civilite = {
+        code: '',
+        libelle: '',
+    }
 
     constructor(
         private messageService: MessageService,
@@ -37,12 +41,14 @@ export class CiviliteComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.civilite = new Civilite();
         this.getAllCivilites();
+        this.resetForm();
 // this.toInitFunctions();
     }
 
-
+    resetForm() {
+        this.civilite = {}; // Réinitialisez l'objet souscription à un objet vide ou à ses valeurs par défaut
+    }
     clear(table: Table) {
         table.clear();
         this.filter.nativeElement.value = '';
@@ -60,7 +66,7 @@ export class CiviliteComponent implements OnInit {
     }
 
     onDisplayDialogue(civilite: Civilite): void {
-        this.civilite = new Civilite(); // Réinitialise le modèle du formulaire
+       // this.civilite = new Civilite(); // Réinitialise le modèle du formulaire
         this.displayDialogue = true;
     }
 

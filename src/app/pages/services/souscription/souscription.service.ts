@@ -19,7 +19,7 @@ export class SouscriptionService {
 
 
     createSouscription(souscription: Souscription): Observable<EntityResponseType> {
-        console.log("============ SERVICE SOUSCRPTION ================", souscription)
+        console.log("============ SERVICE SOUSCRPTION SAVE ================", souscription)
         return this.http.post<Souscription>(this.apiUrl, souscription, {observe: 'response'});
     }
 

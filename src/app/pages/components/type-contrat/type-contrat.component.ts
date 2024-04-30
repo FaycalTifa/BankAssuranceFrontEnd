@@ -32,7 +32,7 @@ export class TypeContratComponent implements OnInit {
 
   constructor(
       private messageService: MessageService,
-      protected typeContratSerice: TypeContratService,
+      private typeContratSerice: TypeContratService,
       protected serviceService: ServiceService,
       protected keycloakService: KeycloakService,
       private confirmationService: ConfirmationService) {

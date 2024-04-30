@@ -131,6 +131,8 @@ import { PipePipe } from './pages/pipe/pipe.pipe';
 import { SouscriptionProdComponent } from './pages/components/souscription-prod/souscription-prod.component';
 import { TypeContratComponent } from './pages/components/type-contrat/type-contrat.component';
 import {KeycloackSecurityService} from './pages/services/keycloack/keycloack.service';
+import { FormatMontantDirective } from './pages/directive/format-montant.directive';
+import { GestionDateDirective } from './pages/directive/gestion-date/gestion-date.directive';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -256,6 +258,8 @@ export function kcFactory(kcSecurity: KeycloackSecurityService) {
         PipePipe,
         SouscriptionProdComponent,
         TypeContratComponent,
+        FormatMontantDirective,
+        GestionDateDirective,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

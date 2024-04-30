@@ -197,8 +197,96 @@ export class SouscriptionProdComponent implements OnInit {
     }
 
     onDisplayDialogue(poste: Banque): void {
-        this.resetForm();
         this.displayDialogue = true;
+        this.souscription = {
+            isCuperieur: false,
+            personne: {
+                nom: '',
+                prenom: '',
+                nomDeJeuneFille: '',
+                dateDeNaissance: '',
+                lieuDeNaissance: '',
+                taille: 0,
+                poids: 0,
+                tension: '',
+                professionActuelle: '',
+                employeur: '',
+                numeroPiecePasseport: '',
+                dateEtablissement: '',
+                lieuEtablissement: '',
+                adressePostale: '',
+                telephone: '',
+                email: '',
+                telephoneSecours: '',
+                emailSecours: '',
+                adresseSecours: '',
+                civilite: {
+                    code: '',
+                    libelle: '',
+                }
+            },
+            detailsCredit: {
+                montantCreditAssurer: 0,
+                montantCreditDecouvert: 0,
+                nombreDeRemboursement: '',
+                montantDesTermes: 0,
+                numeroCompteClient: '',
+                dureeTotaleCreditAnnee: 0,
+                dureeTotaleCreditMois: 0,
+                differerAmortissement: 0,
+                datePremierRemboursementTerme: '',
+                dateEffet: '',
+                dateEcheance: '',
+                isDiffere: false,
+                isDecouvert: false,
+                periodiciteRemboursement: {
+                    ///  id: 0,
+                    code: '',
+                    libelle: '',
+                }
+            },
+            questionnaireMedical: {
+                question1: false,
+                question2: false,
+                question3: false,
+                question4: false,
+                question5: false,
+                detail1: '',
+                detail2: '',
+                detail3: '',
+                detail4: '',
+                detail5: ''
+            },
+            mandataire: {
+                capitalAssurer: 0,
+                primeGarantieDecesOuIAD: 0,
+                tauxAmortissement: 0,
+                tauxDecouvert: 0,
+                primeGarantiePerteEmploi: 0,
+                primeTotale: 0,
+                numeroDeCompteUABVie: '',
+                primeSimple: 0,
+                primeDiffere: 0,
+                primeDecouvert: 0,
+            },
+            informationEmploi: {
+                employeur: '',
+                dateEmbauche: '',
+                adresseEmployeur: '',
+                professionActuelle: '',
+                telEmployeur: '',
+                numeroCNSS: '',
+                numeroRCCMIFU: '',
+                isPerte: false,
+                typeContrat: {
+                    //  id: 0,
+                    code: '',
+                    libelle: '',
+                }
+
+            }
+        };
+        console.log("========sous=", this.souscription);
     }
 
     onDisplayDialoguDetail(banque: Banque) {
@@ -314,11 +402,11 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxAmortissement ================", this.souscription.mandataire.tauxAmortissement)
                 this.souscription.mandataire.primeDiffere = 0;
                 this.souscription.mandataire.primeDecouvert = 0;
-                this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
-                this.souscription.mandataire.primeGarantiePerteEmploi = this.souscription.mandataire.primeSimple * this.tauxPerteEmplois;
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple +  this.souscription.mandataire.primeGarantiePerteEmploi;
+                this.souscription.mandataire.primeSimple =  Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
+                this.souscription.mandataire.primeGarantiePerteEmploi =  Math.round( this.souscription.mandataire.primeSimple * this.tauxPerteEmplois);
+                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeSimple +  this.souscription.mandataire.primeGarantiePerteEmploi);
 
-                console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
+                console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale);
             }
             else {
                 console.log("============ isDiffere === false && isDecouvert === false ================")
@@ -330,9 +418,9 @@ export class SouscriptionProdComponent implements OnInit {
                 this.souscription.mandataire.primeDiffere = 0;
                 this.souscription.mandataire.primeDecouvert = 0;
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
-                this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
+                this.souscription.mandataire.primeSimple =  Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple;
+                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeSimple);
 
                 console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
 
@@ -356,13 +444,13 @@ export class SouscriptionProdComponent implements OnInit {
 
                 this.souscription.mandataire.primeDecouvert = 0;
 
-                this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
+                this.souscription.mandataire.primeSimple =  Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
 
-                this.souscription.mandataire.primeGarantiePerteEmploi = this.souscription.mandataire.primeSimple * this.tauxPerteEmplois;
+                this.souscription.mandataire.primeGarantiePerteEmploi =  Math.round( this.souscription.mandataire.primeSimple * this.tauxPerteEmplois);
 
-                this.souscription.mandataire.primeDiffere =  (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement);
+                this.souscription.mandataire.primeDiffere =  Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi;
+                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi);
 
                 console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
 
@@ -382,14 +470,14 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
 
                 this.souscription.mandataire.primeDecouvert = 0;
+                this.souscription.mandataire.primeSimple = 0;
 
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
 
-                this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
+                this.souscription.mandataire.primeSimple =  Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
 
-                this.souscription.mandataire.primeDiffere =  (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement);
-
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere
+                this.souscription.mandataire.primeDiffere =  Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
+                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere);
 
                 console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
 
@@ -410,12 +498,13 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
 
                 this.souscription.mandataire.primeDiffere = 0;
+                this.souscription.mandataire.primeSimple = 0;
 
-                this.souscription.mandataire.primeDecouvert = (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100))
+                this.souscription.mandataire.primeDecouvert =  Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
-                this.souscription.mandataire.primeGarantiePerteEmploi = this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois;
+                this.souscription.mandataire.primeGarantiePerteEmploi =  Math.round( this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois);
 
-                this.souscription.mandataire.primeTotale =   this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeGarantiePerteEmploi;
+                this.souscription.mandataire.primeTotale =  Math.round(  this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeGarantiePerteEmploi);
 
                 console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale)
 
@@ -430,12 +519,13 @@ export class SouscriptionProdComponent implements OnInit {
                 this.tauxDec1an;
                 console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
 
+                this.souscription.mandataire.primeSimple = 0;
                 this.souscription.mandataire.primeDiffere = 0;
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
 
-                this.souscription.mandataire.primeDecouvert = (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100))
+                this.souscription.mandataire.primeDecouvert =  Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
-                this.souscription.mandataire.primeTotale =   this.souscription.mandataire.primeDecouvert
+                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeDecouvert);
 
                 console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale)
 
@@ -459,13 +549,14 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
                 console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
                 console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-                this.souscription.mandataire.primeDecouvert = (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100))
+                this.souscription.mandataire.primeSimple = 0;
+                this.souscription.mandataire.primeDecouvert =  Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
-                this.souscription.mandataire.primeGarantiePerteEmploi = this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois;
+                this.souscription.mandataire.primeGarantiePerteEmploi =  Math.round( this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois);
 
-                this.souscription.mandataire.primeDiffere =   (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement);
+                this.souscription.mandataire.primeDiffere =  Math.round(  (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi;
+                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi);
 
                 console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
             }
@@ -482,13 +573,14 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
                 console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
                 console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-                this.souscription.mandataire.primeDecouvert = (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100))
+                this.souscription.mandataire.primeDecouvert =  Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
+                this.souscription.mandataire.primeSimple = 0;
 
-                this.souscription.mandataire.primeDiffere =   (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement);
+                this.souscription.mandataire.primeDiffere =  Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere;
+                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere);
 
                 console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
             }
@@ -513,9 +605,9 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxAmortissement ================", this.souscription.mandataire.tauxAmortissement)
                 this.souscription.mandataire.primeDiffere = 0;
                 this.souscription.mandataire.primeDecouvert = 0;
-                this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
-                this.souscription.mandataire.primeGarantiePerteEmploi = this.souscription.mandataire.primeSimple * this.tauxPerteEmplois;
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple +  this.souscription.mandataire.primeGarantiePerteEmploi;
+                this.souscription.mandataire.primeSimple = Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
+                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeSimple * this.tauxPerteEmplois);
+                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple +  this.souscription.mandataire.primeGarantiePerteEmploi);
 
                 console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.createSouscription(this.souscription).subscribe(
@@ -541,9 +633,9 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxAmortissement ================", this.souscription.mandataire.tauxAmortissement)
                 this.souscription.mandataire.primeDiffere = 0;
                 this.souscription.mandataire.primeDecouvert = 0;
-                this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
+                this.souscription.mandataire.primeSimple = Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple;
+                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple);
 
                 console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.createSouscription(this.souscription).subscribe(
@@ -579,13 +671,13 @@ export class SouscriptionProdComponent implements OnInit {
 
                 this.souscription.mandataire.primeDecouvert = 0;
 
-                this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
+                this.souscription.mandataire.primeSimple = Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
 
-                this.souscription.mandataire.primeGarantiePerteEmploi = this.souscription.mandataire.primeSimple * this.tauxPerteEmplois;
+                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeSimple * this.tauxPerteEmplois);
 
-                this.souscription.mandataire.primeDiffere =  (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement);
+                this.souscription.mandataire.primeDiffere = Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi;
+                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi);
 
                 console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.createSouscription(this.souscription).subscribe(
@@ -620,11 +712,11 @@ export class SouscriptionProdComponent implements OnInit {
 
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
 
-                this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
+                this.souscription.mandataire.primeSimple = Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
 
-                this.souscription.mandataire.primeDiffere =  (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement);
+                this.souscription.mandataire.primeDiffere = Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere
+                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere);
 
                 console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.createSouscription(this.souscription).subscribe(
@@ -657,12 +749,13 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
 
                 this.souscription.mandataire.primeDiffere = 0;
+                this.souscription.mandataire.primeSimple = 0;
 
-                this.souscription.mandataire.primeDecouvert = (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100))
+                this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
-                this.souscription.mandataire.primeGarantiePerteEmploi = this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois;
+                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois);
 
-                this.souscription.mandataire.primeTotale =   this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeGarantiePerteEmploi;
+                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeGarantiePerteEmploi);
 
                 console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.createSouscription(this.souscription).subscribe(
@@ -690,13 +783,14 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
 
                 this.souscription.mandataire.primeDiffere = 0;
+                this.souscription.mandataire.primeSimple = 0;
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
 
-                this.souscription.mandataire.primeDecouvert = (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100))
+                this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
-                this.souscription.mandataire.primeTotale =   this.souscription.mandataire.primeDecouvert
+                this.souscription.mandataire.primeTotale = Math.round(  this.souscription.mandataire.primeDecouvert);
 
-                console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale)
+                console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale);
                 this.souscriptionService.createSouscription(this.souscription).subscribe(
                     resp => {
                         if (resp) {
@@ -730,13 +824,14 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
                 console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
                 console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-                this.souscription.mandataire.primeDecouvert = (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100))
+                this.souscription.mandataire.primeSimple = 0;
+                this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
-                this.souscription.mandataire.primeGarantiePerteEmploi = this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois;
+                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois);
 
-                this.souscription.mandataire.primeDiffere =   (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement);
+                this.souscription.mandataire.primeDiffere =  Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi;
+                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi);
 
                 console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.createSouscription(this.souscription).subscribe(
@@ -766,13 +861,14 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
                 console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
                 console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-                this.souscription.mandataire.primeDecouvert = (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100))
+                this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
+                this.souscription.mandataire.primeSimple = 0;
 
-                this.souscription.mandataire.primeDiffere =   (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement);
+                this.souscription.mandataire.primeDiffere = Math.round(  (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere;
+                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere);
 
                 console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.createSouscription(this.souscription).subscribe(
@@ -796,6 +892,7 @@ export class SouscriptionProdComponent implements OnInit {
     }
 
     updateSouscription(id: number, souscription1: Souscription): void {
+        console.log(this.souscription.detailsCredit.isDiffere, this.souscription.detailsCredit.isDecouvert)
         this.souscription.mandataire.tauxDecouvert = this.tauxDec;
         if (this.souscription.detailsCredit.isDiffere === false && this.souscription.detailsCredit.isDecouvert === false) {
             if(this.souscription.informationEmploi.isPerte == true){
@@ -808,9 +905,9 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxAmortissement ================", this.souscription.mandataire.tauxAmortissement)
                 this.souscription.mandataire.primeDiffere = 0;
                 this.souscription.mandataire.primeDecouvert = 0;
-                this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
-                this.souscription.mandataire.primeGarantiePerteEmploi = this.souscription.mandataire.primeSimple * this.tauxPerteEmplois;
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple +  this.souscription.mandataire.primeGarantiePerteEmploi;
+                this.souscription.mandataire.primeSimple = Math.round(  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
+                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeSimple * this.tauxPerteEmplois);
+                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple +  this.souscription.mandataire.primeGarantiePerteEmploi);
 
                 console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
@@ -834,9 +931,9 @@ export class SouscriptionProdComponent implements OnInit {
                 this.souscription.mandataire.primeDiffere = 0;
                 this.souscription.mandataire.primeDecouvert = 0;
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
-                this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
+                this.souscription.mandataire.primeSimple = Math.round(  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple;
+                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple);
 
                 console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
@@ -869,13 +966,13 @@ export class SouscriptionProdComponent implements OnInit {
 
                 this.souscription.mandataire.primeDecouvert = 0;
 
-                this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
+                this.souscription.mandataire.primeSimple = Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
 
-                this.souscription.mandataire.primeGarantiePerteEmploi = this.souscription.mandataire.primeSimple * this.tauxPerteEmplois;
+                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeSimple * this.tauxPerteEmplois);
 
-                this.souscription.mandataire.primeDiffere =  (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement);
+                this.souscription.mandataire.primeDiffere = Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi;
+                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi);
 
                 console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
@@ -906,11 +1003,11 @@ export class SouscriptionProdComponent implements OnInit {
                 this.souscription.mandataire.primeDecouvert = 0;
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
 
-                this.souscription.mandataire.primeSimple =  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
+                this.souscription.mandataire.primeSimple = Math.round(  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
 
-                this.souscription.mandataire.primeDiffere =  (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement);
+                this.souscription.mandataire.primeDiffere = Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere;
+                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere);
 
                 console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
@@ -939,12 +1036,13 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
 
                 this.souscription.mandataire.primeDiffere = 0;
+                this.souscription.mandataire.primeSimple = 0;
 
-                this.souscription.mandataire.primeDecouvert = (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100))
+                this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
-                this.souscription.mandataire.primeGarantiePerteEmploi = this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois;
+                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois);
 
-                this.souscription.mandataire.primeTotale =   this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeGarantiePerteEmploi;
+                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeGarantiePerteEmploi);
 
                 console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
@@ -967,10 +1065,11 @@ export class SouscriptionProdComponent implements OnInit {
                 this.tauxDec1an;
                 console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
                 this.souscription.mandataire.primeDiffere = 0;
+                this.souscription.mandataire.primeSimple = 0;
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
-                this.souscription.mandataire.primeDecouvert = (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100))
+                this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
-                this.souscription.mandataire.primeTotale =   this.souscription.mandataire.primeDecouvert
+                this.souscription.mandataire.primeTotale = Math.round(  this.souscription.mandataire.primeDecouvert);
 
                 console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
@@ -1001,13 +1100,14 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
                 console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
                 console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-                this.souscription.mandataire.primeDecouvert = (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100))
+                this.souscription.mandataire.primeSimple = 0;
+                this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
-                this.souscription.mandataire.primeGarantiePerteEmploi = this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois;
+                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois);
 
-                this.souscription.mandataire.primeDiffere =   (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement);
+                this.souscription.mandataire.primeDiffere = Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi;
+                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi);
 
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
                     response => {
@@ -1033,13 +1133,14 @@ export class SouscriptionProdComponent implements OnInit {
                 console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
                 console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
                 console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-                this.souscription.mandataire.primeDecouvert = (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100))
+                this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
+                this.souscription.mandataire.primeSimple = 0;
 
-                this.souscription.mandataire.primeDiffere =   (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement);
+                this.souscription.mandataire.primeDiffere = Math.round(  (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
-                this.souscription.mandataire.primeTotale = this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere;
+                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere);
 
                 console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(

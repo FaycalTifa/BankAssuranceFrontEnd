@@ -130,7 +130,15 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/parametre/periodicitePaiementPrimes']
                             },
                             {
-                                label: 'GESTIONNAIRE', icon: 'pi pi-user', routerLink: ['/parametre/gestionnaires']},
+                                label: 'GESTIONNAIRE',
+                                icon: 'pi pi-user',
+                                routerLink: ['/parametre/gestionnaires']
+                            },
+                            {
+                                label: ' TYPE CONTRAT',
+                                icon: 'pi pi-info-circle',
+                                routerLink: ['/information/typeContrats']
+                            },
 
 
                         ]
@@ -163,11 +171,7 @@ export class AppMenuComponent implements OnInit {
                             {label: 'MANDATAIRE', icon: 'pi pi-user', routerLink: ['/information/mandataires']},
 
 
-                            {
-                                label: 'TYPE CONTRAT',
-                                icon: 'pi pi-info-circle',
-                                routerLink: ['/information/typeContrats']
-                            },
+
                         ]
                     },
                     {

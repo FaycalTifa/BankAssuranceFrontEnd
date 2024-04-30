@@ -1,0 +1,8 @@
+/* Styles pour le bouton bascule personnalisé */
+.custom-toggle-button .ui-button.ui-togglebutton {
+  background-color: #dddddd; /* Couleur de fond initiale */
+}
+
+.custom-toggle-button .ui-button.ui-togglebutton.ui-state-active {
+  background-color: green; /* Couleur de fond lorsque le bouton est activé */
+}

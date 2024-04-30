@@ -2,7 +2,7 @@
 
 export const environment = {
     production: true,
-    api: 'http://localhost:9000',
+    api: 'http://localhost:4200',
     keycloakConfig: {
         issuer: 'http://localhost:9998',
         realm: 'uabsante',

@@ -6,11 +6,11 @@
 export interface Souscription {
     id?: number;
     isCuperieur?: boolean;
-    personne: Personne;
-    detailsCredit: DetailsCredit;
-    questionnaireMedical: QuestionnaireMedical;
-    mandataire: Mandataire;
-    informationEmploi: InformationEmploi;
+    personne?: Personne;
+    detailsCredit?: DetailsCredit;
+    questionnaireMedical?: QuestionnaireMedical;
+    mandataire?: Mandataire;
+    informationEmploi?: InformationEmploi;
 }
 
 export interface Personne {
@@ -34,7 +34,7 @@ export interface Personne {
     telephoneSecours?: string,
     emailSecours?: string,
     adresseSecours?: string,
-    civilite: Civilite
+    civilite?: Civilite
 }
 
 export interface DetailsCredit {
@@ -53,7 +53,7 @@ export interface DetailsCredit {
     datePremierRemboursementTerme?: string,
     dateEffet?: string,
     dateEcheance?: string,
-    periodiciteRemboursement: PeriodiciteRemboursement
+    periodiciteRemboursement?: PeriodiciteRemboursement
 }
 
 export interface QuestionnaireMedical {
@@ -93,10 +93,10 @@ export interface InformationEmploi {
     dateEmbauche?: string,
     adresseEmployeur?: string,
     professionActuelle?: string,
-    typeContrat: TypeContrat,
     telEmployeur?: string,
     numeroCNSS?: string,
     numeroRCCMIFU?: string,
+    typeContrat?: TypeContrat,
 }
 
 export interface PeriodiciteRemboursement {
@@ -109,9 +109,11 @@ export interface Civilite {
      id?: number,
      code?: string,
      libelle?: string,
+    isDeleted?: boolean,
 }
 export interface TypeContrat {
     id?: number,
     code?: string,
     libelle?: string,
+    isDeleted?: boolean,
 }
