@@ -1,12 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Table} from "primeng/table";
+import {Table} from 'primeng/table';
 import {PeriodiciteRemboursement, Souscription} from '../../models/souscription/souscription';
-import {ConfirmationService, MenuItem, MessageService} from "primeng/api";
-import {SouscriptionService} from "../../services/souscription/souscription.service";
-import {KeycloakService} from "keycloak-angular";
-import {Banque} from "../../models/banque/banque";
-import {HttpResponse} from "@angular/common/http";
-import moment from "moment/moment";
+import {ConfirmationService, MenuItem, MessageService} from 'primeng/api';
+import {SouscriptionService} from '../../services/souscription/souscription.service';
+import {KeycloakService} from 'keycloak-angular';
+import {Banque} from '../../models/banque/banque';
+import {HttpResponse} from '@angular/common/http';
+import moment from 'moment/moment';
 import {Civilite} from '../../models/civilite/civilite';
 import {CiviliteService} from '../../services/civilite/civilite.service';
 import {PeriodiciteRemboursementService} from '../../services/periodiciteRemboursement/periodicite-remboursement.service';
@@ -21,6 +21,25 @@ import {TypeContratService} from '../../services/typeContrat/type-contrat.servic
 export class SouscriptionProdComponent implements OnInit {
 
 
+    constructor(
+        protected souscriptionService: SouscriptionService,
+        private messageService: MessageService,
+        protected keycloakService: KeycloakService,
+        protected periodiciteRemboursementService: PeriodiciteRemboursementService,
+        protected civiliteService: CiviliteService,
+        protected typeContratService: TypeContratService,
+        private confirmationService: ConfirmationService
+    ) {
+        this.items = [
+            {label: 'Adhérent'},
+            {label: 'Crédit'},
+            {label: 'Questionnaire médical'},
+            {label: 'Perte emplois'},
+            {label: 'Banque'},
+        ];
+    }
+
+
 
     loading = false;
     @ViewChild('dt') table: Table;
@@ -29,19 +48,19 @@ export class SouscriptionProdComponent implements OnInit {
     displayDialogue: boolean;
     displayDialogueDetail: boolean;
     displayDialogueModification: boolean;
-    IS_ADMIN ='IS_ADMIN';
-    IS_SUPER_ADMIN ='IS_SUPER_ADMIN';
+    IS_ADMIN = 'IS_ADMIN';
+    IS_SUPER_ADMIN = 'IS_SUPER_ADMIN';
     IS_USER_BANK = 'IS_USER_BANK';
     IS_USER_UAB = 'IS_USER_UAB ';
 
-    IS_ADMIN_ROLE : string = '';
-    IS_SUPER_ADMIN_ROLE: string ='';
-    IS_USER_BANK_ROLE: string ='';
-    IS_USER_UAB_ROLE : string = '';
+    IS_ADMIN_ROLE = '';
+    IS_SUPER_ADMIN_ROLE = '';
+    IS_USER_BANK_ROLE = '';
+    IS_USER_UAB_ROLE = '';
     periodiciteRemboursements?: PeriodiciteRemboursement[];
     civilites?: Civilite[];
     typeContrats?: TypeContrat[];
-    isLogin : boolean;
+    isLogin: boolean;
     keycloakUser = '';
     userRole: any;
     messageSup: string;
@@ -52,9 +71,10 @@ export class SouscriptionProdComponent implements OnInit {
     tauxDec: number;
     tauxDec1an: number;
     tauxPerteEmplois: number;
+    coefSurprime: number;
     anneePret: number;
-    montantSuperieur: boolean = false;
-    Superieur: boolean = false;
+    montantSuperieur = false;
+    Superieur = false;
     // personne = this.souscription.personne
     souscription: Souscription = {
         isCuperieur: false,
@@ -86,15 +106,16 @@ export class SouscriptionProdComponent implements OnInit {
         detailsCredit: {
             montantCreditAssurer: 0,
             montantCreditDecouvert: 0,
-            nombreDeRemboursement: '',
+            nombreDeRemboursement: 0,
             montantDesTermes: 0,
             numeroCompteClient: '',
             dureeTotaleCreditAnnee: 0,
             dureeTotaleCreditMois: 0,
             differerAmortissement: 0,
+            surMortalite: 0,
             datePremierRemboursementTerme: '',
-            dateEffet: '',
-            dateEcheance: '',
+            dateEffet: new Date(),
+            dateEcheance: new Date(),
             isDiffere: false,
             isDecouvert: false,
             periodiciteRemboursement: {
@@ -143,45 +164,19 @@ export class SouscriptionProdComponent implements OnInit {
         }
     };
 
-
-    constructor(
-        protected souscriptionService: SouscriptionService,
-        private messageService: MessageService,
-        protected keycloakService: KeycloakService,
-        protected periodiciteRemboursementService: PeriodiciteRemboursementService,
-        protected civiliteService: CiviliteService,
-        protected typeContratService: TypeContratService,
-        private confirmationService: ConfirmationService
-    ) {
-        this.items = [
-            {label: 'Adhérent'},
-            {label: 'Crédit'},
-            {label: 'Questionnaire médical'},
-            {label: 'Perte emplois'},
-            {label: 'Banque'},
-        ];
-    }
+    protected readonly print = print;
 
     ngOnInit(): void {
-
-
-        console.log("IS_ADMIN_ROLE", this.IS_ADMIN_ROLE);
-        console.log("IS_USER_BANK_ROLE", this.IS_USER_BANK_ROLE);
-        console.log("IS_USER_UAB_ROLE", this.IS_USER_UAB_ROLE);
+        console.log('S_ADMIN_ROLE', this.IS_ADMIN_ROLE);
+        console.log('IS_USER_BANK_ROLE', this.IS_USER_BANK_ROLE);
+        console.log('IS_USER_UAB_ROLE', this.IS_USER_UAB_ROLE);
         this.getAllSouscription();
-
-
-
-        this.getTauxPerteEmploi(51, 17)
-51
+     //   this.getTauxPerteEmploi(51, 17);
         this.getAllSouscription();
         this.getAllPeriodiciteRemboursements();
         this.getAllCivilites();
         this.getAllTypeContrats();
-
-
-
-
+        this.getCoefficient(45,65);
     }
 
     nextStep() {
@@ -228,17 +223,19 @@ export class SouscriptionProdComponent implements OnInit {
             detailsCredit: {
                 montantCreditAssurer: 0,
                 montantCreditDecouvert: 0,
-                nombreDeRemboursement: '',
+                nombreDeRemboursement: 0,
                 montantDesTermes: 0,
                 numeroCompteClient: '',
                 dureeTotaleCreditAnnee: 0,
                 dureeTotaleCreditMois: 0,
                 differerAmortissement: 0,
+                surMortalite: 0,
                 datePremierRemboursementTerme: '',
-                dateEffet: '',
-                dateEcheance: '',
+                dateEffet: new Date(),
+                dateEcheance: new Date(),
                 isDiffere: false,
                 isDecouvert: false,
+                isSurMortalite: false,
                 periodiciteRemboursement: {
                     ///  id: 0,
                     code: '',
@@ -284,9 +281,13 @@ export class SouscriptionProdComponent implements OnInit {
                     libelle: '',
                 }
 
+            },
+            banque : {
+                code: '',
+                libelle: '',
             }
         };
-        console.log("========sous=", this.souscription);
+        console.log('========sous=', this.souscription);
     }
 
     onDisplayDialoguDetail(banque: Banque) {
@@ -326,7 +327,7 @@ export class SouscriptionProdComponent implements OnInit {
     checkMontantCredit(montant: number) {
         if (montant > 50000000) {
             this.montantSuperieur = true;
-            this.messageSup = 'LE MONTANT DOIT EST INFERIEUR A 50 000 000'
+            this.messageSup = 'LE MONTANT DOIT EST INFERIEUR A 50 000 000';
         } else {
             this.montantSuperieur = false;
         }
@@ -335,7 +336,7 @@ export class SouscriptionProdComponent implements OnInit {
     getAllSouscription(): void {
         this.souscriptionService.getAllSouscriptionIsSuperieurTrue().subscribe((res: HttpResponse<Souscription[]>) => {
             const data = res.body ?? [];
-            console.log("*************** getAllSouscriptionIsSuperieurTrue List getAllAgences******************", data)
+            console.log('*************** getAllSouscriptionIsSuperieurTrue List getAllAgences******************', data);
             this.souscriptions = data;
         });
     }
@@ -345,7 +346,7 @@ export class SouscriptionProdComponent implements OnInit {
             const birthDate = moment(this.souscription.personne.dateDeNaissance);
             const today = moment();
             this.age = today.diff(birthDate, 'years');
-            console.log("============ this.age calculateAge ================", this.age)
+            console.log('============ this.age calculateAge ================', this.age);
         }
     }
 
@@ -355,11 +356,11 @@ export class SouscriptionProdComponent implements OnInit {
               periodiciteRemboursement: {},
             },
             informationEmploi: {
-                typeContrat:{},
+                typeContrat: {},
             },
             mandataire: {},
             personne: {
-                civilite:{},
+                civilite: {},
             },
             questionnaireMedical: {}
         }; // Réinitialisez l'objet souscription à un objet vide ou à ses valeurs par défaut
@@ -375,6 +376,7 @@ export class SouscriptionProdComponent implements OnInit {
     }
 
     getAllPeriodiciteRemboursements(): void {
+        // tslint:disable-next-line:max-line-length
         this.periodiciteRemboursementService.getAllPeriodiciteRemboursements().subscribe((res: HttpResponse<PeriodiciteRemboursement[]>) => {
             const data = res.body ?? [];
             this.periodiciteRemboursements = data;
@@ -389,527 +391,177 @@ export class SouscriptionProdComponent implements OnInit {
 
 
 
-    calculPrime(): void{
+    calculPrime(): void {
         this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-        if (this.souscription.detailsCredit.isDiffere === false && this.souscription.detailsCredit.isDecouvert === false) {
-            if(this.souscription.informationEmploi.isPerte == true){
-                console.log("============ isPerte === true ================")
-                this.calculateAge();
-                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois)
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxAmortissement ================", this.souscription.mandataire.tauxAmortissement)
-                this.souscription.mandataire.primeDiffere = 0;
-                this.souscription.mandataire.primeDecouvert = 0;
-                this.souscription.mandataire.primeSimple =  Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
-                this.souscription.mandataire.primeGarantiePerteEmploi =  Math.round( this.souscription.mandataire.primeSimple * this.tauxPerteEmplois);
-                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeSimple +  this.souscription.mandataire.primeGarantiePerteEmploi);
+        this.calculateAge();
 
-                console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale);
-            }
-            else {
-                console.log("============ isDiffere === false && isDecouvert === false ================")
-                this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxAmortissement ================", this.souscription.mandataire.tauxAmortissement)
-                this.souscription.mandataire.primeDiffere = 0;
-                this.souscription.mandataire.primeDecouvert = 0;
-                this.souscription.mandataire.primeGarantiePerteEmploi = 0;
-                this.souscription.mandataire.primeSimple =  Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
+        const detailsCredit = this.souscription.detailsCredit;
+        const mandataire = this.souscription.mandataire;
+        const emploi = this.souscription.informationEmploi;
 
-                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeSimple);
+        let primeSimple, primeGarantiePerteEmploi = 0, primeDiffere = 0, primeDecouvert = 0;
 
-                console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
+        if (!detailsCredit.isDiffere && !detailsCredit.isDecouvert) {
+            this.trouverTauxAmortissement(this.age, detailsCredit.dureeTotaleCreditAnnee);
+            mandataire.tauxAmortissement = this.taux;
 
+            primeSimple = Math.round(detailsCredit.montantCreditAssurer * (mandataire.tauxAmortissement / 100));
+
+            if (emploi.isPerte) {
+                this.getTauxPerteEmploi(this.age, detailsCredit.dureeTotaleCreditMois);
+                primeGarantiePerteEmploi = Math.round((detailsCredit.nombreDeRemboursement * this.tauxPerteEmplois) / 100);
             }
 
-        } else if (this.souscription.detailsCredit.isDiffere === true && this.souscription.detailsCredit.isDecouvert === false) {
-            if (this.souscription.informationEmploi.isPerte == true){
-                console.log("============ isPerte === true ================")
-                this.calculateAge();
-                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois)
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-                console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
-                console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
+        } else if (detailsCredit.isDiffere && !detailsCredit.isDecouvert) {
+            this.trouverTauxAmortissement(this.age, detailsCredit.dureeTotaleCreditAnnee);
+            this.trouverTauxDecouvert(this.age, detailsCredit.dureeTotaleCreditAnnee);
+            mandataire.tauxAmortissement = this.taux;
+            mandataire.tauxDecouvert = this.tauxDec;
 
-                this.souscription.mandataire.primeDecouvert = 0;
+            primeSimple = Math.round(detailsCredit.montantCreditAssurer * (mandataire.tauxAmortissement / 100));
+            primeDiffere = Math.round(((detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * detailsCredit.differerAmortissement);
 
-                this.souscription.mandataire.primeSimple =  Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
-
-                this.souscription.mandataire.primeGarantiePerteEmploi =  Math.round( this.souscription.mandataire.primeSimple * this.tauxPerteEmplois);
-
-                this.souscription.mandataire.primeDiffere =  Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
-
-                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi);
-
-                console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
-
-            }
-            else {
-                console.log("============ if isDiffere === true ================")
-                this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-                console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
-                console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-
-                this.souscription.mandataire.primeDecouvert = 0;
-                this.souscription.mandataire.primeSimple = 0;
-
-                this.souscription.mandataire.primeGarantiePerteEmploi = 0;
-
-                this.souscription.mandataire.primeSimple =  Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
-
-                this.souscription.mandataire.primeDiffere =  Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
-                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere);
-
-                console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
-
+            if (emploi.isPerte) {
+                this.getTauxPerteEmploi(this.age, detailsCredit.dureeTotaleCreditMois);
+                primeGarantiePerteEmploi = Math.round((detailsCredit.nombreDeRemboursement * this.tauxPerteEmplois) / 100);
             }
 
-        } else if (this.souscription.detailsCredit.isDecouvert === true && this.souscription.detailsCredit.isDiffere === false) {
-            console.log("============ if isDecouvert === true ================")
-            if(this.souscription.informationEmploi.isPerte == true){
+        } else if (detailsCredit.isDecouvert && !detailsCredit.isDiffere) {
+            this.trouverTauxDecouvert(this.age, detailsCredit.dureeTotaleCreditAnnee);
+            mandataire.tauxDecouvert = this.tauxDec;
 
-                console.log("============ isPerte === true ================")
-                this.calculateAge();
-                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois)
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
+            primeDecouvert = Math.round(detailsCredit.montantCreditAssurer * (mandataire.tauxDecouvert / 100));
 
-                this.souscription.mandataire.primeDiffere = 0;
-                this.souscription.mandataire.primeSimple = 0;
-
-                this.souscription.mandataire.primeDecouvert =  Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
-
-                this.souscription.mandataire.primeGarantiePerteEmploi =  Math.round( this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois);
-
-                this.souscription.mandataire.primeTotale =  Math.round(  this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeGarantiePerteEmploi);
-
-                console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale)
-
-            }
-            else{
-                console.log("============ if isDecouvert === true ================")
-                this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-
-                this.souscription.mandataire.primeSimple = 0;
-                this.souscription.mandataire.primeDiffere = 0;
-                this.souscription.mandataire.primeGarantiePerteEmploi = 0;
-
-                this.souscription.mandataire.primeDecouvert =  Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
-
-                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeDecouvert);
-
-                console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale)
-
+            if (emploi.isPerte) {
+                this.getTauxPerteEmploi(this.age, detailsCredit.dureeTotaleCreditMois);
+                primeGarantiePerteEmploi = Math.round((detailsCredit.nombreDeRemboursement * this.tauxPerteEmplois) / 100);
             }
 
-        } else if (this.souscription.detailsCredit.isDiffere === true && this.souscription.detailsCredit.isDecouvert === true) {
-            console.log("============ if isDiffere === true ================");
-            if(this.souscription.informationEmploi.isPerte == true){
-
-                console.log("============ isPerte === true ================")
-                this.calculateAge();
-                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois)
-                this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-                console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
-                console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-                this.souscription.mandataire.primeSimple = 0;
-                this.souscription.mandataire.primeDecouvert =  Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
-
-                this.souscription.mandataire.primeGarantiePerteEmploi =  Math.round( this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois);
-
-                this.souscription.mandataire.primeDiffere =  Math.round(  (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
-
-                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi);
-
-                console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
+        } else if (detailsCredit.isDiffere && detailsCredit.isDecouvert) {
+            this.trouverTauxAmortissement(this.age, detailsCredit.dureeTotaleCreditAnnee);
+            this.trouverTauxDecouvert(this.age, detailsCredit.dureeTotaleCreditAnnee);
+            mandataire.tauxAmortissement = this.taux;
+            mandataire.tauxDecouvert = this.tauxDec;
+            primeDecouvert = Math.round(detailsCredit.montantCreditAssurer * (mandataire.tauxDecouvert / 100));
+            primeDiffere = Math.round(((detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * detailsCredit.differerAmortissement);
+            if (emploi.isPerte) {
+                this.getTauxPerteEmploi(this.age, detailsCredit.dureeTotaleCreditMois);
+                primeGarantiePerteEmploi = Math.round((detailsCredit.nombreDeRemboursement * this.tauxPerteEmplois) / 100);
+                console.log('========== onSave this.tauxPerteEmplois =======', this.tauxPerteEmplois);
+                console.log('========== onSave nombreDeRemboursement =======', detailsCredit.nombreDeRemboursement);
+                console.log('========== onSave primeGarantiePerteEmploi =======', mandataire.primeGarantiePerteEmploi);
             }
-            else {
-                console.log("============ if isDiffere === true ================")
-                this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-                console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
-                console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-                this.souscription.mandataire.primeDecouvert =  Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
-
-                this.souscription.mandataire.primeGarantiePerteEmploi = 0;
-                this.souscription.mandataire.primeSimple = 0;
-
-                this.souscription.mandataire.primeDiffere =  Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
-
-                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere);
-
-                console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
-            }
-
         }
-        this.nextStep()
+
+        mandataire.primeSimple = primeSimple || 0;
+        mandataire.primeGarantiePerteEmploi = primeGarantiePerteEmploi;
+        mandataire.primeDiffere = primeDiffere;
+        mandataire.primeDecouvert = primeDecouvert;
+        mandataire.primeTotale = Math.round(primeSimple + primeGarantiePerteEmploi + primeDiffere + primeDecouvert);
+
+        console.log('========== onSave primeTotale =======', mandataire.primeTotale);
+
+        this.nextStep();
     }
 
 
 
     onSave(): void {
-
         this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-        if (this.souscription.detailsCredit.isDiffere === false && this.souscription.detailsCredit.isDecouvert === false) {
-            if(this.souscription.informationEmploi.isPerte == true){
-                console.log("============ isPerte === true ================")
-                this.calculateAge();
-                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois)
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxAmortissement ================", this.souscription.mandataire.tauxAmortissement)
-                this.souscription.mandataire.primeDiffere = 0;
-                this.souscription.mandataire.primeDecouvert = 0;
-                this.souscription.mandataire.primeSimple = Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
-                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeSimple * this.tauxPerteEmplois);
-                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple +  this.souscription.mandataire.primeGarantiePerteEmploi);
+        this.calculateAge();
+        const { isDiffere, isDecouvert, montantCreditAssurer, dureeTotaleCreditMois, dureeTotaleCreditAnnee, nombreDeRemboursement, differerAmortissement } = this.souscription.detailsCredit;
+        const { isPerte } = this.souscription.informationEmploi;
 
-                console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
-                this.souscriptionService.createSouscription(this.souscription).subscribe(
-                    resp => {
-                        if (resp) {
-                            //    this.poste = new Service();
-                            this.onHidenDialogue();
-                            this.successAlert();
-                            this.getAllSouscription();
-                        }
-                    },
-                    error => {
-                        console.error('Erreur lors de la création du poste', error);
-                    }
-                );
-            }
-            else {
-                console.log("============ isDiffere === false && isDecouvert === false ================")
-                this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxAmortissement ================", this.souscription.mandataire.tauxAmortissement)
-                this.souscription.mandataire.primeDiffere = 0;
-                this.souscription.mandataire.primeDecouvert = 0;
-                this.souscription.mandataire.primeSimple = Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
-
-                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple);
-
-                console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
-                this.souscriptionService.createSouscription(this.souscription).subscribe(
-                    resp => {
-                        if (resp) {
-                            //    this.poste = new Service();
-                            this.onHidenDialogue();
-                            this.successAlert();
-                            this.getAllSouscription();
-                        }
-                    },
-                    error => {
-                        console.error('Erreur lors de la création du poste', error);
-                    }
-                );
+        const calculatePrimes = () => {
+            if (isPerte) {
+                this.getTauxPerteEmploi(this.age, dureeTotaleCreditMois);
             }
 
-        } else if (this.souscription.detailsCredit.isDiffere === true && this.souscription.detailsCredit.isDecouvert === false) {
-            if (this.souscription.informationEmploi.isPerte == true){
-                console.log("============ isPerte === true ================")
-                this.calculateAge();
-                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois)
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
+            this.trouverTauxAmortissement(this.age, dureeTotaleCreditAnnee);
+
+            if (isDiffere) {
+                this.trouverTauxDecouvert(this.age, dureeTotaleCreditAnnee);
                 this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-                console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
-                console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-
-                this.souscription.mandataire.primeDecouvert = 0;
-
-                this.souscription.mandataire.primeSimple = Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
-
-                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeSimple * this.tauxPerteEmplois);
-
-                this.souscription.mandataire.primeDiffere = Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
-
-                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi);
-
-                console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
-                this.souscriptionService.createSouscription(this.souscription).subscribe(
-                    resp => {
-                        if (resp) {
-                            //    this.poste = new Service();
-                            this.onHidenDialogue();
-                            this.successAlert();
-                            this.getAllSouscription();
-                        }
-                    },
-                    error => {
-                        console.error('Erreur lors de la création du poste', error);
-                    }
-                );
-            }
-            else {
-                console.log("============ if isDiffere === true ================")
-                this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-                console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
-                console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-
-                this.souscription.mandataire.primeDecouvert = 0;
-
-                this.souscription.mandataire.primeGarantiePerteEmploi = 0;
-
-                this.souscription.mandataire.primeSimple = Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
-
-                this.souscription.mandataire.primeDiffere = Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
-
-                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere);
-
-                console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
-                this.souscriptionService.createSouscription(this.souscription).subscribe(
-                    resp => {
-                        if (resp) {
-                            //    this.poste = new Service();
-                            this.onHidenDialogue();
-                            this.successAlert();
-                            this.getAllSouscription();
-                        }
-                    },
-                    error => {
-                        console.error('Erreur lors de la création du poste', error);
-                    }
-                );
             }
 
-        } else if (this.souscription.detailsCredit.isDecouvert === true && this.souscription.detailsCredit.isDiffere === false) {
-            console.log("============ if isDecouvert === true ================")
-            if(this.souscription.informationEmploi.isPerte == true){
+            const basePrime = montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100);
+            const perteEmploiPrime = (nombreDeRemboursement * this.tauxPerteEmplois) / 100;
+            const decouvertPrime = montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100);
+            const differePrime = (((montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * differerAmortissement);
 
-                console.log("============ isPerte === true ================")
-                this.calculateAge();
-                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois)
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
+            this.souscription.mandataire.primeSimple = Math.round(basePrime);
+            this.souscription.mandataire.primeGarantiePerteEmploi = Math.round(perteEmploiPrime);
+            this.souscription.mandataire.primeDecouvert = Math.round(decouvertPrime);
+            this.souscription.mandataire.primeDiffere = Math.round(differePrime);
+            this.souscription.mandataire.primeTotale = Math.round(basePrime + perteEmploiPrime + decouvertPrime + differePrime);
+        };
 
-                this.souscription.mandataire.primeDiffere = 0;
-                this.souscription.mandataire.primeSimple = 0;
-
-                this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
-
-                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois);
-
-                this.souscription.mandataire.primeTotale =  Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeGarantiePerteEmploi);
-
-                console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale)
-                this.souscriptionService.createSouscription(this.souscription).subscribe(
-                    resp => {
-                        if (resp) {
-                            //    this.poste = new Service();
-                            this.onHidenDialogue();
-                            this.successAlert();
-                            this.getAllSouscription();
-                        }
-                    },
-                    error => {
-                        console.error('Erreur lors de la création du poste', error);
+        const saveSouscription = () => {
+            this.souscriptionService.createSouscription(this.souscription).subscribe(
+                resp => {
+                    if (resp) {
+                        this.onHidenDialogue();
+                        this.successAlert();
+                        this.getAllSouscription();
                     }
-                );
+                },
+                error => {
+                    console.error('Erreur lors de la création du poste', error);
+                }
+            );
+        };
+
+        if (!isDiffere && !isDecouvert) {
+            if (isPerte) {
+                console.log('============ isPerte === true ================');
             }
-            else{
-                console.log("============ if isDecouvert === true ================")
-                this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-
-                this.souscription.mandataire.primeDiffere = 0;
-                this.souscription.mandataire.primeSimple = 0;
-                this.souscription.mandataire.primeGarantiePerteEmploi = 0;
-
-                this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
-
-                this.souscription.mandataire.primeTotale = Math.round(  this.souscription.mandataire.primeDecouvert);
-
-                console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale);
-                this.souscriptionService.createSouscription(this.souscription).subscribe(
-                    resp => {
-                        if (resp) {
-                            //    this.poste = new Service();
-                            this.onHidenDialogue();
-                            this.successAlert();
-                            this.getAllSouscription();
-                        }
-                    },
-                    error => {
-                        console.error('Erreur lors de la création du poste', error);
-                    }
-                );
+            calculatePrimes();
+            saveSouscription();
+        } else if (isDiffere && !isDecouvert) {
+            if (isPerte) {
+                console.log('============ isPerte === true ================');
             }
-
-        } else if (this.souscription.detailsCredit.isDiffere === true && this.souscription.detailsCredit.isDecouvert === true) {
-            console.log("============ if isDiffere === true ================");
-            if(this.souscription.informationEmploi.isPerte == true){
-
-                console.log("============ isPerte === true ================")
-                this.calculateAge();
-                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois)
-                this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-                console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
-                console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-                this.souscription.mandataire.primeSimple = 0;
-                this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
-
-                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois);
-
-                this.souscription.mandataire.primeDiffere =  Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
-
-                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi);
-
-                console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
-                this.souscriptionService.createSouscription(this.souscription).subscribe(
-                    resp => {
-                        if (resp) {
-                            //    this.poste = new Service();
-                            this.onHidenDialogue();
-                            this.successAlert();
-                            this.getAllSouscription();
-                        }
-                    },
-                    error => {
-                        console.error('Erreur lors de la création du poste', error);
-                    }
-                );
+            calculatePrimes();
+            saveSouscription();
+        } else if (isDecouvert && !isDiffere) {
+            if (isPerte) {
+                console.log('============ isPerte === true ================');
             }
-            else {
-                console.log("============ if isDiffere === true ================")
-                this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-                console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
-                console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
-                this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
-
-                this.souscription.mandataire.primeGarantiePerteEmploi = 0;
-                this.souscription.mandataire.primeSimple = 0;
-
-                this.souscription.mandataire.primeDiffere = Math.round(  (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
-
-                this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere);
-
-                console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
-                this.souscriptionService.createSouscription(this.souscription).subscribe(
-                    resp => {
-                        if (resp) {
-                            //    this.poste = new Service();
-                            this.onHidenDialogue();
-                            this.successAlert();
-                            this.getAllSouscription();
-                        }
-                    },
-                    error => {
-                        console.error('Erreur lors de la création du poste', error);
-                    }
-                );
+            calculatePrimes();
+            saveSouscription();
+        } else if (isDiffere && isDecouvert) {
+            if (isPerte) {
+                console.log('============ isPerte === true ================');
             }
-
+            calculatePrimes();
+            saveSouscription();
         }
 
         this.resetForm();
     }
 
     updateSouscription(id: number, souscription1: Souscription): void {
-        console.log(this.souscription.detailsCredit.isDiffere, this.souscription.detailsCredit.isDecouvert)
+        console.log(this.souscription.detailsCredit.isDiffere, this.souscription.detailsCredit.isDecouvert);
         this.souscription.mandataire.tauxDecouvert = this.tauxDec;
         if (this.souscription.detailsCredit.isDiffere === false && this.souscription.detailsCredit.isDecouvert === false) {
-            if(this.souscription.informationEmploi.isPerte == true){
-                console.log("============ isPerte === true ================")
+            if (this.souscription.informationEmploi.isPerte === true){
+                console.log('============ isPerte === true ================');
                 this.calculateAge();
-                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois)
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
+                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois);
+                console.log('============ onSave this.age ================', this.age);
+                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
                 this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxAmortissement ================", this.souscription.mandataire.tauxAmortissement)
+                console.log('============ onSave tauxAmortissement ================', this.souscription.mandataire.tauxAmortissement);
                 this.souscription.mandataire.primeDiffere = 0;
                 this.souscription.mandataire.primeDecouvert = 0;
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeSimple = Math.round(  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
-                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeSimple * this.tauxPerteEmplois);
+                // tslint:disable-next-line:max-line-length
+                this.souscription.mandataire.primeGarantiePerteEmploi =  Math.round((this.souscription.detailsCredit.nombreDeRemboursement * this.tauxPerteEmplois) / 100);
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple +  this.souscription.mandataire.primeGarantiePerteEmploi);
 
-                console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
+                console.log('========== onSave primeTotale =======', this.souscription.mandataire.primeTotale);
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
                     response => {
                         console.log('+++++++++ TEST UPDATE', response);
@@ -922,20 +574,21 @@ export class SouscriptionProdComponent implements OnInit {
                 );
             }
             else{
-                console.log("============ isDiffere === false && isDecouvert === false ================")
+                console.log('============ isDiffere === false && isDecouvert === false ================');
                 this.calculateAge();
-                console.log("============ onSave this.age ================", this.age);
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
+                console.log('============ onSave this.age ================', this.age);
+                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
                 this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxAmortissement ================", this.souscription.mandataire.tauxAmortissement)
+                console.log('============ onSave tauxAmortissement ================', this.souscription.mandataire.tauxAmortissement);
                 this.souscription.mandataire.primeDiffere = 0;
                 this.souscription.mandataire.primeDecouvert = 0;
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeSimple = Math.round(  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
 
                 this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple);
 
-                console.log("========== onSave primeTotale =======", this.souscription.mandataire.primeTotale)
+                console.log('========== onSave primeTotale =======', this.souscription.mandataire.primeTotale);
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
                     response => {
                         console.log('+++++++++ TEST UPDATE', response);
@@ -949,32 +602,37 @@ export class SouscriptionProdComponent implements OnInit {
             }
 
         } else if (this.souscription.detailsCredit.isDiffere === true && this.souscription.detailsCredit.isDecouvert === false) {
-            if (this.souscription.informationEmploi.isPerte == true) {
-                console.log("============ isPerte === true ================")
+            if (this.souscription.informationEmploi.isPerte === true) {
+                console.log('============ isPerte === true ================');
                 this.calculateAge();
-                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois)
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
+                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois);
+                console.log('============ onSave this.age ================', this.age);
+                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
+                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
                 this.souscription.mandataire.tauxDecouvert = this.tauxDec;
                 this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-                console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
-                console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
+                console.log('============ onSave tauxDecouvert ================', this.souscription.mandataire.tauxDecouvert);
+                console.log('============ onSave tauxDec1an ================', this.tauxDec1an);
+                // tslint:disable-next-line:max-line-length
+                console.log('============ onSave primeTotale Normal ================', (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)));
+                // tslint:disable-next-line:max-line-length
+                console.log('============ onSave prime differe ================', (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement));
 
                 this.souscription.mandataire.primeDecouvert = 0;
 
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeSimple = Math.round( this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
 
-                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeSimple * this.tauxPerteEmplois);
+                // tslint:disable-next-line:max-line-length
+                this.souscription.mandataire.primeGarantiePerteEmploi =  Math.round((this.souscription.detailsCredit.nombreDeRemboursement * this.tauxPerteEmplois) / 100);
 
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeDiffere = Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi);
 
-                console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
+                console.log('========== onSave primeTotale isDiffere =======', this.souscription.mandataire.primeTotale);
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
                     response => {
                         console.log('+++++++++ TEST UPDATE', response);
@@ -987,29 +645,33 @@ export class SouscriptionProdComponent implements OnInit {
                 );
             }
             else{
-                console.log("============ if isDiffere === true ================")
+                console.log('============ if isDiffere === true ================');
                 this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
+                console.log('============ onSave this.age ================', this.age);
+                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
+                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
                 this.souscription.mandataire.tauxDecouvert = this.tauxDec;
                 this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-                console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
-                console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
+                console.log('============ onSave tauxDecouvert ================', this.souscription.mandataire.tauxDecouvert);
+                console.log('============ onSave tauxDec1an ================', this.tauxDec1an);
+                // tslint:disable-next-line:max-line-length
+                console.log('============ onSave primeTotale Normal ================', (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)));
+                // tslint:disable-next-line:max-line-length
+                console.log('============ onSave prime differe ================', (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement));
 
                 this.souscription.mandataire.primeDecouvert = 0;
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
 
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeSimple = Math.round(  this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100));
 
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeDiffere = Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeSimple + this.souscription.mandataire.primeDiffere);
 
-                console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
+                console.log('========== onSave primeTotale isDiffere =======', this.souscription.mandataire.primeTotale);
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
                     response => {
                         console.log('+++++++++ TEST UPDATE', response);
@@ -1023,28 +685,30 @@ export class SouscriptionProdComponent implements OnInit {
             }
 
         } else if (this.souscription.detailsCredit.isDecouvert === true && this.souscription.detailsCredit.isDiffere === false) {
-            console.log("============ if isDecouvert === true ================")
-            if (this.souscription.informationEmploi.isPerte == true){
-                console.log("============ isPerte === true ================")
+            console.log('============ if isDecouvert === true ================');
+            if (this.souscription.informationEmploi.isPerte === true){
+                console.log('============ isPerte === true ================');
                 this.calculateAge();
-                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois)
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
+                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois);
+                console.log('============ onSave this.age ================', this.age);
+                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
                 this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
+                console.log('============ onSave tauxDecouvert ================', this.souscription.mandataire.tauxDecouvert);
+                console.log('============ onSave tauxDec1an ================', this.tauxDec1an);
 
                 this.souscription.mandataire.primeDiffere = 0;
                 this.souscription.mandataire.primeSimple = 0;
 
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
-                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois);
+                // tslint:disable-next-line:max-line-length
+                this.souscription.mandataire.primeGarantiePerteEmploi =  Math.round((this.souscription.detailsCredit.nombreDeRemboursement * this.tauxPerteEmplois) / 100);
 
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeGarantiePerteEmploi);
 
-                console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale)
+                console.log('========== onSave primeTotale isDecouvert =======', this.souscription.mandataire.primeTotale);
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
                     response => {
                         console.log('+++++++++ TEST UPDATE', response);
@@ -1058,20 +722,20 @@ export class SouscriptionProdComponent implements OnInit {
             }
             else {
                 this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
+                console.log('============ onSave this.age ================', this.age);
+                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
                 this.souscription.mandataire.tauxDecouvert = this.tauxDec;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
+                console.log('============ onSave tauxDecouvert ================', this.souscription.mandataire.tauxDecouvert);
+                console.log('============ onSave tauxDec1an ================', this.tauxDec1an);
                 this.souscription.mandataire.primeDiffere = 0;
                 this.souscription.mandataire.primeSimple = 0;
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
                 this.souscription.mandataire.primeTotale = Math.round(  this.souscription.mandataire.primeDecouvert);
 
-                console.log("========== onSave primeTotale isDecouvert =======", this.souscription.mandataire.primeTotale)
+                console.log('========== onSave primeTotale isDecouvert =======', this.souscription.mandataire.primeTotale);
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
                     response => {
                         console.log('+++++++++ TEST UPDATE', response);
@@ -1085,28 +749,33 @@ export class SouscriptionProdComponent implements OnInit {
             }
 
         } else if (this.souscription.detailsCredit.isDiffere === true && this.souscription.detailsCredit.isDecouvert === true) {
-            if(this.souscription.informationEmploi.isPerte == true){
-                console.log("============ isPerte === true ================")
+            if (this.souscription.informationEmploi.isPerte === true){
+                console.log('============ isPerte === true ================');
                 this.calculateAge();
-                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois)
+                this.getTauxPerteEmploi(this.age, this.souscription.detailsCredit.dureeTotaleCreditMois);
                 this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
+                console.log('============ onSave this.age ================', this.age);
+                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
+                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
                 this.souscription.mandataire.tauxDecouvert = this.tauxDec;
                 this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-                console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
-                console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
+                console.log('============ onSave tauxDecouvert ================', this.souscription.mandataire.tauxDecouvert);
+                console.log('============ onSave tauxDec1an ================', this.tauxDec1an);
+                // tslint:disable-next-line:max-line-length
+                console.log('============ onSave primeTotale Normal ================', (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)));
+                // tslint:disable-next-line:max-line-length
+                console.log('============ onSave prime differe ================', (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement));
                 this.souscription.mandataire.primeSimple = 0;
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
-                this.souscription.mandataire.primeGarantiePerteEmploi = Math.round( this.souscription.mandataire.primeDecouvert * this.tauxPerteEmplois);
+                // tslint:disable-next-line:max-line-length
+                this.souscription.mandataire.primeGarantiePerteEmploi =  Math.round((this.souscription.detailsCredit.nombreDeRemboursement * this.tauxPerteEmplois) / 100);
 
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeDiffere = Math.round( (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere + this.souscription.mandataire.primeGarantiePerteEmploi);
 
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
@@ -1121,28 +790,32 @@ export class SouscriptionProdComponent implements OnInit {
                 );
             }
             else {
-                console.log("============ if isDiffere === true ================")
+                console.log('============ if isDiffere === true ================');
                 this.calculateAge();
-                console.log("============ onSave this.age ================", this.age)
-                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
-                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee)
+                console.log('============ onSave this.age ================', this.age);
+                this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
+                this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
                 this.souscription.mandataire.tauxDecouvert = this.tauxDec;
                 this.souscription.mandataire.tauxAmortissement = this.taux;
-                console.log("============ onSave tauxDecouvert ================", this.souscription.mandataire.tauxDecouvert)
-                this.tauxDec1an;
-                console.log("============ onSave tauxDec1an ================", this.tauxDec1an)
-                console.log("============ onSave primeTotale Normal ================", (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)))
-                console.log("============ onSave prime differe ================", (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement))
+                console.log('============ onSave tauxDecouvert ================', this.souscription.mandataire.tauxDecouvert);
+                console.log('============ onSave tauxDec1an ================', this.tauxDec1an);
+                // tslint:disable-next-line:max-line-length
+                console.log('============ onSave primeTotale Normal ================', (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxAmortissement / 100)));
+                // tslint:disable-next-line:max-line-length
+                console.log('============ onSave prime differe ================', (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 12) * this.souscription.detailsCredit.differerAmortissement));
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeDecouvert = Math.round( (this.souscription.detailsCredit.montantCreditAssurer * (this.souscription.mandataire.tauxDecouvert / 100)));
 
                 this.souscription.mandataire.primeGarantiePerteEmploi = 0;
                 this.souscription.mandataire.primeSimple = 0;
 
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeDiffere = Math.round(  (((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
 
+                // tslint:disable-next-line:max-line-length
                 this.souscription.mandataire.primeTotale = Math.round( this.souscription.mandataire.primeDecouvert + this.souscription.mandataire.primeDiffere);
 
-                console.log("========== onSave primeTotale isDiffere =======", this.souscription.mandataire.primeTotale)
+                console.log('========== onSave primeTotale isDiffere =======', this.souscription.mandataire.primeTotale);
                 this.souscriptionService.updateSouscription(this.souscription.id, this.souscription).subscribe(
                     response => {
                         console.log('+++++++++ TEST UPDATE', response);
@@ -1154,15 +827,13 @@ export class SouscriptionProdComponent implements OnInit {
                     }
                 );
             }
-
         }
-
         this.onHidenDialogueModif();
     }
 
     trouverTauxAmortissement(trancheAge, duree) {
 
-        console.log("============ trancheAge duree ===============", trancheAge, duree)
+        console.log('============ trancheAge duree ===============', trancheAge, duree);
         // Matrice des taux
         const TauxAmortissement = [
             [0.151, 0.300, 0.456, 0.620, 0.788, 0.961, 1.137, 1.316, 1.498, 1.682, 1.869, 2.057, 2.247, 2.438, 2.630, 2.823, 3.017, 3.212, 3.409, 3.608],
@@ -1227,14 +898,14 @@ export class SouscriptionProdComponent implements OnInit {
             return this.taux;
         } else {
             // Indices invalides, renvoyer un message d'erreur
-            console.log("============ Indices de tranche d'âge ou de durée invalides ===============")
-            return "Indices de tranche d'âge ou de durée invalides.";
+            console.log('============ Indices de tranche d\'âge ou de durée invalides ===============');
+            return 'Indices de tranche d\'âge ou de durée invalides.';
         }
     }
 
     trouverTauxDecouvert(trancheAge, duree) {
 
-        console.log("============ trancheAge duree ===============", trancheAge, duree)
+        console.log('============ trancheAge duree ===============', trancheAge, duree);
         // Matrice des taux
         const TauxDecouvert = [
             [0.272, 0.552, 0.831, 1.106, 1.375, 1.636, 1.892, 2.141, 2.385, 2.625, 2.859, 3.090, 3.316, 3.536, 3.754, 3.971, 4.189, 4.407, 4.627, 4.849],
@@ -1302,8 +973,8 @@ export class SouscriptionProdComponent implements OnInit {
             return this.tauxDec;
         } else {
             // Indices invalides, renvoyer un message d'erreur
-            console.log("============ Indices de tranche d'âge ou de durée invalides ===============")
-            return "Indices de tranche d'âge ou de durée invalides.";
+            console.log('============ Indices de tranche d\'âge ou de durée invalides ===============');
+            return 'Indices de tranche d\'âge ou de durée invalides.';
         }
     }
 
@@ -1343,58 +1014,105 @@ export class SouscriptionProdComponent implements OnInit {
     }
 
     getTauxPerteEmploi(age: number, duree: number): string {
-        let taux: number ; // Par défaut, le taux est 'NA'
         console.log('================ PRETE EMPLOI entreeAge ++++++++++++++++++', age, duree);
 
         // Déterminer la plage d'âge correspondante et attribuer le taux approprié
         if (age >= 25 && age <= 49) {
             if (duree >= 0 && duree <= 14) {
-                taux = 20;
-                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', taux);
+                this.taux = 20;
+                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', this.taux);
             } else if (duree >= 15 && duree <= 24) {
-                taux = 22.75;
-                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', taux);
+                this.taux = 22.75;
+                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', this.taux);
             } else if (duree >= 25 && duree <= 36) {
-                taux = 34.13;
-                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', taux);
+                this.taux = 34.13;
+                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', this.taux);
             } else if (duree >= 37 && duree <= 48) {
-                taux = 45.50;
-                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', taux);
+                this.taux = 45.50;
+                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', this.taux);
             } else if (duree >= 49 && duree <= 60) {
-                taux = 56.88;
-                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', taux);
+                this.taux = 56.88;
+                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', this.taux);
             } else if (duree >= 61) {
-                taux = (14.13 * (this.souscription.detailsCredit.dureeTotaleCreditAnnee));
-                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', taux);
+                this.taux = (14.13 * (this.souscription.detailsCredit.dureeTotaleCreditAnnee));
+                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', this.taux);
             }
         } else if (age >= 50 && age <= 59) {
             if (duree >= 0 && duree <= 14) {
-                taux = 20;
-                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', taux);
+                this.taux = 20;
+                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', this.taux);
             }else if (duree >= 15 && duree <= 24) {
-                taux = 25.17;
-                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', taux);
+                this.taux = 25.17;
+                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', this.taux);
             } else if (duree >= 25 && duree <= 36) {
-                taux = 37.75;
-                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', taux);
+                this.taux = 37.75;
+                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', this.taux);
             } else if (duree >= 37 && duree <= 48) {
-                taux = 50.33;
-                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', taux);
+                this.taux = 50.33;
+                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', this.taux);
             } else if (duree >= 49 && duree <= 60) {
-                taux = 62.92;
+                this.taux = 62.92;
             } else if (duree >= 61) {
-                taux = (15.25 * (this.souscription.detailsCredit.dureeTotaleCreditAnnee / 12));
-                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', taux);
+                this.taux = (15.25 * (this.souscription.detailsCredit.dureeTotaleCreditAnnee / 12));
+                console.log('================ PRETE EMPLOI taux ++++++++++++++++++', this.taux);
             }
-
-            this.tauxPerteEmplois = taux;
+            console.log('================ PRETE EMPLOI this.taux ++++++++++++++++++', this.taux);
+            this.tauxPerteEmplois = this.taux;
             console.log('================ PRETE EMPLOI this.tauxPerteEmplois ++++++++++++++++++', this.tauxPerteEmplois);
         }
 
         // Renvoyer le taux sous forme de chaîne avec le symbole '%'
-        return typeof taux === 'number' ? taux.toString() + '%' : taux;
+        return typeof this.taux === 'number' ? this.taux.toString() + '%' : this.taux;
     }
 
-    protected readonly print = print;
+    private coefficients = [
+        [55, 55, 60, 60, 60, 60],
+        [60, 60, 60, 60, 60, 60],
+        [60, 60, 65, 65, 65, 65],
+        [-1, 65, 70, 70, 70, 70],
+        [-1, -1, 70, 70, 75, 75],
+        [-1, -1, -1, 75, 75, 75],
+        [-1, -1, -1, -1, 75, 75],
+        [-1, -1, -1, -1, -1, 80]
+    ];
+
+    // Fonctions pour trouver les indices basés sur les âges
+    private getIndexForAgeAtSubscription(age: number): number {
+        if (age < 40) return 0;
+        if (age < 45) return 1;
+        if (age < 50) return 2;
+        if (age < 55) return 3;
+        if (age < 60) return 4;
+        if (age < 65) return 5;
+        if (age < 70) return 6;
+        if (age < 75) return 7;
+        return -1;
+    }
+
+    private getIndexForAgeAtEcheance(age: number): number {
+        if (age < 50) return 0;
+        if (age < 55) return 1;
+        if (age < 60) return 2;
+        if (age < 65) return 3;
+        if (age < 70) return 4;
+        if (age < 75) return 5;
+        return -1;
+    }
+
+    // Fonction pour obtenir le coefficient
+    public getCoefficient(ageAtSubscription: number, ageAtEcheance: number): number {
+        const indexSubscription = this.getIndexForAgeAtSubscription(ageAtSubscription);
+        const indexEcheance = this.getIndexForAgeAtEcheance(ageAtEcheance);
+
+        if (indexSubscription === -1 || indexEcheance === -1) {
+            throw new Error('Ages provided are out of the supported range.');
+        }
+        console.log('================ SUR PRIME ==============', this.coefficients[indexSubscription][indexEcheance]);
+        this.coefSurprime = this.coefficients[indexSubscription][indexEcheance];
+        console.log('================ SUR PRIME this.coefSurprime ==============', this.coefSurprime);
+        return this.coefficients[indexSubscription][indexEcheance];
+    }
+
+
 
 }

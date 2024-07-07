@@ -9,9 +9,28 @@
     <p-steps [model]="items" [activeIndex]="activeIndex"></p-steps>
     <form #myForm="ngForm" name="myForm" role="form" novalidate>
     <div *ngIf="activeIndex === 0 ">
+        <div class="card p-fluid">
+            <div class="flex flex-wrap gap-3 p-fluid">
+                <div class="col-2">
+                    <label for="banque"><b>Banque</b></label>
+                    <p-dropdown [(ngModel)]="selectedBanque" optionLabel="libelle"
+                                [options]="banques"
+                                (onChange)="onBanqueChange($event.value)"
+                                placeholder="Sélectionnez une banque" name="banqueId"></p-dropdown>
+                </div>
 
+                <div class="col-2">
+                    <label for="agence"><b>Agence</b></label>
+                    <p-dropdown [(ngModel)]="selectedAgence" optionLabel="libelle"
+                                [options]="filteredAgences"
+                                placeholder="Sélectionnez une agence" name="agenceId"></p-dropdown>
+                </div>
+
+            </div>
+        </div>
 
         <div class="card p-fluid" >
+
             <div class=" flex flex-wrap gap-3 p-fluid" >
                 <div class="col-2" *ngIf="!montantSuperieur">
                     <label htmlFor="banque"><b>Civilité  </b></label>
@@ -206,7 +225,7 @@
                     />
                 </div>
                 <div class="col-2" *ngIf="!montantSuperieur">
-                    <label htmlFor="nombreDeRemboursement"><b>Nombre remboursement</b></label>
+                    <label htmlFor="nombreDeRemboursement"><b>Traite remboursement</b></label>
                     <input pInputText id="nombreDeRemboursement" type="number" name="nombreDeRemboursement"
                            [(ngModel)]="souscription?.detailsCredit.nombreDeRemboursement"
                            minlength="1"
@@ -433,6 +452,9 @@
                 <p-toggleButton [(ngModel)]="souscription.informationEmploi.isPerte" onLabel="Oui"
                                 offLabel="Non" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
             </div>
+
+
+
 
             <div class=" flex flex-wrap gap-3 p-fluid" *ngIf="souscription.informationEmploi.isPerte === true">
                 <div class="col-3">

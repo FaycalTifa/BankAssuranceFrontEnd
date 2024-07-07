@@ -63,7 +63,6 @@ export class GestionnaireComponent implements OnInit {
     getAllGestionnaires(): void {
         this.gestionnaireService.getAllGestionnaires().subscribe((res: HttpResponse<Gestionnaire[]>) => {
             const data = res.body ?? [];
-            console.log("*************** gestionnaire List getAllGestionnaires******************", data)
             this.gestionnaires = data;
         });
     }

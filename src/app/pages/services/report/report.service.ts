@@ -17,7 +17,7 @@ export class ReportService {
 
 
     generatePdfReport(id: number): Observable<HttpResponse<Blob>> {
-        const url = `http://localhost:9999/api/report/${id}/pdf`;
+        const url = `http://localhost:9999/api/report/${id}`;
         return this.http.get(url, {
             responseType: 'blob', // Le type de réponse est un Blob (fichier)
             observe: 'response' // Permet de récupérer l'ensemble de la réponse HTTP

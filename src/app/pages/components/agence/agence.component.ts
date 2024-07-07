@@ -63,7 +63,7 @@ export class AgenceComponent implements OnInit {
     getAllAgences(): void {
         this.agenceService.getAllAgences().subscribe((res: HttpResponse<Agence[]>) => {
             const data = res.body ?? [];
-            console.log("*************** agence List getAllAgences******************", data)
+            console.log('*************** agence List getAllAgences******************', data);
             this.agences = data;
         });
     }
@@ -103,9 +103,6 @@ export class AgenceComponent implements OnInit {
 
 
     onSave(agence: Agence): void {
-        //  agence.banqueId = this.banque.id;
-        //       this.agence.banqueId = this.banque.id;
-        console.log("***************this.banque******************", this.agence)
         this.agenceService.createAgence(agence).subscribe(
             resp => {
                 if (resp) {
