@@ -315,7 +315,7 @@
             <div *ngIf="montantSuperieur">
                 <label htmlFor="isSuperieur"> <b>Passer le Dossier au producteur UAB ASSURANCE</b> </label>
                 <p-toggleButton [(ngModel)]="souscription.isCuperieur" onLabel="Oui"
-                                offLabel="Non"></p-toggleButton>
+                                offLabel="Non" (click)="notifSuperieur()" ></p-toggleButton>
             </div>
         </div>
 
