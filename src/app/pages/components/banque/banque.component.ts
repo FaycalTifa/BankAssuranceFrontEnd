@@ -5,6 +5,7 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 import {BanqueService} from '../../services/banque/banque.service';
 import {HttpResponse} from '@angular/common/http';
 import {KeycloakService} from 'keycloak-angular';
+import {SignaturePad} from "angular2-signaturepad";
 
 @Component({
     selector: 'app-poste',
@@ -24,6 +25,7 @@ export class BanqueComponent implements OnInit {
     userRole: string[] = [];
     serviceId: number;
 
+
     constructor(
         private messageService: MessageService,
         protected banqueService: BanqueService,
@@ -37,7 +39,7 @@ export class BanqueComponent implements OnInit {
         // this.toInitFunctions();
     }
 
-    clear(table: Table) {
+    clearT(table: Table) {
         table.clear();
         this.filter.nativeElement.value = '';
     }
@@ -48,6 +50,7 @@ export class BanqueComponent implements OnInit {
             this.banques = data;
         });
     }
+
 
     findById(id: number): void {
         this.banqueService.findById(id).subscribe(

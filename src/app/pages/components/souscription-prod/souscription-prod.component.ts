@@ -1114,5 +1114,51 @@ export class SouscriptionProdComponent implements OnInit {
     }
 
 
+    private primeTableSurPrime = [
+        // Âge à la souscription | Moins de 50 | 50-54 | 55-60 | 60-64 | 65-69 | 70-74
+        { min: 0, max: 39, rates: [55, 55, 60, 60, 60, 60] },       // Moins de 40 ans
+        { min: 40, max: 44, rates: [60, 60, 60, 60, 60, 60] },      // 40-44 ans
+        { min: 45, max: 49, rates: [60, 60, 65, 65, 65, 65] },      // 45-49 ans
+        { min: 50, max: 54, rates: [null, 65, 70, 70, 70, 70] },    // 50-54 ans
+        { min: 55, max: 59, rates: [null, null, 70, 70, 75, 75] },  // 55-59 ans
+        { min: 60, max: 64, rates: [null, null, null, 75, 75, 75] },// 60-64 ans
+        { min: 65, max: 69, rates: [null, null, null, null, 75, 75] }, // 65-69 ans
+        { min: 70, max: 74, rates: [null, null, null, null, null, 80] } // 70-74 ans
+    ];
+
+    // Fonction pour obtenir le coefficient en fonction des âges
+    getCoefficientSurPrime(ageSouscription: number, ageEcheance: number): number | null {
+        // Trouver la ligne correspondante dans le tableau
+        const row = this.primeTableSurPrime.find(r =>
+            ageSouscription >= r.min && ageSouscription <= r.max
+        );
+
+        if (!row) {
+            return null; // Âge non couvert
+        }
+
+        // Déterminer la colonne en fonction de l'âge à l'échéance
+        let column: number;
+        if (ageEcheance < 50) {
+            column = 0;
+        } else if (ageEcheance >= 50 && ageEcheance <= 54) {
+            column = 1;
+        } else if (ageEcheance >= 55 && ageEcheance <= 60) {
+            column = 2;
+        } else if (ageEcheance >= 60 && ageEcheance <= 64) {
+            column = 3;
+        } else if (ageEcheance >= 65 && ageEcheance <= 69) {
+            column = 4;
+        } else if (ageEcheance >= 70 && ageEcheance <= 74) {
+            column = 5;
+        } else {
+            return null; // Âge d'échéance non couvert
+        }
+
+        return row.rates[column];
+    }
+
+
+
 
 }

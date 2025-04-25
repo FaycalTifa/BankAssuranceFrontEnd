@@ -2,6 +2,7 @@
 export interface Souscription {
     id?: number;
     isCuperieur?: boolean;
+    signature?: string;
     personne?: Personne;
     detailsCredit?: DetailsCredit;
     questionnaireMedical?: QuestionnaireMedical;

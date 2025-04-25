@@ -11,18 +11,25 @@
     <div *ngIf="activeIndex === 0 ">
         <div class="card p-fluid">
             <div class="flex flex-wrap gap-3 p-fluid">
-                <div class="col-2">
+                <div class="col-4">
                     <label for="banque"><b>Banque</b></label>
-                    <p-dropdown [(ngModel)]="selectedBanque" optionLabel="libelle"
+                    <p-dropdown [(ngModel)]="this.souscription.banque" optionLabel="libelle"
                                 [options]="banques"
                                 (onChange)="onBanqueChange($event.value)"
                                 placeholder="Sélectionnez une banque" name="banqueId"></p-dropdown>
                 </div>
 
-                <div class="col-2">
+                <div class="col-4">
                     <label for="agence"><b>Agence</b></label>
                     <p-dropdown [(ngModel)]="selectedAgence" optionLabel="libelle"
                                 [options]="filteredAgences"
+                                (onChange)="onGestionnaireChange($event.value)"
+                                placeholder="Sélectionnez une agence" name="agenceId"></p-dropdown>
+                </div>
+                <div class="col-4">
+                    <label for="gestionnaire"><b>Gestionnaire</b></label>
+                    <p-dropdown [(ngModel)]="selectedAGestionnaire" optionLabel="libelle"
+                                [options]="filteredGestionnaires"
                                 placeholder="Sélectionnez une agence" name="agenceId"></p-dropdown>
                 </div>
 
@@ -833,6 +840,19 @@
 
 
         </div>
+
+        <div class="card p-fluid">
+            <div class="field">
+                <signature-pad #signaturePad
+                               [options]="signaturePadOptions"
+                               (drawStart)="drawStart()"
+                               (drawComplete)="drawComplete()">
+                </signature-pad>
+
+            </div>
+
+        </div>
+
         <div>
             <button pButton pRipple type="button" label="Précédent" icon="pi pi-angle-double-left" (click)="prevStep()"
                     class="p-button-info mr-2 mb-2"></button>
@@ -847,6 +867,9 @@
         </div>
 
     </div>
+
+
+
 
     </form>
 

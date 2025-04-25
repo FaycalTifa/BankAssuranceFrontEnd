@@ -133,6 +133,7 @@ import { TypeContratComponent } from './pages/components/type-contrat/type-contr
 import {KeycloackSecurityService} from './pages/services/keycloack/keycloack.service';
 import { FormatMontantDirective } from './pages/directive/format-montant.directive';
 import { GestionDateDirective } from './pages/directive/gestion-date/gestion-date.directive';
+import {SignaturePadModule} from "angular2-signaturepad";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -147,6 +148,7 @@ export function kcFactory(kcSecurity: KeycloackSecurityService) {
 @NgModule({
     imports: [
         BrowserModule,
+        SignaturePadModule,
         FormsModule,
         AppRoutingModule,
         HttpClientModule,
