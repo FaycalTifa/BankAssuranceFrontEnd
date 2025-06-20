@@ -8,7 +8,7 @@ export interface Souscription {
     questionnaireMedical?: QuestionnaireMedical;
     mandataire?: Mandataire;
     informationEmploi?: InformationEmploi;
-    banque ?: Banque;
+    gestionnaire ?: Gestionnaire;
 }
 
 export interface Personne {
@@ -50,6 +50,8 @@ export interface DetailsCredit {
     dureeTotaleCreditMois?: number;
     differerAmortissement?: number;
     surMortalite?: number;
+    coefficientMortalite?: number;
+    SurPrimeMortalite?: number;
     datePremierRemboursementTerme?: string;
     dateEffet?: Date;
     dateEcheance?: Date;
@@ -78,6 +80,7 @@ export interface Mandataire {
     primeTotale?: number;
     primeSimple?: number;
     primeDiffere?: number;
+    primeSurprime?: number;
     primeDecouvert?: number;
     primePerteEmploi?: number;
     numeroDeCompteUABVie?: string;
@@ -134,4 +137,9 @@ export interface Agence {
      code?: string;
      libelle?: string;
      banque?: Banque;
+}
+
+export interface Statistique {
+    libelle: string;
+    nombre: number;
 }

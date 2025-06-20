@@ -11,7 +11,6 @@
         <div *ngIf="activeIndex === 0 ">
 
 
-
             <div class="card p-fluid">
                 <div class=" flex flex-wrap gap-3 p-fluid">
                     <div class="col-2" *ngIf="!montantSuperieur">
@@ -276,14 +275,19 @@
 
                     <div class="col-1">
                         <label htmlFor="detail1"> <b>Decouvert</b> </label>
-                        <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDecouvert" onLabel="Oui"
-                                        offLabel="Non"></p-toggleButton>
+                        <p-toggleButton
+                                [ngModel]="souscription.detailsCredit.isDecouvert"
+                                (onChange)="onToggleDecouvert($event)"
+                                name="isDecouvert"
+                                onLabel="Oui"
+                                offLabel="Non">
+                        </p-toggleButton>
                     </div>
 
 
                     <div class="col-1">
                         <label htmlFor="detail1"> <b>Differé</b> </label>
-                        <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDiffere" onLabel="Oui"
+                        <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDiffere" onLabel="Oui" name="isDiffere"
                                         offLabel="Non"></p-toggleButton>
                     </div>
 
@@ -296,27 +300,8 @@
                     </div>
 
                 </div>
-
-
-                <div class=" flex flex-wrap gap-3 p-fluid">
-
-                    <div class="col-1">
-                        <label htmlFor="detail1"> <b>Sur Prime</b> </label>
-                        <p-toggleButton [(ngModel)]="souscription.detailsCredit.isSurMortalite" onLabel="Oui"
-                                        offLabel="Non"></p-toggleButton>
-                    </div>
-
-                    <div class="col-2" *ngIf="souscription.detailsCredit.isSurMortalite == true">
-                        <label htmlFor="surMortalite"><b>Sur prime</b></label>
-                        <input pInputText id="surMortalite" type="number" name="surMortalite"
-                               [(ngModel)]="souscription?.detailsCredit.surMortalite"
-                               minlength="1"
-                        />
-                    </div>
-                </div>
-
-
             </div>
+
 
             <div>
                 <div class="text-left">
@@ -1226,15 +1211,20 @@
 
 
                     <div class="col-1" *ngIf="souscription.isCuperieur === false">
-                        <label htmlFor="detail1Modif"> <b>Decouvert</b> </label>
-                        <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDecouvert" onLabel="Oui"
-                                        offLabel="Non"></p-toggleButton>
+                        <label htmlFor="isDecouvertModife"> <b>Decouvert</b> </label>
+                        <p-toggleButton
+                                [ngModel]="souscription.detailsCredit.isDecouvert"
+                                (onChange)="onToggleDecouvert($event)"
+                                name="isDecouvertModif"
+                                onLabel="Oui"
+                                offLabel="Non">
+                        </p-toggleButton>
                     </div>
 
                     <div class="col-1" *ngIf="souscription.isCuperieur === false">
-                        <label htmlFor="detail1Modif"> <b>Differé</b> </label>
-                        <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDiffere" onLabel="Oui"
-                                        offLabel="Non"></p-toggleButton>
+                        <label htmlFor="isDiffereModife"> <b>Differé</b> </label>
+                        <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDiffere" onLabel="Oui" name="isDiffereModif"
+                                        offLabel="Non" id="isDiffereModife"></p-toggleButton>
                     </div>
 
                     <div class="col-2"
@@ -1248,11 +1238,55 @@
                     </div>
 
                 </div>
+                <hr>
+                <hr>
+                <hr>
+                <div class="card p-fluid">
+                    <div class=" flex flex-wrap gap-3 p-fluid">
+
+                        <div class="col-1" *ngIf="souscription.isCuperieur === false">
+                            <label htmlFor="detail1"> <b>Sur Prime</b> </label>
+                            <p-toggleButton [(ngModel)]="souscription.detailsCredit.isSurMortalite" onLabel="Oui"
+                                            offLabel="Non" (click)="clickSurprime()"></p-toggleButton>
+                        </div>
+
+                        <div class="col-2" *ngIf="souscription.detailsCredit.isSurMortalite == true">
+                            <label htmlFor="detailsCredit.surMortalite"><b>Sur Mortalite</b></label>
+                            <input pInputText id="detailsCredit.surMortalite" type="number"
+                                   name="detailsCredit.surMortalite"
+                                   [(ngModel)]="souscription?.detailsCredit.surMortalite"
+                                   minlength="1"
+                            />
+                        </div>
+                        <div class="col-2" *ngIf="souscription.detailsCredit.isSurMortalite == true">
+                            <label htmlFor="differerAmortissement"><b>Coefficient de la surmortalite </b></label>
+                            <input pInputText id="T" type="number" name="surMortalite"
+                                   [value]="CoefSurprime"
+                                   minlength="1" [disabled]="!myForm.valid"/>
+                        </div>
+                        <div class="col-2" *ngIf="souscription.detailsCredit.isSurMortalite == true">
+                            <label htmlFor="differerAmortissement"><b>Calucler </b></label>
+                            <button pButton pRipple type="button" label="Calculer" icon="pi pi-angle-double-right"
+                                    (click)="CalculeSurprime()"
+                                    class="p-button-info mr-2 mb-2"></button>
+                        </div>
+                        <div class="col-2" *ngIf="souscription.detailsCredit.isSurMortalite == true">
+                            <label htmlFor="differerAmortissement"><b>Surmortalité </b></label>
+                            <input pInputText id="Ts" type="number" name="surMortalite"
+                                   [value]="SurPrime"
+                                   minlength="1" [disabled]="!myForm.valid"/>
+                        </div>
+
+                    </div>
+                </div>
+                <hr>
+                <hr>
                 <div>
                     <label htmlFor="isSuperieurModif"> <b>Continuer la modification</b> </label>
                     <p-toggleButton [(ngModel)]="souscription.isCuperieur" onLabel="Oui"
                                     offLabel="Non"></p-toggleButton>
                 </div>
+
             </div>
 
             <div>
@@ -1850,7 +1884,13 @@
 
                     </div>
                     <div class=" flex flex-wrap gap-3 p-fluid">
+                        <div class="col-4">
+                            <h5>
+                                <span style="color: black;">Surprime  :  </span>
+                                <span [ngStyle]="{ color: 'blue' }">{{ souscription.mandataire.primeSurprime }}</span>
 
+                            </h5>
+                        </div>
 
                     </div>
 

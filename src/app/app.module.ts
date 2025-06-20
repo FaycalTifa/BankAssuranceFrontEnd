@@ -1,5 +1,5 @@
 import {APP_INITIALIZER, LOCALE_ID, NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {DatePipe, HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -134,6 +134,9 @@ import {KeycloackSecurityService} from './pages/services/keycloack/keycloack.ser
 import { FormatMontantDirective } from './pages/directive/format-montant.directive';
 import { GestionDateDirective } from './pages/directive/gestion-date/gestion-date.directive';
 import {SignaturePadModule} from "angular2-signaturepad";
+import { SeparateurMilliersDirective } from './pages/directive/separateur-milliers.directive';
+import {AuthInterceptor} from "./pages/interceptor/auth.interceptor";
+import { DashboardComponent } from './pages/components/dashboard/dashboard.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -144,7 +147,11 @@ export function kcFactory(kcSecurity: KeycloackSecurityService) {
     return () => kcSecurity.init();
 
 }
-
+const keycloakConfig = {
+    url: 'http://localhost:8080/auth',
+    realm: 'your-realm',
+    clientId: 'your-client-id'
+};
 @NgModule({
     imports: [
         BrowserModule,
@@ -262,10 +269,17 @@ export function kcFactory(kcSecurity: KeycloackSecurityService) {
         TypeContratComponent,
         FormatMontantDirective,
         GestionDateDirective,
+        SeparateurMilliersDirective,
+        DashboardComponent,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         {provide: APP_INITIALIZER, deps: [KeycloackSecurityService], useFactory: kcFactory, multi: true},
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        },
         MessageService,
         MenuService,
         ConfirmationService,
@@ -278,3 +292,4 @@ export function kcFactory(kcSecurity: KeycloackSecurityService) {
 })
 export class AppModule {
 }
+

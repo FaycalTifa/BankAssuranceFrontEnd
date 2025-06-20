@@ -20,6 +20,7 @@ import {InformationEmploiComponent} from "./pages/components/information-emploi/
 import {MandataireComponent} from "./pages/components/mandataire/mandataire.component";
 import {SouscriptionProdComponent} from "./pages/components/souscription-prod/souscription-prod.component";
 import {TypeContratComponent} from './pages/components/type-contrat/type-contrat.component';
+import {DashboardComponent} from "./pages/components/dashboard/dashboard.component";
 
 @NgModule({
     imports: [
@@ -41,6 +42,7 @@ import {TypeContratComponent} from './pages/components/type-contrat/type-contrat
                     {path: 'information/informationEmplois', component: InformationEmploiComponent},
                     {path: 'information/mandataires', component: MandataireComponent},
                     {path: 'information/typeContrats', component: TypeContratComponent},
+                    {path: 'Dashboard/dashboard', component: DashboardComponent},
 
                 ]
             },

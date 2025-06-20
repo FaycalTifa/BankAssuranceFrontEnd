@@ -1,0 +1,100 @@
+<div class="flex flex-col items-center gap-6">
+    <!-- Graphe par date -->
+
+
+    <div class="col-6">
+        <div class="card">
+        <!-- Filtres de date -->
+        <div class="flex flex-wrap gap-3 p-fluid">
+            <div class="col-2">
+                <label for="startDate" class="mb-1 font-semibold">Date début</label>
+                <input
+                        id="startDate"
+                        type="date"
+                        [(ngModel)]="startDate"
+                        class="p-inputtext p-component p-2 rounded border border-gray-300"
+                />
+            </div>
+
+            <div class="col-2">
+                <label for="endDate" class="mb-1 font-semibold">Date fin</label>
+                <input
+                        id="endDate"
+                        type="date"
+                        [(ngModel)]="endDate"
+                        class="p-inputtext p-component p-2 rounded border border-gray-300"
+                />
+            </div>
+
+            <div class="col-2">
+                <button
+                        class="p-button p-button-sm p-button-primary mt-2"
+                        (click)="filtrerParDate()"
+                >
+                    Filtrer
+                </button>
+            </div>
+        </div>
+
+        <!-- Graphique -->
+        <div class="w-full max-w-[40rem] mx-auto">
+            <p-chart
+                    type="line"
+                    [data]="dataParDate"
+                    [options]="chartOptionsParDate"
+                    class="w-full"
+            ></p-chart>
+        </div>
+    </div>
+</div>
+
+    a
+    <!-- Graphe par gestionnaire -->
+
+       <div class="col-6">
+           <div class="card">
+           <p-chart type="bar" [data]="dataGestionnaire" [options]="chartOptions" class="w-full"></p-chart>
+       </div>
+   </div>
+</div>
+
+<hr>
+<hr>
+
+<div class="flex justify-center">
+    <!-- Graphe Agence -->
+    <div class="col-5" >
+        <div class="card">
+            <p-chart type="doughnut" [data]="dataAgence" [options]="chartOptions" class="w-full h-full">
+            </p-chart>
+        </div>
+    </div>
+
+<div class="col-1">
+
+</div>
+
+    <!-- Graphe Banque -->
+    <div class="col-5">
+        <div class="card" >
+            <div >
+                <label for="banqueSelect" class="mb-2 font-semibold">Filtrer par banque</label>
+                <p-dropdown
+                        id="banqueSelect"
+                        [options]="banques"
+                        optionLabel="libelle"
+                        placeholder="Choisir une banque"
+                        [(ngModel)]="selectedBanque"
+                        (onChange)="filtrerParBanque()">
+                </p-dropdown>
+
+            </div>
+            <div>
+                <p-chart type="pie" [data]="dataBanque" [options]="chartOptions" class="w-full h-full">
+                </p-chart>
+            </div>
+        </div>
+
+    </div>
+
+</div>

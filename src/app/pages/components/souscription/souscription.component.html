@@ -6,7 +6,7 @@
 <p-dialog header="ENREGISTREMENT D'UNE SOUSCRIPTION" [(visible)]="displayDialogue"
           [style]="{width: '90vw', height: '100vh'} ">
 
-    <p-steps [model]="items" [activeIndex]="activeIndex"></p-steps>
+    <p-steps [model]="items" [activeIndex]="activeIndex" ></p-steps>
     <form #myForm="ngForm" name="myForm" role="form" novalidate>
     <div *ngIf="activeIndex === 0 ">
         <div class="card p-fluid">
@@ -24,11 +24,11 @@
                     <p-dropdown [(ngModel)]="selectedAgence" optionLabel="libelle"
                                 [options]="filteredAgences"
                                 (onChange)="onGestionnaireChange($event.value)"
-                                placeholder="Sélectionnez une agence" name="agenceId"></p-dropdown>
+                                placeholder="Sélectionnez une agence" name="banqueId"></p-dropdown>
                 </div>
                 <div class="col-4">
                     <label for="gestionnaire"><b>Gestionnaire</b></label>
-                    <p-dropdown [(ngModel)]="selectedAGestionnaire" optionLabel="libelle"
+                    <p-dropdown [(ngModel)]="this.souscription.gestionnaire" optionLabel="libelle"
                                 [options]="filteredGestionnaires"
                                 placeholder="Sélectionnez une agence" name="agenceId"></p-dropdown>
                 </div>
@@ -42,7 +42,7 @@
                 <div class="col-2" *ngIf="!montantSuperieur">
                     <label htmlFor="banque"><b>Civilité  </b></label>
                     <!-- Dans votre fichier .component.html -->
-                    <p-dropdown [(ngModel)]="souscription?.personne.civilite" optionLabel="libelle" [options]="civilites"
+                    <p-dropdown [(ngModel)]="souscription.personne.civilite" optionLabel="libelle" [options]="civilites"
                                 placeholder="Sélectionnez une option" name="civiliteId"></p-dropdown>
                 </div>
                 <div class="col-3">
@@ -209,7 +209,7 @@
     <div *ngIf="activeIndex === 1">
         <!-- CREDIT -->
         <div class="card p-fluid">
-            <div *ngIf="montantSuperieur === true"  style="color: red;">
+            <div [hidden]="!montantSuperieur === true"  style="color: red;">
 
                 <h4> {{this.messageSup}}</h4>
 
@@ -220,39 +220,39 @@
                     <input pInputText id="montantCreditAssurer" type="number" name="montantCreditAssurer"
                            [(ngModel)]="souscription?.detailsCredit.montantCreditAssurer"
                            [max]="50000000" required
-                           (ngModelChange)="checkMontantCredit($event)"
+                           (ngModelChange)="checkMontantCredit($event)" appSeparateurMilliersZ
                     />
                 </div>
 
-                <div class="col-2" *ngIf="!montantSuperieur">
+                <div class="col-2" [hidden]="montantSuperieur">
                     <label htmlFor="dateEffet"><b>Date effet </b><span style="color: red;"> *</span></label>
                     <input pInputText id="dateEffet" type="date" name="dateEffet"
                            [(ngModel)]="souscription?.detailsCredit.dateEffet"
                            minlength="1"
                     />
                 </div>
-                <div class="col-2" *ngIf="!montantSuperieur">
+                <div class="col-2" [hidden]="montantSuperieur">
                     <label htmlFor="nombreDeRemboursement"><b>Traite remboursement</b></label>
                     <input pInputText id="nombreDeRemboursement" type="number" name="nombreDeRemboursement"
                            [(ngModel)]="souscription?.detailsCredit.nombreDeRemboursement"
                            minlength="1"
                     />
                 </div>
-                <div class="col-2" *ngIf="!montantSuperieur">
+                <div class="col-2" [hidden]="montantSuperieur">
                     <label htmlFor="dureeTotaleCreditAnnee"><b [ngStyle]="{ color: 'red' }">Durée Credit(Année) </b> <span style="color: red;"> *</span></label>
                     <input pInputText id="dureeTotaleCreditAnnee" type="number" name="dureeTotaleCreditAnnee"
                            [(ngModel)]="souscription?.detailsCredit.dureeTotaleCreditAnnee"
                            minlength="1" required
                     />
                 </div>
-                <div class="col-2" *ngIf="!montantSuperieur">
+                <div class="col-2" [hidden]="montantSuperieur">
                     <label htmlFor="dureeTotaleCreditMois"><b [ngStyle]="{ color: 'red' }">Durée Credit(mois) </b> <span style="color: red;"> *</span></label>
                     <input pInputText id="dureeTotaleCreditMois" type="number" name="dureeTotaleCreditMois"
                            [(ngModel)]="souscription?.detailsCredit.dureeTotaleCreditMois"
                            minlength="1" required
                     />
                 </div>
-                <div class="col-2" *ngIf="!montantSuperieur">
+                <div class="col-2" [hidden]="montantSuperieur">
                     <label htmlFor="montantDesTermes"><b>Montant termes</b></label>
                     <input pInputText id="montantDesTermes" type="number" name="montantDesTermes"
                            [(ngModel)]="souscription?.detailsCredit.montantDesTermes"
@@ -266,7 +266,7 @@
             </div>
             <div class=" flex flex-wrap gap-3 p-fluid">
 
-                <div class="col-2" *ngIf="!montantSuperieur">
+                <div class="col-2" [hidden]="montantSuperieur">
                     <label htmlFor="numeroCompteClient"><b>Numero compte </b><span style="color: red;"> *</span></label>
                     <input pInputText id="numeroCompteClient" type="number" name="numeroCompteClient"
                            [(ngModel)]="souscription?.detailsCredit.numeroCompteClient"
@@ -274,7 +274,7 @@
                     />
                 </div>
 
-                <div class="col-2" *ngIf="!montantSuperieur">
+                <div class="col-2" [hidden]="montantSuperieur">
                     <label htmlFor="datePremierRemboursementTerme"><b>Date 1er remboursement</b></label>
                     <input pInputText id="datePremierRemboursementTerme" type="date"
                            name="datePremierRemboursementTerme"
@@ -283,33 +283,36 @@
                     />
                 </div>
 
-                <div class="col-2" *ngIf="!montantSuperieur">
+                <div class="col-2" [hidden]="montantSuperieur">
                     <label htmlFor="dateEcheance"><b>Date écheance</b></label>
                     <input pInputText id="dateEcheance" type="date" name="dateEcheance"
                            [(ngModel)]="souscription?.detailsCredit.dateEcheance"
                            minlength="1"
                     />
                 </div>
-                <div class="col-2" *ngIf="!montantSuperieur">
+                <div class="col-2"  [hidden]="montantSuperieur">
                     <label htmlFor="banque">Periodicité</label>
                     <!-- Dans votre fichier .component.html -->
                     <p-dropdown [(ngModel)]="souscription?.detailsCredit.periodiciteRemboursement" optionLabel="libelle" [options]="periodiciteRemboursements"
                                 placeholder="Sélectionnez une option" name="periodiciteRemboursementId"></p-dropdown>
                 </div>
-                <div class="col-1" *ngIf="!montantSuperieur">
-                    <label htmlFor="detail1"> <b>Decouvert</b> </label>
-                    <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDecouvert" onLabel="Oui"
-                                    offLabel="Non"  [disabled]="montantSuperieur" ></p-toggleButton>
+                <div class="col-1"  [hidden]="montantSuperieur" >
+                    <div *ngIf="souscription.detailsCredit.isDiffere === false">
+                        <label htmlFor="detail1"> <b>Decouvert</b> </label>
+                        <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDecouvert" onLabel="Oui"   name="isDecouvert"
+                                        offLabel="Non"  [disabled]="montantSuperieur" ></p-toggleButton>
+                    </div>
+
                 </div>
 
 
-                <div class="col-1" *ngIf="!montantSuperieur">
+                <div class="col-1"  [hidden]="montantSuperieur" >
                     <label htmlFor="detail1"> <b>Differé</b> </label>
-                    <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDiffere" onLabel="Oui"
+                    <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDiffere" onLabel="Oui"   name="isDiffere"
                                     offLabel="Non"  [disabled]="montantSuperieur" ></p-toggleButton>
                 </div>
 
-                <div class="col-2" *ngIf="souscription.detailsCredit.isDiffere == true">
+                <div class="col-2" [hidden]="souscription.detailsCredit.isDiffere == false">
                     <label htmlFor="differerAmortissement"><b>Différé mortissement(mois)</b></label>
                     <input pInputText id="differerAmortissement" type="number" name="differerAmortissement"
                            [(ngModel)]="souscription?.detailsCredit.differerAmortissement"
@@ -319,7 +322,7 @@
 
             </div>
 
-            <div *ngIf="montantSuperieur">
+            <div [hidden]="!montantSuperieur">
                 <label htmlFor="isSuperieur"> <b>Passer le Dossier au producteur UAB ASSURANCE</b> </label>
                 <p-toggleButton [(ngModel)]="souscription.isCuperieur" onLabel="Oui"
                                 offLabel="Non" (click)="notifSuperieur()" ></p-toggleButton>
@@ -1152,14 +1155,14 @@
 
                 <div class="col-1" *ngIf="!montantSuperieur">
                     <label htmlFor="detail1Modif"> <b>Decouvert</b> </label>
-                    <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDecouvert" onLabel="Oui"
+                    <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDecouvert" onLabel="Oui" name="isDecouvertModif"
                                     offLabel="Non"  [disabled]="montantSuperieur" ></p-toggleButton>
                 </div>
 
 
                 <div class="col-1" *ngIf="!montantSuperieur">
                     <label htmlFor="detail1Modif"> <b>Differé</b> </label>
-                    <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDiffere" onLabel="Oui"
+                    <p-toggleButton [(ngModel)]="souscription.detailsCredit.isDiffere" onLabel="Oui" name="isDiffereModif"
                                     offLabel="Non"  [disabled]="montantSuperieur" ></p-toggleButton>
                 </div>
 
