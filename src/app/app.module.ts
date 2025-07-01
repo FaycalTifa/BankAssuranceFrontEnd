@@ -137,6 +137,7 @@ import {SignaturePadModule} from "angular2-signaturepad";
 import { SeparateurMilliersDirective } from './pages/directive/separateur-milliers.directive';
 import {AuthInterceptor} from "./pages/interceptor/auth.interceptor";
 import { DashboardComponent } from './pages/components/dashboard/dashboard.component';
+import { ExportExcelComponent } from './pages/components/export/export-excel/export-excel.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -271,6 +272,7 @@ const keycloakConfig = {
         GestionDateDirective,
         SeparateurMilliersDirective,
         DashboardComponent,
+        ExportExcelComponent,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

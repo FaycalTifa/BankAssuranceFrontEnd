@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
     startDate: string;
     endDate: string;
     banques: any[] = []; // Liste des banques pour le dropdown
+    banquesList: any[] = []; // Liste des banques pour le dropdown
     selectedBanque: any; // Banque sélectionnée
 
 
@@ -53,7 +54,7 @@ export class DashboardComponent implements OnInit {
       this.loadChartParDate();
 
       this.dashboardService.getParBanque().subscribe(data => {
-          this.banques = data.map((b, index) => ({
+          this.banquesList = data.map((b, index) => ({
               label: b.libelle,
               value: b.nombre // ou l’ID si disponible
           }));

@@ -54,7 +54,7 @@ export interface DetailsCredit {
     SurPrimeMortalite?: number;
     datePremierRemboursementTerme?: string;
     dateEffet?: Date;
-    dateEcheance?: Date;
+    dateEcheance?: string;
     periodiciteRemboursement?: PeriodiciteRemboursement;
 }
 

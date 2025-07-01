@@ -26,6 +26,8 @@ import {Banque} from "../../models/banque/banque";
 import {Agence} from "../../models/agence/agence";
 import {AgenceService} from "../../services/agence/agence.service";
 import {SignaturePad} from "angular2-signaturepad";
+import {ExportExcelComponent} from "../export/export-excel/export-excel.component";
+import {ExportExcelService} from "../../services/export/export-excel.service";
 
 @Component({
     selector: 'app-souscription',
@@ -47,6 +49,7 @@ export class SouscriptionComponent implements OnInit {
         protected agenceService: AgenceService,
         protected gestionnaireService: GestionnaireService,
         private el: ElementRef,
+        private exportExcelService: ExportExcelService,
         private confirmationService: ConfirmationService
     ) {
         this.items = [
@@ -61,6 +64,7 @@ export class SouscriptionComponent implements OnInit {
     loading = false;
     @ViewChild('dt') table: Table;
     @ViewChild('filter') filter: ElementRef;
+    @ViewChild('signaturePadCanvas', { static: false }) signaturePadCanvas: ElementRef<HTMLCanvasElement>;
     souscriptions?: Souscription[];
     displayDialogue: boolean;
     displayDialogueDetail: boolean;
@@ -77,6 +81,7 @@ export class SouscriptionComponent implements OnInit {
     items: MenuItem[];
     activeIndex = 0;
     age = 0;
+    TauxByMoisDiffere = 0;
     taux = 0;
     tauxDec = 0;
     constantePrimeDecouvert = 0;
@@ -89,6 +94,9 @@ export class SouscriptionComponent implements OnInit {
     montantSuperieur = false;
     filteredAgences: Agence[] = [];
     filteredGestionnaires: Gestionnaire[] = [];
+    startDate: string;
+    endDate: string;
+
 
     selectedBanque: Banque | null = null;
     selectedAgence: Agence | null = null;
@@ -122,9 +130,42 @@ export class SouscriptionComponent implements OnInit {
         this.getAllAgences();
         this.resetForm();
         this.getUserInfo();
+        // this.getTauxByMoisDiffere(8);
 
 
     }
+    calculerDureeEtEcheance() {
+        const credit = this.souscription.detailsCredit;
+
+        if (credit.dateEffet && credit.dureeTotaleCreditAnnee) {
+            const dateEffet = new Date(credit.dateEffet);
+            const dureeEnMois = credit.dureeTotaleCreditAnnee * 12;
+
+            credit.dureeTotaleCreditMois = dureeEnMois;
+
+            const dateEcheance = new Date(dateEffet);
+            dateEcheance.setMonth(dateEcheance.getMonth() + dureeEnMois);
+
+            // ✅ Convertir Date en yyyy-MM-dd pour un champ string
+            credit.dateEcheance = dateEcheance.toISOString().split('T')[0];
+        }
+    }
+
+
+
+    exporterFiltreExcel(): void {
+        this.exportExcelService.exporterSouscriptionsExcel(this.souscriptions);
+    }
+
+    filtrerSouscriptionsParDate(): void {
+        if (this.startDate && this.endDate) {
+            this.souscriptionService.getSouscriptionsParDate(this.startDate, this.endDate).subscribe(data => {
+                this.souscriptions = data;
+            });
+        }
+    }
+
+
 
     async  getUserInfo() {
         console.log('USER INFO', this.keycloakService.loadUserProfile());
@@ -151,6 +192,37 @@ export class SouscriptionComponent implements OnInit {
             console.log('SIGNATURE', this.souscription.signature); // Pour envoyer l'image à ton serveur ou traitement
         }
     }
+    effacerSignature(): void {
+        if (this.signaturePad) {
+            this.signaturePad.clear();
+            this.souscription.signature = '';
+            console.log('Signature effacée');
+        }
+    }
+
+    loadSignature(): void {
+        if (this.souscription.signature && this.signaturePad) {
+            const image = new Image();
+            image.src = this.souscription.signature;
+            image.onload = () => {
+                const canvas = (this.signaturePad as any)._canvas as HTMLCanvasElement;
+                const ctx = (this.signaturePad as any)._ctx as CanvasRenderingContext2D;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                console.log('Signature existante affichée');
+            };
+        }
+    }
+
+
+
+
+    effacerSignatureModif() {
+        this.signaturePad.clear();
+        this.souscription.signature = null;
+    }
+
+
 
 
     clear() {
@@ -216,7 +288,7 @@ export class SouscriptionComponent implements OnInit {
                 surMortalite: 0,
                 datePremierRemboursementTerme: '',
                 dateEffet: new Date(),
-                dateEcheance: new Date(),
+                dateEcheance: '',
                 isDiffere: false,
                 isDecouvert: false,
                 periodiciteRemboursement: {
@@ -353,6 +425,14 @@ export class SouscriptionComponent implements OnInit {
     onDisplayDialogueModif(id: number, souscription: Souscription): void {
         this.souscription.id = id;
         this.souscription = souscription;
+        this.souscription = { ...souscription };
+        // Charge la signature existante après un léger délai
+        setTimeout(() => {
+            if (this.signaturePad && souscription.signature) {
+                this.signaturePad.fromDataURL(souscription.signature);
+                this.loadSignature()
+            }
+        }, 100);
         this.displayDialogueModification = true;
 
     }
@@ -522,10 +602,10 @@ export class SouscriptionComponent implements OnInit {
         }
         if (this.souscription.detailsCredit.isSurMortalite === true){
             if (this.souscription.detailsCredit.isDecouvert === true){
-                this.souscription.mandataire.primeSurprime = (this.constantePrimeDecouvert * this.SurPrime) / 100;
+                this.souscription.mandataire.primeSurprime = Math.round((this.constantePrimeDecouvert * this.SurPrime) / 100) ;
                 console.log('====== ======');
             } else {
-                this.souscription.mandataire.primeSurprime = (this.constantePrimeAmortiss * this.SurPrime) / 100;
+                this.souscription.mandataire.primeSurprime = Math.round((this.constantePrimeAmortiss * this.SurPrime) / 100) ;
             }
         } else {
             this.souscription.mandataire.primeSurprime = 0;
@@ -630,6 +710,22 @@ export class SouscriptionComponent implements OnInit {
     }
 
     updateSouscription(id: number, souscription1: Souscription): void {
+        // Gestion de la signature
+        if (this.signaturePad && !this.signaturePad.isEmpty()) {
+            console.log('SIGNATURE CAPTURE');
+            this.souscription.signature = this.signaturePad.toDataURL();
+            console.log('SIGNATURE CAPTURE', this.souscription.signature);
+        } else {
+            console.log('AUCUNE NOUVELLE SIGNATURE CAPTURE');
+            // Ne rien faire si une signature existe déjà
+        }
+
+// Vérifie si une signature existe (soit nouvellement dessinée, soit ancienne)
+        if (!this.souscription.signature) {
+            alert('Veuillez signer avant de soumettre.');
+            return;
+        }
+        //this.souscription.signature = this.signaturePad.toDataURL();
         // 1. Initialisation et extraction des états
         this.souscription.mandataire.tauxDecouvert = this.tauxDec;
         this.souscription.mandataire.tauxAmortissement = this.taux;
@@ -719,10 +815,10 @@ export class SouscriptionComponent implements OnInit {
 
     private calculatePrimeDiffere(): number {
         this.calculateAge();
-        this.trouverTauxAmortissement(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
+        this.getTauxByMoisDiffere(this.souscription.detailsCredit.differerAmortissement);
+        console.log('========= CALCULE TAUX DIFFERERER ========', this.souscription.detailsCredit.differerAmortissement , 'TAUX DIFF ==',  this.getTauxByMoisDiffere(this.souscription.detailsCredit.differerAmortissement), 'TAUX DEC 1AN ==', this.tauxDec1an);
         this.trouverTauxDecouvert(this.age, this.souscription.detailsCredit.dureeTotaleCreditAnnee);
-        this.souscription.mandataire.tauxAmortissement = this.taux;
-        return this.souscription.mandataire.primeDiffere = Math.round((((this.souscription.detailsCredit.montantCreditAssurer * this.tauxDec1an * 1.04) / 1200) * this.souscription.detailsCredit.differerAmortissement));
+        return this.souscription.mandataire.primeDiffere = Math.round((this.souscription.detailsCredit.montantCreditAssurer) * ((this.TauxByMoisDiffere / 100) * (this.tauxDec1an / 100)));
     }
 
     private calculatePrimeDecouvert(): number {
@@ -931,6 +1027,28 @@ export class SouscriptionComponent implements OnInit {
             return 'Indices de tranche d\'âge ou de durée invalides.';
         }
     }
+
+    getTauxByMoisDiffere(mois: number): number | null {
+        const tauxData = [
+            { mois: 1, valeur: 27 },
+            { mois: 2, valeur: 31 },
+            { mois: 3, valeur: 33 },
+            { mois: 4, valeur: 41 },
+            { mois: 5, valeur: 57 },
+            { mois: 6, valeur: 65 },
+            { mois: 7, valeur: 74 },
+            { mois: 8, valeur: 82 },
+            { mois: 9, valeur: 90 },
+            { mois: 10, valeur: 100 },
+            { mois: 11, valeur: 100 },
+            { mois: 12, valeur: 100 }
+        ];
+        const result = tauxData.find(item => item.mois === mois);
+        this.TauxByMoisDiffere = result ? result.valeur : null;
+        console.log('****** TAUX DIFFERER MOIS ********** ::', this.TauxByMoisDiffere);
+        return result ? result.valeur : null;
+    }
+
 
 
 }

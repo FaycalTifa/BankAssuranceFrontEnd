@@ -201,7 +201,7 @@
                     <div class="col-2">
                         <label htmlFor="dateEffet"><b>Date effet </b><span style="color: red;"> *</span></label>
                         <input pInputText id="dateEffet" type="date" name="dateEffet"
-                               [(ngModel)]="souscription?.detailsCredit.dateEffet"
+                               [(ngModel)]="souscription?.detailsCredit.dateEffet" (ngModelChange)="calculerDureeEtEcheance()"
                                minlength="1"
                         />
                     </div>
@@ -216,7 +216,7 @@
                         <label htmlFor="dureeTotaleCreditAnnee"><b [ngStyle]="{ color: 'red' }">Durée Credit(Année) </b>
                             <span style="color: red;"> *</span></label>
                         <input pInputText id="dureeTotaleCreditAnnee" type="number" name="dureeTotaleCreditAnnee"
-                               [(ngModel)]="souscription?.detailsCredit.dureeTotaleCreditAnnee"
+                               [(ngModel)]="souscription?.detailsCredit.dureeTotaleCreditAnnee" (ngModelChange)="calculerDureeEtEcheance()"
                                minlength="1" required
                         />
                     </div>
@@ -224,7 +224,7 @@
                         <label htmlFor="dureeTotaleCreditMois"><b [ngStyle]="{ color: 'red' }">Durée Credit(Mois) </b>
                             <span style="color: red;"> *</span></label>
                         <input pInputText id="dureeTotaleCreditMois" type="number" name="dureeTotaleCreditMois"
-                               [(ngModel)]="souscription?.detailsCredit.dureeTotaleCreditMois"
+                               [(ngModel)]="souscription?.detailsCredit.dureeTotaleCreditMois"  (ngModelChange)="calculerDureeEtEcheance()"
                                minlength="1" required
                         />
                     </div>
@@ -1131,7 +1131,7 @@
                     <div class="col-2" *ngIf="souscription.isCuperieur === false">
                         <label htmlFor="dateEffetModif"><b>Date effet </b><span style="color: red;"> *</span></label>
                         <input pInputText id="dateEffetModif" type="date" name="dateEffetModif"
-                               [(ngModel)]="souscription?.detailsCredit.dateEffet"
+                               [(ngModel)]="souscription?.detailsCredit.dateEffet" (ngModelChange)="calculerDureeEtEcheance()"
                                minlength="1"
                         />
                     </div>
@@ -1148,7 +1148,7 @@
                             Credit(Année) </b> <span style="color: red;"> *</span></label>
                         <input pInputText id="dureeTotaleCreditAnneeModif" type="number"
                                name="dureeTotaleCreditAnneeModif"
-                               [(ngModel)]="souscription?.detailsCredit.dureeTotaleCreditAnnee"
+                               [(ngModel)]="souscription?.detailsCredit.dureeTotaleCreditAnnee" (ngModelChange)="calculerDureeEtEcheance()"
                                minlength="1" required
                         />
                     </div>
@@ -1157,7 +1157,7 @@
                             Credit(Mois) </b> <span style="color: red;"> *</span></label>
                         <input pInputText id="dureeTotaleCreditMoisModif" type="number"
                                name="dureeTotaleCreditMoisModif"
-                               [(ngModel)]="souscription?.detailsCredit.dureeTotaleCreditMois"
+                               [(ngModel)]="souscription?.detailsCredit.dureeTotaleCreditMois"  (ngModelChange)="calculerDureeEtEcheance()"
                                minlength="1" required
                         />
                     </div>

@@ -21,14 +21,14 @@ export class SouscriptionService {
     private getAuthHeaders(): HttpHeaders {
         const token = this.keycloakService.getToken();
         return new HttpHeaders({
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
         });
     }
 
 
     createSouscription2(souscription: Souscription): Observable<EntityResponseType> {
-        console.log('============ SERVICE SOUSCRPTION SAVE ================', souscription)
+        console.log('============ SERVICE SOUSCRPTION SAVE ================', souscription);
         return this.http.post<Souscription>(this.apiUrl, souscription, {observe: 'response'});
     }
 
@@ -44,12 +44,12 @@ export class SouscriptionService {
 
 
     getAllSouscriptionIsSuperieurFalse(): Observable<EntityArrayResponseType> {
-        console.log("============ SERVICE SOUSCRPTION ================")
+        console.log('============ SERVICE SOUSCRPTION ================');
         return this.http.get<Souscription[]>(`${this.apiUrl}/findAllByIsSuperieurFalse`, {observe: 'response'});
     }
 
     getAllSouscriptionIsSuperieurTrue(): Observable<EntityArrayResponseType> {
-        console.log("============ SERVICE SOUSCRPTION ================")
+        console.log('============ SERVICE SOUSCRPTION ================');
         return this.http.get<Souscription[]>(`${this.apiUrl}/findAllByIsSuperieurTrue`, {observe: 'response'});
     }
 
@@ -58,6 +58,11 @@ export class SouscriptionService {
         console.log('============== SERVICE 44444=================', souscription);
         return this.http.put<Souscription>(`${this.apiUrl}/${id}`, souscription);
     }
+
+    getSouscriptionsParDate(startDate: string, endDate: string): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrl}/by-date?start=${startDate}&end=${endDate}`);
+    }
+
 
 
 }
